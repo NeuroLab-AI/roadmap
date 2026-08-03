@@ -4,6 +4,7 @@
   var dataUrl = "./data/public-roadmap.json";
   var timeline = document.getElementById("timeline");
   var legend = document.getElementById("category-legend");
+  var stickyLegend = document.getElementById("sticky-category-legend");
   var loading = document.getElementById("loading-state");
   var errorState = document.getElementById("error-state");
   var dialog = document.getElementById("initiative-dialog");
@@ -44,6 +45,13 @@
       item.appendChild(element("span", "legend-dot"));
       item.appendChild(element("span", "", category.title));
       legend.appendChild(item);
+
+      var compactItem = element("span", "sticky-legend-item");
+      compactItem.dataset.token = category.visualToken;
+      compactItem.appendChild(element("span", "legend-dot"));
+      compactItem.appendChild(element("span", "", category.abbreviation));
+      compactItem.title = category.title;
+      stickyLegend.appendChild(compactItem);
     });
   }
 
@@ -109,6 +117,7 @@
         var item = element("li", "initiative-item");
         item.dataset.token = category.visualToken;
         item.dataset.visibility = initiative.visibility;
+        item.dataset.side = initiative.sequence % 2 === 1 ? "left" : "right";
 
         var button = element("button", "initiative-card");
         button.type = "button";
