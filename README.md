@@ -3,7 +3,8 @@
 Static GitHub Pages site for the NeuroLab public roadmap.
 
 - **Intended URL:** <https://neurolab-ai.github.io/roadmap/>
-- **Source of truth for content:** `neurolab-docs-and-brand/pitch-deck/roadmap/neurolab-public-roadmap-v0.2.md`
+- **Public publication contract:** a future sanitized `publication/public-roadmap.json` containing
+  only reviewed, intentionally public roadmap data
 - **Design system:** inherited from the whitepaper site. `site/styles.css` is the whitepaper
   stylesheet verbatim, with a `ROADMAP ADDITIONS` block appended at the end. Keeping it that way
   means a change to the whitepaper's look can be re-applied by replacing everything above that
@@ -13,6 +14,10 @@ Static GitHub Pages site for the NeuroLab public roadmap.
 
 Pushing to `main` runs `.github/workflows/deploy-pages.yml`, which checks the required files are
 present and that no unreplaced template tokens shipped, then deploys `site/` to GitHub Pages.
+
+The current deployment still serves the original inline page. The public-data contract under
+`publication/` is intentionally inactive until an approved roadmap dataset and new presentation
+have been reviewed.
 
 ⚠ **The published page is currently labelled "Draft for Review".** The present-tense capability
 claims in the hero and the two differentiator cards have not yet been verified against the live
@@ -27,9 +32,20 @@ python -m http.server 4321 --directory site
 
 Then open <http://localhost:4321>.
 
+Validate the public repository boundary and current publication files:
+
+```shell
+python scripts/validate_public_content.py
+```
+
 ## Structure
 
 ```
+publication/
+  README.md                        public-data lifecycle and content boundary
+  public-roadmap.schema.json       schema for future sanitized publication data
+scripts/
+  validate_public_content.py       public-only content and repository validation
 site/
   index.html      single page; content is inline
   styles.css      whitepaper stylesheet + ROADMAP ADDITIONS
