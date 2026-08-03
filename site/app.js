@@ -3,6 +3,8 @@
 
   var dataUrl = "./data/public-roadmap.json";
   var timeline = document.getElementById("timeline");
+  var roadmapTable = document.getElementById("roadmap-table");
+  var roadmapTableBody = document.getElementById("roadmap-table-body");
   var legend = document.getElementById("category-legend");
   var stickyLegend = document.getElementById("sticky-category-legend");
   var roadmapControls = document.getElementById("roadmap-controls");
@@ -14,6 +16,7 @@
   var resultCount = document.getElementById("result-count");
   var resetFilters = document.getElementById("reset-filters");
   var roadmapEmpty = document.getElementById("roadmap-empty");
+  var roadmapViewLabel = document.getElementById("roadmap-view-label");
   var viewOptions = Array.prototype.slice.call(document.querySelectorAll("[data-view]"));
   var loading = document.getElementById("loading-state");
   var errorState = document.getElementById("error-state");
@@ -67,6 +70,29 @@
     return node;
   }
 
+  function expandIcon(extraClass) {
+    var icon = element("span", "expand-icon" + (extraClass ? " " + extraClass : ""));
+    icon.setAttribute("aria-hidden", "true");
+    icon.appendChild(element("span", "expand-icon-inner"));
+    return icon;
+  }
+
+  function buildSearchText(initiative, category, stage) {
+    return normalized([
+      initiative.title,
+      initiative.id,
+      initiative.outcome,
+      initiative.maturity,
+      initiative.confidence,
+      category.title,
+      category.abbreviation,
+      stage.title,
+      stage.description
+    ].concat(Object.keys(initiative.details || {}).map(function (key) {
+      return initiative.details[key];
+    })).join(" "));
+  }
+
   function renderLegend(categories) {
     categories.slice().sort(byOrder).forEach(function (category) {
       categoryLabels.set(category.id, category.title);
@@ -114,6 +140,12 @@
       if (visible) visibleTotal += 1;
     });
 
+    roadmapTableBody.querySelectorAll(".roadmap-table-row").forEach(function (row) {
+      var categoryMatch = !categoryFiltering || activeCategoryFilters.has(row.dataset.categoryId);
+      var keywordMatch = !keywordFiltering || row.dataset.searchText.indexOf(searchQuery) !== -1;
+      row.hidden = !(categoryMatch && keywordMatch);
+    });
+
     timeline.querySelectorAll(".stage").forEach(function (section) {
       var visibleCount = section.querySelectorAll(".initiative-item:not([hidden])").length;
       section.hidden = visibleCount === 0;
@@ -129,8 +161,8 @@
     visibleInitiatives = visibleTotal;
     roadmapEmpty.hidden = visibleTotal !== 0;
     resetFilters.hidden = !categoryFiltering && !keywordFiltering;
-    eraNavigator.hidden = currentView === "grid" || visibleTotal === 0;
-    compactEraIndicator.hidden = currentView === "grid" || visibleTotal === 0;
+    eraNavigator.hidden = currentView === "table" || visibleTotal === 0;
+    compactEraIndicator.hidden = currentView === "table" || visibleTotal === 0;
 
     if (categoryFiltering || keywordFiltering) {
       var labels = Array.from(activeCategoryFilters).map(function (id) { return categoryLabels.get(id); });
@@ -147,14 +179,17 @@
   }
 
   function setView(view) {
-    currentView = view === "grid" ? "grid" : "timeline";
+    currentView = view === "table" ? "table" : "timeline";
     timeline.dataset.view = currentView;
     document.body.dataset.roadmapView = currentView;
+    timeline.hidden = currentView === "table";
+    roadmapTable.hidden = currentView !== "table";
+    roadmapViewLabel.textContent = currentView === "table" ? "Roadmap Table" : "Timeline Targets";
     viewOptions.forEach(function (button) {
       button.setAttribute("aria-pressed", button.dataset.view === currentView ? "true" : "false");
     });
-    eraNavigator.hidden = currentView === "grid" || visibleInitiatives === 0;
-    compactEraIndicator.hidden = currentView === "grid" || visibleInitiatives === 0;
+    eraNavigator.hidden = currentView === "table" || visibleInitiatives === 0;
+    compactEraIndicator.hidden = currentView === "table" || visibleInitiatives === 0;
     scheduleEraState();
   }
 
@@ -187,7 +222,7 @@
 
   function updateEraState() {
     eraFrame = null;
-    if (!eraSections.length || currentView === "grid") return;
+    if (!eraSections.length || currentView === "table") return;
     var dockRect = roadmapControls.getBoundingClientRect();
     var dockBottom = dockRect.top <= 0 && dockRect.bottom > 0 ? dockRect.bottom : 0;
     var probe = dockBottom + ((window.innerHeight - dockBottom) * 0.46);
@@ -299,19 +334,7 @@
         item.dataset.visibility = initiative.visibility;
         item.dataset.side = initiative.sequence % 2 === 1 ? "left" : "right";
         item.dataset.categoryId = initiative.categoryId;
-        item.dataset.searchText = normalized([
-          initiative.title,
-          initiative.id,
-          initiative.outcome,
-          initiative.maturity,
-          initiative.confidence,
-          category.title,
-          category.abbreviation,
-          stage.title,
-          stage.description
-        ].concat(Object.keys(initiative.details || {}).map(function (key) {
-          return initiative.details[key];
-        })).join(" "));
+        item.dataset.searchText = buildSearchText(initiative, category, stage);
 
         var button = element("button", "initiative-card");
         button.type = "button";
@@ -322,12 +345,57 @@
         meta.appendChild(element("span", "", "·"));
         meta.appendChild(element("span", "initiative-id", initiative.id));
         button.appendChild(meta);
+        button.appendChild(expandIcon());
         button.addEventListener("click", function () { openDialog(initiative, category, stage, button); });
         item.appendChild(button);
         list.appendChild(item);
       });
       section.appendChild(list);
       timeline.appendChild(section);
+    });
+  }
+
+  function renderTable(data) {
+    var categories = new Map(data.categories.map(function (category) { return [category.id, category]; }));
+    var stages = new Map(data.stages.map(function (stage) { return [stage.id, stage]; }));
+
+    data.initiatives.slice().sort(bySequence).forEach(function (initiative) {
+      var category = categories.get(initiative.categoryId);
+      var stage = stages.get(initiative.stage);
+      if (!category || !stage) throw new Error("Unknown roadmap table reference");
+
+      var row = element("tr", "roadmap-table-row");
+      row.tabIndex = 0;
+      row.dataset.token = category.visualToken;
+      row.dataset.categoryId = initiative.categoryId;
+      row.dataset.searchText = buildSearchText(initiative, category, stage);
+      row.setAttribute("aria-label", "View details for " + initiative.title);
+      row.setAttribute("aria-haspopup", "dialog");
+      row.setAttribute("aria-controls", "initiative-dialog");
+
+      var delivery = element("td", "table-delivery-target");
+      appendCalendarLabel(delivery, stage.title);
+      row.appendChild(delivery);
+      row.appendChild(element("td", "table-initiative-id", initiative.id));
+
+      var titleCell = element("td", "table-initiative-title");
+      var titleWrap = element("span", "table-title-wrap");
+      titleWrap.appendChild(element("span", "", initiative.title));
+      titleWrap.appendChild(expandIcon("table-expand-icon"));
+      titleCell.appendChild(titleWrap);
+      row.appendChild(titleCell);
+      row.appendChild(element("td", "table-initiative-description", initiative.outcome));
+
+      function activateRow() { openDialog(initiative, category, stage, row); }
+      row.addEventListener("click", activateRow);
+      row.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activateRow();
+        }
+      });
+
+      roadmapTableBody.appendChild(row);
     });
   }
 
@@ -376,6 +444,7 @@
       renderLegend(data.categories);
       renderEraNavigation(data.stages);
       renderTimeline(data);
+      renderTable(data);
       loading.hidden = true;
       timeline.hidden = false;
       initializeEraTracking();
