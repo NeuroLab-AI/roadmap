@@ -8,6 +8,7 @@
   var eraNavigator = document.getElementById("era-navigator");
   var eraList = document.getElementById("era-list");
   var compactEraIndicator = document.getElementById("compact-era-indicator");
+  var filterStatus = document.getElementById("filter-status");
   var loading = document.getElementById("loading-state");
   var errorState = document.getElementById("error-state");
   var dialog = document.getElementById("initiative-dialog");
@@ -16,6 +17,8 @@
   var orderedEras = [];
   var eraSections = [];
   var eraFrame = null;
+  var activeCategoryFilters = new Set();
+  var categoryLabels = new Map();
 
   var detailLabels = {
     currentFoundation: "Current foundation",
@@ -46,19 +49,67 @@
 
   function renderLegend(categories) {
     categories.slice().sort(byOrder).forEach(function (category) {
-      var item = element("div", "legend-item");
+      categoryLabels.set(category.id, category.title);
+
+      var item = element("button", "legend-item");
+      item.type = "button";
       item.dataset.token = category.visualToken;
+      item.dataset.filterCategory = category.id;
+      item.setAttribute("aria-pressed", "false");
+      item.setAttribute("aria-label", "Filter by " + category.title);
       item.appendChild(element("span", "legend-dot"));
       item.appendChild(element("span", "", category.title));
+      item.addEventListener("click", function () { toggleCategoryFilter(category.id); });
       legend.appendChild(item);
 
-      var compactItem = element("span", "sticky-legend-item");
+      var compactItem = element("button", "sticky-legend-item");
+      compactItem.type = "button";
       compactItem.dataset.token = category.visualToken;
+      compactItem.dataset.filterCategory = category.id;
+      compactItem.setAttribute("aria-pressed", "false");
+      compactItem.setAttribute("aria-label", "Filter by " + category.title);
       compactItem.appendChild(element("span", "legend-dot"));
       compactItem.appendChild(element("span", "", category.abbreviation));
       compactItem.title = category.title;
+      compactItem.addEventListener("click", function () { toggleCategoryFilter(category.id); });
       stickyLegend.appendChild(compactItem);
     });
+  }
+
+  function toggleCategoryFilter(categoryId) {
+    if (activeCategoryFilters.has(categoryId)) activeCategoryFilters.delete(categoryId);
+    else activeCategoryFilters.add(categoryId);
+    applyCategoryFilters();
+  }
+
+  function applyCategoryFilters() {
+    var filtering = activeCategoryFilters.size > 0;
+    var visibleTotal = 0;
+    timeline.querySelectorAll(".initiative-item").forEach(function (item) {
+      var visible = !filtering || activeCategoryFilters.has(item.dataset.categoryId);
+      item.hidden = !visible;
+      if (visible) visibleTotal += 1;
+    });
+
+    timeline.querySelectorAll(".stage").forEach(function (section) {
+      var visibleCount = section.querySelectorAll(".initiative-item:not([hidden])").length;
+      var count = section.querySelector(".stage-count");
+      count.textContent = visibleCount + (visibleCount === 1 ? " initiative" : " initiatives");
+      section.classList.toggle("is-filter-empty", visibleCount === 0);
+      section.querySelector(".stage-empty").hidden = visibleCount !== 0;
+    });
+
+    document.querySelectorAll("[data-filter-category]").forEach(function (button) {
+      button.setAttribute("aria-pressed", activeCategoryFilters.has(button.dataset.filterCategory) ? "true" : "false");
+    });
+
+    if (filtering) {
+      var labels = Array.from(activeCategoryFilters).map(function (id) { return categoryLabels.get(id); });
+      filterStatus.textContent = "Showing " + visibleTotal + " initiatives in " + labels.join(", ") + ".";
+    } else {
+      filterStatus.textContent = "Showing all " + visibleTotal + " roadmap initiatives.";
+    }
+    scheduleEraState();
   }
 
   function renderEraNavigation(stages) {
@@ -193,6 +244,7 @@
         item.dataset.token = category.visualToken;
         item.dataset.visibility = initiative.visibility;
         item.dataset.side = initiative.sequence % 2 === 1 ? "left" : "right";
+        item.dataset.categoryId = initiative.categoryId;
 
         var button = element("button", "initiative-card");
         button.type = "button";
@@ -208,6 +260,9 @@
         list.appendChild(item);
       });
       section.appendChild(list);
+      var emptyState = element("p", "stage-empty", "No initiatives in the selected categories.");
+      emptyState.hidden = true;
+      section.appendChild(emptyState);
       timeline.appendChild(section);
     });
   }
@@ -233,6 +288,7 @@
       renderTimeline(data);
       loading.hidden = true;
       timeline.hidden = false;
+      applyCategoryFilters();
       initializeEraTracking();
     })
     .catch(function () {
