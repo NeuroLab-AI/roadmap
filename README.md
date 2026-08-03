@@ -3,9 +3,9 @@
 Registry-driven GitHub Pages publication for the NeuroLab development roadmap.
 
 - Live URL: <https://neurolab-ai.github.io/roadmap/>
-- Publication version: `0.3.0`
+- Publication version: `0.4.0`
 - Current state: Draft for Review
-- Public selection: 15 initiatives across 7 categories and 4 relative stages
+- Public selection: 19 initiatives across 7 categories and 4 relative stages
 
 ## Experience
 

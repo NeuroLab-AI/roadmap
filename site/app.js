@@ -5,6 +5,7 @@
   var timeline = document.getElementById("timeline");
   var legend = document.getElementById("category-legend");
   var stickyLegend = document.getElementById("sticky-category-legend");
+  var stickyLegendShell = stickyLegend.parentElement;
   var eraNavigator = document.getElementById("era-navigator");
   var eraList = document.getElementById("era-list");
   var compactEraIndicator = document.getElementById("compact-era-indicator");
@@ -140,7 +141,9 @@
   function updateEraState() {
     eraFrame = null;
     if (!eraSections.length) return;
-    var probe = window.innerHeight * 0.42;
+    var dockRect = stickyLegendShell.getBoundingClientRect();
+    var dockBottom = dockRect.top <= 0 && dockRect.bottom > 0 ? dockRect.bottom : 0;
+    var probe = dockBottom + ((window.innerHeight - dockBottom) * 0.46);
     var activeIndex = 0;
     eraSections.forEach(function (section, index) {
       if (section.getBoundingClientRect().top <= probe) activeIndex = index;

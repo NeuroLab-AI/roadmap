@@ -4,7 +4,7 @@ This directory contains only the deliberately public, sanitized roadmap contract
 
 ## Active Publication
 
-- Version: `0.3.0`
+- Version: `0.4.0`
 - Status: Draft for Review
 - Public initiatives: 15
 - Development stages: 4

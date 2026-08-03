@@ -3,7 +3,7 @@
   "schemaVersion": "2.0.0",
   "publication": {
     "title": "NeuroLab Public Roadmap",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "status": "draft",
     "releasedOn": null
   },
@@ -181,9 +181,28 @@
       }
     },
     {
-      "id": "ML-02",
+      "id": "ML-05",
       "categoryId": "predictive-models-and-novel-structure-inference",
       "sequence": 6,
+      "stage": "near-term",
+      "visibility": "primary",
+      "title": "Peptide-aware evidence routing",
+      "outcome": "Accept peptide-specific inputs, use appropriate evidence and representation paths, and abstain from unsupported target claims.",
+      "maturity": "Scoped",
+      "confidence": "High",
+      "horizon": "Near term",
+      "details": {
+        "currentFoundation": "The current structure route and frontend input contract are designed around small-molecule representations and do not provide a peptide-sequence route.",
+        "primaryUserValue": "Investigate peptide candidates without mischaracterizing them as small molecules or requiring a single-target explanation when the evidence supports only a documented effect.",
+        "dependencies": "Sequence and modification schemas, canonicalization, peptide-appropriate representations, routing contracts, evidence coverage, applicability checks, abstention semantics, and representative peptide evaluation cohorts.",
+        "validationGate": "Demonstrate reliable input handling, peptide-family-disjoint evaluation where applicable, evidence-grounded effect coverage, negative controls, and correct abstention from unsupported target attribution.",
+        "claimBoundary": "Peptide support does not imply universal peptide-target prediction; when no defensible target is supported, the correct result may be a documented effect with no target claimed."
+      }
+    },
+    {
+      "id": "ML-02",
+      "categoryId": "predictive-models-and-novel-structure-inference",
+      "sequence": 7,
       "stage": "near-term",
       "visibility": "primary",
       "title": "Improved novel-structure inference",
@@ -202,7 +221,7 @@
     {
       "id": "ML-03",
       "categoryId": "predictive-models-and-novel-structure-inference",
-      "sequence": 7,
+      "sequence": 8,
       "stage": "near-term",
       "visibility": "supporting",
       "title": "Calibrated head-specific evaluation",
@@ -221,7 +240,7 @@
     {
       "id": "VAL-03",
       "categoryId": "validation-and-scientific-governance",
-      "sequence": 8,
+      "sequence": 9,
       "stage": "near-term",
       "visibility": "primary",
       "title": "Calibration and selective-risk analysis",
@@ -238,9 +257,28 @@
       }
     },
     {
+      "id": "NS-01",
+      "categoryId": "neurosymbolic-reasoning",
+      "sequence": 10,
+      "stage": "near-term",
+      "visibility": "primary",
+      "title": "Unified typed causal state",
+      "outcome": "Make biological context, assumptions, missing inputs, and evidence status explicit across every query.",
+      "maturity": "Current substrate / expansion",
+      "confidence": "Medium",
+      "horizon": "Near term / mid term",
+      "details": {
+        "currentFoundation": "Existing typed-causal-state shadow contract and route-specific structured results.",
+        "primaryUserValue": "Make assumptions and missing context visible across different query types.",
+        "dependencies": "Stable schema, context ontology, accepted versus inferred fields, state validation, and UI/API representation.",
+        "validationGate": "Output invariance for reference-only additions, context completeness tests, rejected-input behavior, and explicit assumption tracking.",
+        "claimBoundary": "A typed state is an annotation and gap inventory until validated dynamics and parameters exist."
+      }
+    },
+    {
       "id": "PROD-01",
       "categoryId": "product-and-researcher-workflows",
-      "sequence": 9,
+      "sequence": 11,
       "stage": "near-term",
       "visibility": "primary",
       "title": "Comparative compound intelligence",
@@ -259,7 +297,7 @@
     {
       "id": "KG-02",
       "categoryId": "knowledge-graph-and-evidence-acquisition",
-      "sequence": 10,
+      "sequence": 12,
       "stage": "mid-term",
       "visibility": "primary",
       "title": "Industrialized evidence acquisition",
@@ -278,7 +316,7 @@
     {
       "id": "NS-06",
       "categoryId": "neurosymbolic-reasoning",
-      "sequence": 11,
+      "sequence": 13,
       "stage": "mid-term",
       "visibility": "primary",
       "title": "Reusable validated mechanistic islands",
@@ -295,9 +333,28 @@
       }
     },
     {
+      "id": "NS-02",
+      "categoryId": "neurosymbolic-reasoning",
+      "sequence": 14,
+      "stage": "mid-term",
+      "visibility": "primary",
+      "title": "Branch-preserving forward reasoner",
+      "outcome": "Preserve competing mechanistic branches, expose weak links, and abstain when required transitions are missing.",
+      "maturity": "Scoped",
+      "confidence": "Medium",
+      "horizon": "Mid term",
+      "details": {
+        "currentFoundation": "CircuitFramework and current route-specific mechanism composition.",
+        "primaryUserValue": "See alternative mechanistic explanations and the weakest required link rather than one polished narrative.",
+        "dependencies": "Validated transitions, context gates, branch representation, contradiction logic, uncertainty propagation, and observation bridges.",
+        "validationGate": "Exact-context positives, nulls, contradictions, wrong-context controls, branch completeness, and abstention when required links are missing.",
+        "claimBoundary": "Do not present composed paths as causal simulation or measured compound-specific mechanisms."
+      }
+    },
+    {
       "id": "PROD-06",
       "categoryId": "product-and-researcher-workflows",
-      "sequence": 12,
+      "sequence": 15,
       "stage": "mid-term",
       "visibility": "primary",
       "title": "NeuroLab Data Studio and persistent research workspaces",
@@ -316,16 +373,16 @@
     {
       "id": "BRN-01",
       "categoryId": "whole-brain-and-measurement-modeling",
-      "sequence": 13,
+      "sequence": 16,
       "stage": "mid-term",
       "visibility": "supporting",
-      "title": "Enriched 392-parcel representation",
-      "outcome": "Connect the current parcel representation to richer nuclei, cell, receptor, network, and tract context.",
+      "title": "Multiscale neuroanatomical representation",
+      "outcome": "Connect regions, nuclei, layers, cell populations, networks, and directed pathways through provenance-bound cross-atlas representations.",
       "maturity": "Current substrate / expansion",
       "confidence": "Medium",
       "horizon": "Near term / mid term",
       "details": {
-        "currentFoundation": "Current 392-parcel representation, nuclei, network, receptor-density, tract, and brain-explorer assets.",
+        "currentFoundation": "Current atlas-based regional, network, receptor-density, tract, and brain-explorer assets.",
         "primaryUserValue": "More precise anatomical navigation and better-scoped brain-system hypotheses.",
         "dependencies": "Atlas crosswalks, resolution preservation, source licensing, tract/cell integration, and visualization.",
         "validationGate": "Cross-atlas mapping accuracy, resolution-aware uncertainty, source provenance, and no silent coordinate equivalence.",
@@ -335,7 +392,7 @@
     {
       "id": "VAL-04",
       "categoryId": "validation-and-scientific-governance",
-      "sequence": 14,
+      "sequence": 17,
       "stage": "mid-term",
       "visibility": "primary",
       "title": "Independent and prospective validation",
@@ -352,9 +409,28 @@
       }
     },
     {
+      "id": "NS-03",
+      "categoryId": "neurosymbolic-reasoning",
+      "sequence": 18,
+      "stage": "future-direction",
+      "visibility": "supporting",
+      "title": "Abductive and inductive inference",
+      "outcome": "Explore competing explanations for observed brain signatures and identify evidence that could discriminate between them.",
+      "maturity": "Research-dependent",
+      "confidence": "Medium",
+      "horizon": "Mid term / long term",
+      "details": {
+        "currentFoundation": "Structured graph, evidence states, and forward mechanism hypotheses.",
+        "primaryUserValue": "Turn observations into competing explanations and testable next steps.",
+        "dependencies": "Observation models, causal admissibility, alternative-generation methods, experiment design, evidence independence, and reviewer workflow.",
+        "validationGate": "Known-cause recovery, observational-equivalence preservation, null controls, experiment-discrimination benchmarks, and strict separation of induced candidates from observed facts.",
+        "claimBoundary": "Do not promise autonomous causal discovery or validated experiment design before prospective testing."
+      }
+    },
+    {
       "id": "BRN-02",
       "categoryId": "whole-brain-and-measurement-modeling",
-      "sequence": 15,
+      "sequence": 19,
       "stage": "future-direction",
       "visibility": "supporting",
       "title": "Molecular-to-distributed-network hypotheses",
