@@ -66,11 +66,6 @@
         </p>
       </section>
 
-      <nav class="sticky-legend-shell" aria-label="Roadmap category filters">
-        <div class="sticky-legend page-shell" id="sticky-category-legend"></div>
-        <p class="sr-only" id="filter-status" aria-live="polite">Showing all roadmap initiatives.</p>
-      </nav>
-
       <section class="roadmap-section roadmap-shell" id="roadmap" aria-labelledby="roadmap-title">
         <div class="roadmap-layout">
           <nav class="era-navigator" id="era-navigator" aria-label="Calendar target windows" hidden>
@@ -78,16 +73,55 @@
           </nav>
 
           <div class="roadmap-content">
-            <div class="compact-era-indicator" id="compact-era-indicator" aria-live="polite" hidden></div>
-
             <div class="section-heading roadmap-heading">
               <p class="section-index"><span>//</span> Timeline Targets</p>
               <h2 id="roadmap-title">From Peptide Prediction Support to Personalized Data Spaces</h2>
               <p>Calendar targets for each NeuroLab roadmap initiative are listed below. Select any entry to inspect its technical scope, dependencies, validation gate, and claim boundary.</p>
             </div>
 
+            <nav class="roadmap-controls-shell" id="roadmap-controls" aria-label="Roadmap view and filters">
+              <div class="roadmap-controls-primary">
+                <a class="controls-brand" href="https://neurolab-ai.github.io/" aria-label="NeuroLab home">
+                  <img src="./assets/neurolab-wordmark.png" alt="NeuroLab">
+                </a>
+
+                <div class="view-switcher" role="group" aria-label="Roadmap view">
+                  <span class="controls-label">View</span>
+                  <button class="view-option" id="timeline-view" type="button" data-view="timeline" aria-pressed="true" aria-controls="timeline">
+                    <span class="view-icon view-icon-timeline" aria-hidden="true"></span>
+                    <span>Timeline</span>
+                  </button>
+                  <button class="view-option" id="grid-view" type="button" data-view="grid" aria-pressed="false" aria-controls="timeline">
+                    <span class="view-icon view-icon-grid" aria-hidden="true"></span>
+                    <span>Grid</span>
+                  </button>
+                </div>
+
+                <label class="initiative-search" for="initiative-search">
+                  <span class="search-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Search roadmap initiatives</span>
+                  <input id="initiative-search" type="search" placeholder="Search initiatives" autocomplete="off" spellcheck="false">
+                </label>
+
+                <span class="result-count" id="result-count">19 initiatives</span>
+                <button class="reset-filters" id="reset-filters" type="button" hidden>Reset filters</button>
+              </div>
+
+              <div class="roadmap-controls-categories">
+                <span class="controls-label">Categories</span>
+                <div class="sticky-legend" id="sticky-category-legend"></div>
+              </div>
+              <p class="sr-only" id="filter-status" aria-live="polite">Showing all roadmap initiatives.</p>
+            </nav>
+
+            <div class="compact-era-indicator" id="compact-era-indicator" aria-live="polite" hidden></div>
+
             <div class="loading-state" id="loading-state" role="status">Loading the current roadmap…</div>
             <div class="timeline" id="timeline" hidden></div>
+            <div class="roadmap-empty" id="roadmap-empty" role="status" hidden>
+              <span class="comment-mark" aria-hidden="true">//</span>
+              No initiatives match the current search and category filters.
+            </div>
             <div class="error-state" id="error-state" role="alert" hidden>
               The current roadmap could not be loaded. Please refresh the page and try again.
             </div>
