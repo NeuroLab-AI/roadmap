@@ -3,18 +3,20 @@
 Registry-driven GitHub Pages publication for the NeuroLab development roadmap.
 
 - Live URL: <https://neurolab-ai.github.io/roadmap/>
-- Publication version: `0.4.0`
+- Publication version: `0.5.0`
 - Current state: Draft for Review
-- Public selection: 19 initiatives across 7 categories and 4 relative stages
+- Public selection: 19 initiatives across 7 categories and 5 calendar target windows
 
 ## Experience
 
-The page presents a single-direction vertical roadmap from current foundation to future direction.
+The page presents a single-direction vertical roadmap from Q3 2026 through Q3 2027.
 Each initiative keeps its technical registry ID visible as a stable reference, but the public title
 and category lead the visual hierarchy. Selecting an initiative opens an accessible detail dialog
-with its outcome, maturity, confidence, horizon, validation gate, dependencies, and claim boundary.
+with its outcome, maturity, confidence, calendar target, validation gate, dependencies, and claim
+boundary.
 
-The sequence is a curated development narrative, not an ID sort and not a calendar commitment.
+The sequence is a curated development narrative, not an ID sort. Calendar labels are target windows
+for the draft roadmap rather than guaranteed release dates.
 
 ## Data Boundary
 
