@@ -70,21 +70,33 @@
         <div class="sticky-legend" id="sticky-category-legend"></div>
       </nav>
 
-      <section class="roadmap-section page-shell" id="roadmap" aria-labelledby="roadmap-title">
-        <div class="section-heading roadmap-heading">
-          <p class="section-index"><span>//</span> Development roadmap</p>
-          <h2 id="roadmap-title">From current foundation to future direction</h2>
-          <p>Stages describe relative development horizons, not calendar commitments.</p>
-        </div>
+      <section class="roadmap-section roadmap-shell" id="roadmap" aria-labelledby="roadmap-title">
+        <div class="roadmap-layout">
+          <nav class="era-navigator" id="era-navigator" aria-label="Development eras" hidden>
+            <ol class="era-list" id="era-list"></ol>
+          </nav>
 
-        <div class="loading-state" id="loading-state" role="status">Loading the current roadmap…</div>
-        <div class="timeline" id="timeline" hidden></div>
-        <div class="error-state" id="error-state" role="alert" hidden>
-          The current roadmap could not be loaded. Please refresh the page and try again.
+          <div class="roadmap-content">
+            <div class="compact-era-indicator" id="compact-era-indicator" aria-live="polite" hidden></div>
+
+            <div class="section-heading roadmap-heading">
+              <p class="section-index"><span>//</span> Development roadmap</p>
+              <h2 id="roadmap-title">From current foundation to future direction</h2>
+              <p>Stages describe relative development horizons, not calendar commitments.</p>
+            </div>
+
+            <div class="loading-state" id="loading-state" role="status">Loading the current roadmap…</div>
+            <div class="timeline" id="timeline" hidden></div>
+            <div class="error-state" id="error-state" role="alert" hidden>
+              The current roadmap could not be loaded. Please refresh the page and try again.
+            </div>
+            <noscript>
+              <p class="error-state">JavaScript is required to display the interactive roadmap.</p>
+            </noscript>
+          </div>
+
+          <div class="roadmap-balance" aria-hidden="true"></div>
         </div>
-        <noscript>
-          <p class="error-state">JavaScript is required to display the interactive roadmap.</p>
-        </noscript>
       </section>
 
       <footer class="page-shell site-footer">

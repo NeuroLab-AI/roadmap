@@ -5,11 +5,17 @@
   var timeline = document.getElementById("timeline");
   var legend = document.getElementById("category-legend");
   var stickyLegend = document.getElementById("sticky-category-legend");
+  var eraNavigator = document.getElementById("era-navigator");
+  var eraList = document.getElementById("era-list");
+  var compactEraIndicator = document.getElementById("compact-era-indicator");
   var loading = document.getElementById("loading-state");
   var errorState = document.getElementById("error-state");
   var dialog = document.getElementById("initiative-dialog");
   var closeButton = document.getElementById("dialog-close");
   var lastTrigger = null;
+  var orderedEras = [];
+  var eraSections = [];
+  var eraFrame = null;
 
   var detailLabels = {
     currentFoundation: "Current foundation",
@@ -55,6 +61,73 @@
     });
   }
 
+  function renderEraNavigation(stages) {
+    orderedEras = stages.slice().sort(byOrder);
+    orderedEras.forEach(function (stage, index) {
+      var item = element("li", "era-item");
+      var link = element("a", "era-link");
+      link.href = "#era-" + stage.id;
+      link.dataset.stage = stage.id;
+      link.setAttribute("aria-label", "Go to " + stage.title);
+
+      var segment = element("span", "era-segment");
+      segment.setAttribute("aria-hidden", "true");
+      segment.appendChild(element("span", "era-progress-marker"));
+      link.appendChild(segment);
+
+      var copy = element("span", "era-link-copy");
+      copy.appendChild(element("span", "era-position", (index + 1) + " of " + orderedEras.length));
+      copy.appendChild(element("span", "era-title", stage.title));
+      link.appendChild(copy);
+      item.appendChild(link);
+      eraList.appendChild(item);
+    });
+    eraNavigator.hidden = false;
+    compactEraIndicator.hidden = false;
+  }
+
+  function updateEraState() {
+    eraFrame = null;
+    if (!eraSections.length) return;
+    var probe = window.innerHeight * 0.42;
+    var activeIndex = 0;
+    eraSections.forEach(function (section, index) {
+      if (section.getBoundingClientRect().top <= probe) activeIndex = index;
+    });
+
+    var activeSection = eraSections[activeIndex];
+    var activeRect = activeSection.getBoundingClientRect();
+    var progress = Math.max(0, Math.min(1, (probe - activeRect.top) / Math.max(activeRect.height, 1)));
+    eraList.querySelectorAll(".era-link").forEach(function (link, index) {
+      var active = index === activeIndex;
+      link.classList.toggle("is-active", active);
+      if (active) {
+        link.setAttribute("aria-current", "step");
+        link.style.setProperty("--era-progress", (progress * 100).toFixed(2) + "%");
+      } else {
+        link.removeAttribute("aria-current");
+        link.style.removeProperty("--era-progress");
+      }
+    });
+
+    compactEraIndicator.replaceChildren();
+    compactEraIndicator.appendChild(element("span", "comment-mark", "//"));
+    compactEraIndicator.appendChild(element("span", "", orderedEras[activeIndex].title));
+    compactEraIndicator.appendChild(element("span", "compact-era-position", (activeIndex + 1) + " of " + orderedEras.length));
+  }
+
+  function scheduleEraState() {
+    if (eraFrame !== null) return;
+    eraFrame = window.requestAnimationFrame(updateEraState);
+  }
+
+  function initializeEraTracking() {
+    eraSections = Array.prototype.slice.call(timeline.querySelectorAll(".stage"));
+    updateEraState();
+    window.addEventListener("scroll", scheduleEraState, { passive: true });
+    window.addEventListener("resize", scheduleEraState);
+  }
+
   function openDialog(initiative, category, stage, trigger) {
     lastTrigger = trigger;
     dialog.dataset.token = category.visualToken;
@@ -92,16 +165,18 @@
   function renderTimeline(data) {
     var categories = new Map(data.categories.map(function (category) { return [category.id, category]; }));
     var stages = data.stages.slice().sort(byOrder);
-    stages.forEach(function (stage) {
+    stages.forEach(function (stage, stageIndex) {
       var initiatives = data.initiatives.filter(function (item) { return item.stage === stage.id; }).sort(bySequence);
       if (!initiatives.length) return;
 
       var section = element("section", "stage");
+      section.id = "era-" + stage.id;
       section.setAttribute("aria-labelledby", "stage-" + stage.id);
       section.appendChild(element("span", "stage-marker"));
 
       var header = element("div", "stage-header");
       var headingCopy = element("div");
+      headingCopy.appendChild(element("p", "stage-index", "Development era " + (stageIndex + 1) + " of " + stages.length));
       var heading = element("h3", "", stage.title);
       heading.id = "stage-" + stage.id;
       headingCopy.appendChild(heading);
@@ -154,9 +229,11 @@
       document.getElementById("category-count").textContent = String(data.categories.length);
       document.getElementById("stage-count").textContent = String(data.stages.length);
       renderLegend(data.categories);
+      renderEraNavigation(data.stages);
       renderTimeline(data);
       loading.hidden = true;
       timeline.hidden = false;
+      initializeEraTracking();
     })
     .catch(function () {
       loading.hidden = true;
