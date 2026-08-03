@@ -734,30 +734,17 @@ h1 em {
 
 .stage-marker {
   position: absolute;
-  z-index: 4;
-  top: 0;
-  left: 50%;
-  width: 0.96rem;
-  height: 0.96rem;
-  border: 1px solid color-mix(in srgb, var(--accent), white 24%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 34% 27%, rgba(255, 255, 255, 0.92) 0 0.055rem, transparent 0.075rem),
-    radial-gradient(circle, rgba(5, 5, 5, 0.98) 0 40%, color-mix(in srgb, var(--accent), white 12%) 43% 65%, rgba(5, 5, 5, 0.98) 69%);
-  box-shadow:
-    0 0 0 3px rgba(3, 3, 3, 0.88),
-    0 0 18px rgba(198, 111, 73, 0.46),
-    inset 0 0 7px rgba(198, 111, 73, 0.38);
-  transform: translate(-50%, -50%);
+  z-index: 2;
+  top: -0.06rem;
+  left: calc(50% - 1.5rem);
+  display: grid;
+  width: 3rem;
+  height: 2px;
+  place-items: center;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
-.stage-marker::after {
-  position: absolute;
-  inset: 0.18rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: inherit;
-  content: "";
-}
+.stage-marker::after { width: 0.36rem; height: 0.36rem; background: var(--accent); box-shadow: 0 0 12px rgba(198, 111, 73, 0.48); content: ""; transform: rotate(45deg); }
 
 .initiative-list { display: grid; gap: 1.15rem; margin: 0; padding: 0; list-style: none; }
 .initiative-item {
@@ -772,17 +759,12 @@ h1 em {
   z-index: 2;
   top: 50%;
   left: 50%;
-  width: 0.82rem;
-  height: 0.82rem;
-  border: 1px solid color-mix(in srgb, var(--category), white 34%);
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 2px solid var(--page);
   border-radius: 50%;
-  background:
-    radial-gradient(circle at 34% 27%, rgba(255, 255, 255, 0.94) 0 0.05rem, transparent 0.07rem),
-    radial-gradient(circle, rgba(4, 4, 4, 0.98) 0 41%, color-mix(in srgb, var(--category), white 14%) 44% 65%, rgba(4, 4, 4, 0.98) 69%);
-  box-shadow:
-    0 0 0 3px rgba(3, 3, 3, 0.88),
-    0 0 16px color-mix(in srgb, var(--category), transparent 42%),
-    inset 0 0 6px color-mix(in srgb, var(--category), transparent 48%);
+  background: var(--category);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--category), transparent 42%);
   content: "";
   transform: translate(-50%, -50%);
 }
@@ -855,12 +837,13 @@ h1 em {
 
 .expand-icon {
   position: absolute;
-  right: 1rem;
-  bottom: 0.82rem;
+  top: 50%;
+  right: 1.15rem;
   width: 1.08rem;
   height: 1.08rem;
   color: var(--category);
   filter: drop-shadow(0 0 7px color-mix(in srgb, var(--category), transparent 58%));
+  transform: translateY(-50%);
   transition: transform 180ms ease, filter 180ms ease;
 }
 
@@ -881,7 +864,7 @@ h1 em {
 .expand-icon-inner::after { bottom: 0; left: 0; border-bottom: 1.5px solid; border-left: 1.5px solid; }
 
 .initiative-card:hover .expand-icon,
-.initiative-card:focus-visible .expand-icon { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--category), transparent 38%)); transform: scale(1.08); }
+.initiative-card:focus-visible .expand-icon { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--category), transparent 38%)); transform: translateY(-50%) scale(1.08); }
 
 .initiative-title { font-size: clamp(0.98rem, 1.55vw, 1.12rem); font-weight: 500; letter-spacing: -0.018em; line-height: 1.3; }
 .initiative-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.48rem; font-size: 0.68rem; letter-spacing: 0.045em; }
@@ -963,7 +946,7 @@ h1 em {
 .table-initiative-description { color: rgba(255, 255, 255, 0.78); font-size: 0.86rem; line-height: 1.55; }
 
 .table-title-wrap { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
-.table-expand-icon { position: relative; top: 0.1rem; right: auto; bottom: auto; flex: 0 0 auto; width: 0.9rem; height: 0.9rem; transform: none; }
+.table-expand-icon { position: relative; top: 0.1rem; right: auto; flex: 0 0 auto; width: 0.9rem; height: 0.9rem; transform: none; }
 .roadmap-table-row:hover .table-expand-icon,
 .roadmap-table-row:focus-visible .table-expand-icon { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--category), transparent 38%)); transform: scale(1.08); }
 
@@ -1083,7 +1066,7 @@ body.modal-open { overflow: hidden; }
   .compact-era-indicator { margin-bottom: 1.5rem; }
   .stage { padding-left: 2.4rem; }
   .stage::before { left: 0.55rem; }
-  .stage-marker { left: 0.55rem; }
+  .stage-marker { left: -0.18rem; }
   .stage-header { width: 100%; margin-bottom: 1.5rem; }
   .stage-header::after { display: none; }
   .stage-header > div { width: 100%; margin-inline: 0; }
