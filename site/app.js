@@ -22,7 +22,7 @@
   var categoryLabels = new Map();
 
   var detailLabels = {
-    currentFoundation: "Current foundation",
+    currentFoundation: "Current technical substrate",
     primaryUserValue: "Primary user value",
     dependencies: "Dependencies",
     validationGate: "Validation gate",
@@ -195,8 +195,7 @@
     [
       stage.title,
       initiative.maturity,
-      initiative.confidence ? initiative.confidence + " confidence" : null,
-      initiative.horizon
+      initiative.confidence ? initiative.confidence + " confidence" : null
     ].forEach(function (value) {
       if (value) signals.appendChild(element("span", "", value));
     });
@@ -230,7 +229,7 @@
 
       var header = element("div", "stage-header");
       var headingCopy = element("div");
-      headingCopy.appendChild(element("p", "stage-index", "Development era " + (stageIndex + 1) + " of " + stages.length));
+      headingCopy.appendChild(element("p", "stage-index", "Target window " + (stageIndex + 1) + " of " + stages.length));
       var heading = element("h3", "", stage.title);
       heading.id = "stage-" + stage.id;
       headingCopy.appendChild(heading);

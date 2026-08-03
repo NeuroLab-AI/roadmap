@@ -77,6 +77,7 @@ DETAIL_KEYS = {
 VISIBILITY_VALUES = {"primary", "supporting", "details-only"}
 CANDIDATE_ID_RE = re.compile(r"^[A-Z]{2,4}-[0-9]{2}$")
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+TARGET_WINDOW_ID_RE = re.compile(r"^q([1-4])-(20[0-9]{2})$")
 TOKEN_RE = re.compile(r"\{\{[a-z_]*\}\}")
 
 
@@ -149,6 +150,10 @@ def validate_site() -> None:
         raise ValueError("site/index.html does not load the roadmap application")
     if '"./data/public-roadmap.json"' not in script:
         raise ValueError("site/app.js does not load the generated public roadmap data")
+    visible_copy = (index + "\n" + script).lower()
+    for phrase in ("current foundation", "near term", "mid term", "future direction", "development era"):
+        if phrase in visible_copy:
+            raise ValueError(f"Superseded relative-era copy remains in the public site: {phrase}")
 
 
 def validate_public_data(data: dict[str, Any]) -> None:
@@ -183,6 +188,7 @@ def validate_public_data(data: dict[str, Any]) -> None:
 
     stage_ids: set[str] = set()
     stage_orders: set[int] = set()
+    target_window_order: list[tuple[int, int]] = []
     for stage in stages:
         if not isinstance(stage, dict):
             raise ValueError("Every stage must be an object")
@@ -191,14 +197,24 @@ def validate_public_data(data: dict[str, Any]) -> None:
             raise ValueError(f"Invalid stage ID: {stage['id']}")
         if stage["id"] in stage_ids:
             raise ValueError(f"Duplicate stage ID: {stage['id']}")
+        target_match = TARGET_WINDOW_ID_RE.fullmatch(stage["id"])
+        if target_match is None:
+            raise ValueError(f"Stage is not a calendar-quarter target window: {stage['id']}")
+        quarter = int(target_match.group(1))
+        year = int(target_match.group(2))
+        if stage["title"] != f"Q{quarter} {year}":
+            raise ValueError(f"Stage title does not match its calendar target ID: {stage['id']}")
         if not isinstance(stage["order"], int) or stage["order"] < 1 or stage["order"] in stage_orders:
             raise ValueError(f"Invalid or duplicate stage order: {stage['order']}")
         require_text(stage["title"], f"stage {stage['id']} title")
         require_text(stage["description"], f"stage {stage['id']} description")
         stage_ids.add(stage["id"])
         stage_orders.add(stage["order"])
+        target_window_order.append((year, quarter))
     if stage_orders != set(range(1, len(stages) + 1)):
         raise ValueError("Stage orders must be contiguous from 1")
+    if target_window_order != sorted(target_window_order):
+        raise ValueError("Calendar target windows must be chronological")
 
     category_ids: set[str] = set()
     category_orders: set[int] = set()
