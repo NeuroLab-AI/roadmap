@@ -1,0 +1,374 @@
+{
+  "$schema": "https://neurolab-ai.github.io/roadmap/publication/public-roadmap.schema.json",
+  "schemaVersion": "2.0.0",
+  "publication": {
+    "title": "NeuroLab Public Roadmap",
+    "version": "0.3.0",
+    "status": "draft",
+    "releasedOn": null
+  },
+  "stages": [
+    {
+      "id": "current-foundation",
+      "title": "Current foundation",
+      "order": 1,
+      "description": "Active expansion on existing evidence, evaluation, reporting, and delivery substrates."
+    },
+    {
+      "id": "near-term",
+      "title": "Near term",
+      "order": 2,
+      "description": "The next bounded capabilities enabled by the current foundation."
+    },
+    {
+      "id": "mid-term",
+      "title": "Mid term",
+      "order": 3,
+      "description": "Program-level product and scientific systems with broader dependencies."
+    },
+    {
+      "id": "future-direction",
+      "title": "Future direction",
+      "order": 4,
+      "description": "A research direction without a calendar commitment."
+    }
+  ],
+  "categories": [
+    {
+      "id": "product-and-researcher-workflows",
+      "title": "Product and researcher workflows",
+      "abbreviation": "Product",
+      "visualToken": "product",
+      "order": 1
+    },
+    {
+      "id": "api-and-agent-infrastructure",
+      "title": "API and agent infrastructure",
+      "abbreviation": "API",
+      "visualToken": "api",
+      "order": 2
+    },
+    {
+      "id": "knowledge-graph-and-evidence-acquisition",
+      "title": "Knowledge graph and evidence acquisition",
+      "abbreviation": "Knowledge graph",
+      "visualToken": "knowledge",
+      "order": 3
+    },
+    {
+      "id": "predictive-models-and-novel-structure-inference",
+      "title": "Predictive models and novel-structure inference",
+      "abbreviation": "Predictive models",
+      "visualToken": "models",
+      "order": 4
+    },
+    {
+      "id": "neurosymbolic-reasoning",
+      "title": "Neurosymbolic reasoning",
+      "abbreviation": "Neurosymbolic",
+      "visualToken": "reasoning",
+      "order": 5
+    },
+    {
+      "id": "whole-brain-and-measurement-modeling",
+      "title": "Whole-brain and measurement modeling",
+      "abbreviation": "Brain modeling",
+      "visualToken": "brain",
+      "order": 6
+    },
+    {
+      "id": "validation-and-scientific-governance",
+      "title": "Validation and scientific governance",
+      "abbreviation": "Validation",
+      "visualToken": "validation",
+      "order": 7
+    }
+  ],
+  "initiatives": [
+    {
+      "id": "VAL-01",
+      "categoryId": "validation-and-scientific-governance",
+      "sequence": 1,
+      "stage": "current-foundation",
+      "visibility": "primary",
+      "title": "Frozen leakage-resistant evaluation cohorts",
+      "outcome": "Bind published evaluation claims to stable cohorts, explicit denominators, and leakage-resistant holdouts.",
+      "maturity": "Current substrate / expansion",
+      "confidence": "High",
+      "horizon": "Launch / near term",
+      "details": {
+        "currentFoundation": "De-leak correction, canonical validation report, versioned artifacts, and documented split-governance direction.",
+        "primaryUserValue": "Trust that published metrics refer to a stable, inspectable evaluation target.",
+        "dependencies": "Frozen manifests, source split reconstruction, scaffold IDs, temporal partitions, baselines, and promotion policy.",
+        "validationGate": "Reproducible cohort reconstruction, disjointness audits, leakage checks, and immutable result binding.",
+        "claimBoundary": "A development cohort is not an untouched independent test, and artifact hashes are not scientific accuracy."
+      }
+    },
+    {
+      "id": "PROD-04",
+      "categoryId": "product-and-researcher-workflows",
+      "sequence": 2,
+      "stage": "current-foundation",
+      "visibility": "primary",
+      "title": "Reproducible reports and publication workflows",
+      "outcome": "Make analyses reproducible, inspectable, shareable, and easier to challenge.",
+      "maturity": "Current substrate / expansion",
+      "confidence": "High",
+      "horizon": "Near term",
+      "details": {
+        "currentFoundation": "Versioned model/KG identity, structured reports, evidence support bundles, and API contracts.",
+        "primaryUserValue": "Make computational hypotheses easier to reproduce, review, share, cite, and challenge.",
+        "dependencies": "Export formats, report versioning, stable identifiers, diffing, citation formatting, figure/table generation, and access controls.",
+        "validationGate": "A saved report must be reconstructable from its bound inputs and artifacts within the supported reproducibility contract.",
+        "claimBoundary": "Reproducible execution does not guarantee scientific correctness, and strict cross-hardware bitwise identity should not be promised without audit."
+      }
+    },
+    {
+      "id": "AGT-01",
+      "categoryId": "api-and-agent-infrastructure",
+      "sequence": 3,
+      "stage": "current-foundation",
+      "visibility": "primary",
+      "title": "Versioned research APIs and agent infrastructure",
+      "outcome": "Expose versioned, evidence-preserving research capabilities through stable APIs and agent-safe contracts.",
+      "maturity": "Current substrate / expansion",
+      "confidence": "High",
+      "horizon": "Launch / near term",
+      "details": {
+        "currentFoundation": "Endpoint-rich known- and novel-route APIs, independently requestable sections, evidence artifacts, subgraphs, and bundles.",
+        "primaryUserValue": "Let machines request only the scientific capability and evidence needed for a workflow.",
+        "dependencies": "Stable versioning, authentication, identity, metering, quotas, service contracts, agent-safe schemas, higher-level comparative endpoints, and reproducibility guarantees.",
+        "validationGate": "Contract tests, route parity, schema stability, evidence preservation, deterministic artifact identity within the supported environment, and agent-workflow evaluation.",
+        "claimBoundary": "Do not claim current autonomous-agent adoption, MCP availability, x402 payments, or comparative endpoints unless separately verified and approved."
+      }
+    },
+    {
+      "id": "PROD-07",
+      "categoryId": "product-and-researcher-workflows",
+      "sequence": 4,
+      "stage": "near-term",
+      "visibility": "primary",
+      "title": "NeuroLab Atlas Tier",
+      "outcome": "Offer a curated library of precomputed, versioned compound reports for public exploration.",
+      "maturity": "Concept / team-confident",
+      "confidence": "High",
+      "horizon": "Launch / near term",
+      "details": {
+        "currentFoundation": "Existing structured known-compound reports, granular report sections, evidence artifacts, model and knowledge-graph version identity, and the current multi-stage human application.",
+        "primaryUserValue": "Replace a static landing-page demo with a credible, self-directed product experience that reduces uncertainty about what a paid Neurolab analysis contains.",
+        "dependencies": "Public-report schema; compound selection and editorial criteria; artifact sanitization; report, model, graph, and evidence version binding; object storage and CDN delivery; searchable metadata index; entitlement boundaries; upgrade flows; rate limits; abuse monitoring; accessibility; and product analytics.",
+        "validationGate": "Public reports reproduce against their bound artifacts; displayed evidence and uncertainty remain traceable; search and sorting use declared fields; no private or restricted data is exposed; and cache delivery does not bypass access-control boundaries.",
+        "claimBoundary": "Do not imply that the free tier exposes the complete knowledge graph, all known compounds, unrestricted evidence bundles, live custom inference, or the full capabilities of paid tiers. Do not claim a final catalog size until the public set is approved."
+      }
+    },
+    {
+      "id": "KG-01",
+      "categoryId": "knowledge-graph-and-evidence-acquisition",
+      "sequence": 5,
+      "stage": "near-term",
+      "visibility": "supporting",
+      "title": "Expanded molecular pharmacology",
+      "outcome": "Improve compound, target, action, exposure, and uncertainty representations across inference routes.",
+      "maturity": "Scoped",
+      "confidence": "Medium",
+      "horizon": "Near term / mid term",
+      "details": {
+        "currentFoundation": "Existing compound-target, action, dosage, evidence, and provenance layers.",
+        "primaryUserValue": "More accurate and context-aware hypotheses about what a compound can plausibly engage.",
+        "dependencies": "Licensed sources, identity resolution, relation semantics, quantitative normalization, contradictory-evidence handling, exposure data, and curation.",
+        "validationGate": "Source- and context-specific audits; separation of binding, functional action, exposure, and engagement; retrieval tests against held-out evidence.",
+        "claimBoundary": "Binding must not be silently equated with functional action, exposure, occupancy, or brain effect."
+      }
+    },
+    {
+      "id": "ML-02",
+      "categoryId": "predictive-models-and-novel-structure-inference",
+      "sequence": 6,
+      "stage": "near-term",
+      "visibility": "primary",
+      "title": "Improved novel-structure inference",
+      "outcome": "Expand reliable coverage of unfamiliar chemistry while surfacing applicability and uncertainty.",
+      "maturity": "Current substrate / expansion",
+      "confidence": "High",
+      "horizon": "Near term",
+      "details": {
+        "currentFoundation": "Structure-to-receptor retrieval, analog search, route-aware reasoning, applicability fields, and abstention.",
+        "primaryUserValue": "Investigate candidate structures before they are richly represented in the KG.",
+        "dependencies": "Identified evaluation cohorts, chemical representation work, receptor/action data, applicability curves, sign uncertainty, and downstream route validation.",
+        "validationGate": "Receptor recovery, scaffold-disjoint evaluation, accuracy-versus-coverage curves, functional-action evaluation, end-to-end downstream validation, and failure-case tests.",
+        "claimBoundary": "Candidate targets and discriminating experiments should replace definitive mechanisms when structural evidence is insufficient."
+      }
+    },
+    {
+      "id": "ML-03",
+      "categoryId": "predictive-models-and-novel-structure-inference",
+      "sequence": 7,
+      "stage": "near-term",
+      "visibility": "supporting",
+      "title": "Calibrated head-specific evaluation",
+      "outcome": "Evaluate each model output against its own frozen cohort, baseline, and confidence semantics.",
+      "maturity": "Scoped",
+      "confidence": "High",
+      "horizon": "Near term",
+      "details": {
+        "currentFoundation": "Canonical route-separated validation report and explicit refusal to publish one overall accuracy.",
+        "primaryUserValue": "Understand which output is ready for which research use.",
+        "dependencies": "Frozen cohorts, denominators, baselines, confidence semantics, calibration methods, and route-specific reporting.",
+        "validationGate": "Reproducible metrics, confidence intervals where appropriate, selective-risk curves, independent or prospective slices, and documented blocked claims.",
+        "claimBoundary": "Do not average heterogeneous heads or present development evidence as untouched independent validation."
+      }
+    },
+    {
+      "id": "VAL-03",
+      "categoryId": "validation-and-scientific-governance",
+      "sequence": 8,
+      "stage": "near-term",
+      "visibility": "primary",
+      "title": "Calibration and selective-risk analysis",
+      "outcome": "Show when the system should answer, narrow a claim, or abstain through calibration and selective-risk analysis.",
+      "maturity": "Scoped",
+      "confidence": "High",
+      "horizon": "Near term",
+      "details": {
+        "currentFoundation": "Explicit route-specific confidence, applicability, and abstention fields.",
+        "primaryUserValue": "Know when to trust a shortlist, request more evidence, or stop.",
+        "dependencies": "Frozen cohorts, honest confidence semantics, risk curves, thresholds, and out-of-domain slices.",
+        "validationGate": "Accuracy-versus-coverage curves, threshold stability, false-confidence audits, and prospective monitoring.",
+        "claimBoundary": "Applicability status, similarity, or seed stability is not automatically a calibrated probability of correctness."
+      }
+    },
+    {
+      "id": "PROD-01",
+      "categoryId": "product-and-researcher-workflows",
+      "sequence": 9,
+      "stage": "near-term",
+      "visibility": "primary",
+      "title": "Comparative compound intelligence",
+      "outcome": "Compare compounds and cohorts through shared evidence-aware analysis without implying automated candidate selection.",
+      "maturity": "Scoped",
+      "confidence": "High",
+      "horizon": "Near term",
+      "details": {
+        "currentFoundation": "Individual known- and novel-compound inference; structured reports; granular API surfaces.",
+        "primaryUserValue": "Compare candidates using the same compound-to-brain lens rather than reading isolated reports.",
+        "dependencies": "Batch orchestration, route-aware normalization, missing-data policy, applicability handling, comparison semantics, ranking policy, and program-level UI/API design.",
+        "validationGate": "Demonstrate that comparisons remain meaningful across differing evidence states and inference routes; prospectively test whether the workflow improves research prioritization.",
+        "claimBoundary": "Do not claim that batch inference, comparative ranking, or program dashboards are currently available. Do not imply automated winner selection."
+      }
+    },
+    {
+      "id": "KG-02",
+      "categoryId": "knowledge-graph-and-evidence-acquisition",
+      "sequence": 10,
+      "stage": "mid-term",
+      "visibility": "primary",
+      "title": "Industrialized evidence acquisition",
+      "outcome": "Scale the conversion of primary studies into provenance-bound, reviewable observations.",
+      "maturity": "Scoped",
+      "confidence": "Medium",
+      "horizon": "Near term / mid term",
+      "details": {
+        "currentFoundation": "Provenance records, evidence bundles, source policies, and report pointers.",
+        "primaryUserValue": "Faster growth of reviewable evidence without losing scientific context.",
+        "dependencies": "Literature discovery, document access, extraction, normalization, ontology mapping, methods/results localization, reviewer workflow, admission criteria, and source versioning.",
+        "validationGate": "Extraction precision and recall; context completeness; contradiction and null capture; inter-reviewer agreement; tamper and provenance checks; source-family holdouts.",
+        "claimBoundary": "Automated extraction accelerates candidate evidence processing; it does not make every extracted observation scientifically admissible without review."
+      }
+    },
+    {
+      "id": "NS-06",
+      "categoryId": "neurosymbolic-reasoning",
+      "sequence": 11,
+      "stage": "mid-term",
+      "visibility": "primary",
+      "title": "Reusable validated mechanistic islands",
+      "outcome": "Build deeply validated mechanistic subsystems that can be composed without claiming universal causal coverage.",
+      "maturity": "Scoped",
+      "confidence": "High",
+      "horizon": "Near term / mid term",
+      "details": {
+        "currentFoundation": "CircuitFramework, validation contracts, protected examples, and route-specific reasoners.",
+        "primaryUserValue": "Build trustworthy mechanistic coverage incrementally instead of claiming unconstrained whole-brain reasoning.",
+        "dependencies": "Selection of initial systems, expert curation, fixtures, source-independent evidence, reasoner contracts, and promotion criteria.",
+        "validationGate": "Each island passes its own frozen context, null, contradiction, provenance, and abstention gates before reuse.",
+        "claimBoundary": "Validation of one island does not validate all systems, compounds, contexts, or downstream outputs."
+      }
+    },
+    {
+      "id": "PROD-06",
+      "categoryId": "product-and-researcher-workflows",
+      "sequence": 12,
+      "stage": "mid-term",
+      "visibility": "primary",
+      "title": "NeuroLab Data Studio and persistent research workspaces",
+      "outcome": "Turn saved inference outputs into persistent, queryable workspaces for cross-run and cross-cohort analysis.",
+      "maturity": "Concept / team-confident",
+      "confidence": "High",
+      "horizon": "Near term / mid term",
+      "details": {
+        "currentFoundation": "Structured known- and novel-compound reports, independently addressable report sections, versioned model and knowledge-graph identity, evidence-linked artifacts, and granular API surfaces.",
+        "primaryUserValue": "Move from isolated reports to a living, searchable research dataset that supports portfolio-level prioritization, longitudinal analysis, and reusable scientific inquiry.",
+        "dependencies": "Persistent workspace and project identity; individual- and batch-output storage; route-aware normalized schemas; stable metric definitions; cohort tagging; query and ranking infrastructure; visualization and drilldown components; report, model, graph, and evidence version binding; permissions and tenant isolation; exports; and API parity.",
+        "validationGate": "Saved queries and views reproduce against their bound dataset; rankings use declared metrics and deterministic transformations; cohort membership and filters are auditable; version or route incompatibilities are surfaced; uncertainty and abstentions remain visible; and generated interpretations cite the exact selected data.",
+        "claimBoundary": "Do not claim that persistent workspaces, cross-cohort analytics, dashboards, metric ranking, or hypothesis generation are currently implemented. Do not describe rankings as automated candidate selection or hypotheses as validated findings."
+      }
+    },
+    {
+      "id": "BRN-01",
+      "categoryId": "whole-brain-and-measurement-modeling",
+      "sequence": 13,
+      "stage": "mid-term",
+      "visibility": "supporting",
+      "title": "Enriched 392-parcel representation",
+      "outcome": "Connect the current parcel representation to richer nuclei, cell, receptor, network, and tract context.",
+      "maturity": "Current substrate / expansion",
+      "confidence": "Medium",
+      "horizon": "Near term / mid term",
+      "details": {
+        "currentFoundation": "Current 392-parcel representation, nuclei, network, receptor-density, tract, and brain-explorer assets.",
+        "primaryUserValue": "More precise anatomical navigation and better-scoped brain-system hypotheses.",
+        "dependencies": "Atlas crosswalks, resolution preservation, source licensing, tract/cell integration, and visualization.",
+        "validationGate": "Cross-atlas mapping accuracy, resolution-aware uncertainty, source provenance, and no silent coordinate equivalence.",
+        "claimBoundary": "Richer anatomy does not establish compound exposure, functional direction, or measured effect."
+      }
+    },
+    {
+      "id": "VAL-04",
+      "categoryId": "validation-and-scientific-governance",
+      "sequence": 14,
+      "stage": "mid-term",
+      "visibility": "primary",
+      "title": "Independent and prospective validation",
+      "outcome": "Test priority capabilities against independent evidence and prospective experiments with predefined endpoints.",
+      "maturity": "Research-dependent",
+      "confidence": "Medium",
+      "horizon": "Mid term",
+      "details": {
+        "currentFoundation": "Research triage outputs, evidence-linked hypotheses, and documented blocked claims.",
+        "primaryUserValue": "Establish whether prioritized hypotheses survive new evidence and experiments.",
+        "dependencies": "Partners, study selection, preregistration, experimental design, funding, data return, and publication policy.",
+        "validationGate": "Predefined prospective endpoints, comparator methods, blinded review where possible, and transparent negative results.",
+        "claimBoundary": "Do not imply prospective validation exists until studies are completed and results are available."
+      }
+    },
+    {
+      "id": "BRN-02",
+      "categoryId": "whole-brain-and-measurement-modeling",
+      "sequence": 15,
+      "stage": "future-direction",
+      "visibility": "supporting",
+      "title": "Molecular-to-distributed-network hypotheses",
+      "outcome": "Explore how molecular hypotheses may connect to cells, circuits, pathways, and distributed networks.",
+      "maturity": "Research-dependent",
+      "confidence": "Medium",
+      "horizon": "Mid term / long term",
+      "details": {
+        "currentFoundation": "Receptor hypotheses, CircuitFramework, parcel/network representations, and separate density/circuit channels.",
+        "primaryUserValue": "Explore how local molecular hypotheses might connect to distributed systems.",
+        "dependencies": "Validated mechanistic islands, directed tracts, cell operators, observation models, context, and benchmark data.",
+        "validationGate": "Source- and compound-disjoint tests, pathway ablations, network-level benchmarks, uncertainty, and explicit measured-versus-inferred labels.",
+        "claimBoundary": "Regional maps must distinguish measured observations, predictions, anatomical opportunities, reference priors, and unresolved hypotheses."
+      }
+    }
+  ]
+}
