@@ -94,8 +94,6 @@
 
     timeline.querySelectorAll(".stage").forEach(function (section) {
       var visibleCount = section.querySelectorAll(".initiative-item:not([hidden])").length;
-      var count = section.querySelector(".stage-count");
-      count.textContent = visibleCount + (visibleCount === 1 ? " initiative" : " initiatives");
       section.classList.toggle("is-filter-empty", visibleCount === 0);
       section.querySelector(".stage-empty").hidden = visibleCount !== 0;
     });
@@ -218,7 +216,7 @@
   function renderTimeline(data) {
     var categories = new Map(data.categories.map(function (category) { return [category.id, category]; }));
     var stages = data.stages.slice().sort(byOrder);
-    stages.forEach(function (stage, stageIndex) {
+    stages.forEach(function (stage) {
       var initiatives = data.initiatives.filter(function (item) { return item.stage === stage.id; }).sort(bySequence);
       if (!initiatives.length) return;
 
@@ -229,13 +227,11 @@
 
       var header = element("div", "stage-header");
       var headingCopy = element("div");
-      headingCopy.appendChild(element("p", "stage-index", "Target window " + (stageIndex + 1) + " of " + stages.length));
       var heading = element("h3", "", stage.title);
       heading.id = "stage-" + stage.id;
       headingCopy.appendChild(heading);
       headingCopy.appendChild(element("p", "", stage.description));
       header.appendChild(headingCopy);
-      header.appendChild(element("span", "stage-count", initiatives.length + (initiatives.length === 1 ? " initiative" : " initiatives")));
       section.appendChild(header);
 
       var list = element("ol", "initiative-list");
@@ -284,7 +280,7 @@
       document.getElementById("publication-version").textContent = "Version " + data.publication.version.replace(/\.0$/, "");
       document.getElementById("initiative-count").textContent = String(data.initiatives.length);
       document.getElementById("category-count").textContent = String(data.categories.length);
-      document.getElementById("stage-count").textContent = String(data.stages.length);
+      document.getElementById("target-window-count").textContent = String(data.stages.length);
       renderLegend(data.categories);
       renderEraNavigation(data.stages);
       renderTimeline(data);

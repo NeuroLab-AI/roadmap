@@ -150,6 +150,17 @@ def validate_site() -> None:
         raise ValueError("site/index.html does not load the roadmap application")
     if '"./data/public-roadmap.json"' not in script:
         raise ValueError("site/app.js does not load the generated public roadmap data")
+    if "Target window " in script or "stage-count" in script:
+        raise ValueError("Removed target-window ordinal or detached initiative count returned to the timeline")
+    required_copy = (
+        "Current and Upcoming Initiatives",
+        "Explore the Roadmap by Technical Domain",
+        "Timeline Targets",
+        "From Peptide Prediction Support to Personalized Data Spaces",
+    )
+    for phrase in required_copy:
+        if phrase not in index:
+            raise ValueError(f"Required public roadmap copy is missing: {phrase}")
     visible_copy = (index + "\n" + script).lower()
     for phrase in ("current foundation", "near term", "mid term", "future direction", "development era"):
         if phrase in visible_copy:
