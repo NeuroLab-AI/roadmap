@@ -57,7 +57,7 @@
         <div class="section-heading">
           <p class="section-index"><span>//</span> Current and Upcoming Initiatives</p>
           <h2 id="legend-title">Explore the Roadmap by Technical Domain</h2>
-          <p>Select one or more categories to focus the timeline.</p>
+          <p>Select one or more categories to focus the roadmap.</p>
         </div>
         <div class="legend" id="category-legend" aria-label="Roadmap categories"></div>
         <p class="identity-note">
@@ -74,7 +74,7 @@
 
           <div class="roadmap-content">
             <div class="section-heading roadmap-heading">
-              <p class="section-index"><span>//</span> Timeline Targets</p>
+              <p class="section-index"><span>//</span> <span class="section-index-label" id="roadmap-view-label">Timeline Targets</span></p>
               <h2 id="roadmap-title">From Peptide Prediction Support to Personalized Data Spaces</h2>
               <p>Calendar targets for each NeuroLab roadmap initiative are listed below. Select any entry to inspect its technical scope, dependencies, validation gate, and claim boundary.</p>
             </div>
@@ -87,13 +87,13 @@
 
                 <div class="view-switcher" role="group" aria-label="Roadmap view">
                   <span class="controls-label">View</span>
-                  <button class="view-option" id="timeline-view" type="button" data-view="timeline" aria-pressed="true" aria-controls="timeline">
+                  <button class="view-option" id="timeline-view" type="button" data-view="timeline" aria-pressed="true" aria-controls="timeline roadmap-table">
                     <span class="view-icon view-icon-timeline" aria-hidden="true"></span>
                     <span>Timeline</span>
                   </button>
-                  <button class="view-option" id="grid-view" type="button" data-view="grid" aria-pressed="false" aria-controls="timeline">
-                    <span class="view-icon view-icon-grid" aria-hidden="true"></span>
-                    <span>Grid</span>
+                  <button class="view-option" id="table-view" type="button" data-view="table" aria-pressed="false" aria-controls="timeline roadmap-table">
+                    <span class="view-icon view-icon-table" aria-hidden="true"></span>
+                    <span>Table</span>
                   </button>
                 </div>
 
@@ -118,6 +118,26 @@
 
             <div class="loading-state" id="loading-state" role="status">Loading the current roadmap…</div>
             <div class="timeline" id="timeline" hidden></div>
+            <div class="roadmap-table-shell" id="roadmap-table" hidden>
+              <table class="roadmap-table">
+                <caption class="sr-only">Chronological NeuroLab roadmap initiatives</caption>
+                <colgroup>
+                  <col class="delivery-target-column">
+                  <col class="initiative-id-column">
+                  <col class="initiative-title-column">
+                  <col class="initiative-description-column">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">Delivery Target</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                  </tr>
+                </thead>
+                <tbody id="roadmap-table-body"></tbody>
+              </table>
+            </div>
             <div class="roadmap-empty" id="roadmap-empty" role="status" hidden>
               <span class="comment-mark" aria-hidden="true">//</span>
               No initiatives match the current search and category filters.

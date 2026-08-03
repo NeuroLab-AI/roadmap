@@ -10,9 +10,10 @@ Registry-driven GitHub Pages publication for the NeuroLab development roadmap.
 ## Experience
 
 The page presents a calendar-driven roadmap from Q3 2026 through Q3 2027. Visitors can switch
-between timeline and grid views, search across the public initiative content, and combine keyword
-search with one or more technical-domain filters. The contextual controls remain available while
-the roadmap is in view without competing with the introductory sections.
+between the visual timeline and a chronological data table, search across the public initiative
+content, and combine keyword search with one or more technical-domain filters. The contextual
+controls remain available while the roadmap is in view without competing with the introductory
+sections.
 
 Each initiative keeps its technical registry ID visible as a stable reference, but the public title
 and category lead the visual hierarchy. Selecting an initiative opens an accessible detail dialog
