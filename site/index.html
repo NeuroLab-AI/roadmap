@@ -3,315 +3,107 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="The NeuroLab public roadmap: four phases from auditable evidence to externally validated mechanism.">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="description" content="The NeuroLab public roadmap: a technical development sequence for evidence-led CNS drug discovery.">
+    <meta name="theme-color" content="#090909">
     <meta property="og:type" content="website">
     <meta property="og:title" content="NeuroLab Public Roadmap">
-    <meta property="og:description" content="Four phases from auditable evidence to externally validated mechanism.">
+    <meta property="og:description" content="Explore the systems NeuroLab is building, from current foundations to future research directions.">
     <meta property="og:url" content="https://neurolab-ai.github.io/roadmap/">
     <link rel="canonical" href="https://neurolab-ai.github.io/roadmap/">
     <link rel="icon" href="data:,">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
     <link rel="preload" as="image" href="./assets/neural-brain-hero.webp" type="image/webp">
     <link rel="stylesheet" href="./styles.css">
-    <title>NeuroLab Roadmap</title>
+    <title>NeuroLab Public Roadmap</title>
   </head>
-  <body data-view="short">
-    <a class="skip-link" href="#main">Skip to content</a>
+  <body>
+    <a class="skip-link" href="#roadmap">Skip to the roadmap</a>
     <div class="ambient ambient-one" aria-hidden="true"></div>
     <div class="ambient ambient-two" aria-hidden="true"></div>
 
     <header class="site-header">
-      <div class="header-lockup">
-        <a class="wordmark" href="https://neurolab-ai.github.io/" aria-label="NeuroLab AI home">
-          <img class="wordmark-image" src="./assets/neurolab-wordmark.png" alt="NeuroLab">
-        </a>
-        <span class="header-divider" aria-hidden="true"></span>
-        <p class="header-tagline">Evidence-Led Systems for CNS Drug Discovery</p>
-      </div>
+      <a class="wordmark" href="https://neurolab-ai.github.io/" aria-label="NeuroLab home">
+        <img src="./assets/neurolab-wordmark.png" alt="NeuroLab">
+      </a>
+      <span class="header-divider" aria-hidden="true"></span>
+      <p>Evidence-Led Systems for CNS Drug Discovery</p>
     </header>
 
-    <main id="main">
-      <div class="page-shell roadmap-shell">
+    <main>
+      <section class="hero page-shell" aria-labelledby="page-title">
+        <div class="status-pill" aria-label="Publication status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Draft for Review</span>
+          <span class="comment-mark" aria-hidden="true">//</span>
+          <span id="publication-version">Version 0.3</span>
+        </div>
+        <p class="hero-kicker">Public Development Sequence</p>
+        <h1 id="page-title">NeuroLab <em>Roadmap</em></h1>
+        <p class="hero-lead">
+          Explore the evidence, product, modeling, and validation systems we are building. Select any
+          initiative to inspect its foundation, dependencies, validation gate, and claim boundary.
+        </p>
+        <div class="hero-stats" aria-label="Roadmap summary">
+          <div><span id="initiative-count">15</span><small>Initiatives</small></div>
+          <div><span id="category-count">7</span><small>Categories</small></div>
+          <div><span id="stage-count">4</span><small>Stages</small></div>
+        </div>
+        <a class="primary-action" href="#roadmap">Explore the Roadmap <span aria-hidden="true">↓</span></a>
+      </section>
 
-        <section class="roadmap-hero" aria-labelledby="roadmap-title">
-          <div class="status-row">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span>Draft for Review</span>
-            <span class="status-divider" aria-hidden="true">//</span>
-            <span>Version 0.2</span>
-          </div>
+      <section class="legend-section page-shell" aria-labelledby="legend-title">
+        <div class="section-heading">
+          <p class="section-index"><span>//</span> Category legend</p>
+          <h2 id="legend-title">Seven connected development lanes</h2>
+          <p>Color reinforces category identity; every initiative also carries a visible category label.</p>
+        </div>
+        <div class="legend" id="category-legend" aria-label="Roadmap categories"></div>
+        <p class="identity-note">
+          Initiative IDs are stable technical references. Timeline position communicates development
+          sequence; the number inside an ID is not a chronological rank.
+        </p>
+      </section>
 
-          <h1 id="roadmap-title">Public <em>Roadmap</em></h1>
-
-          <p class="description">
-            NeuroLab reads a chemical structure and traces its likely path through the brain &mdash;
-            targets, cell populations, circuits, regions, networks, cognition. Every claim is traceable
-            to its source, and the system is built to say &ldquo;we don&rsquo;t know&rdquo; rather than
-            guess.
-          </p>
-
-          <p class="hero-note">
-            Quarters are sequential phases, not calendar dates. Each phase commits to a published
-            artifact, not to a research outcome &mdash; results depend on what the evidence turns out
-            to say; what we control is whether we publish it, and how honestly.
-          </p>
-
-          <div class="actions">
-            <a class="button button-primary" href="#phases">
-              <span>See the Roadmap</span>
-              <span aria-hidden="true">&darr;</span>
-            </a>
-            <a class="button button-secondary" href="https://neurolab-ai.github.io/whitepaper/" target="_blank" rel="noopener">
-              Read the Whitepaper &nearr;
-            </a>
-          </div>
-        </section>
-
-        <section class="rm-section" aria-labelledby="diff-h">
-          <p class="eyebrow">What makes it different</p>
-          <h2 id="diff-h">Two things separate this from a target predictor</h2>
-          <div class="diff-grid">
-            <article class="diff-card">
-              <h3>A whole-brain map, not a target list</h3>
-              <p>
-                Most computational pharmacology stops at the target: this compound binds that receptor.
-                NeuroLab carries the consequence outward &mdash; onto a whole-brain representation of
-                several hundred regions, with the neuromodulatory nuclei, circuits and pathways that
-                connect them.
-              </p>
-              <p>The output is not a list of proteins. It is a map of where in the brain a compound is likely to act, and through which route it got there.</p>
-            </article>
-            <article class="diff-card">
-              <h3>Reasoning you can follow, not a black box</h3>
-              <p>
-                Between the molecule and the map sits a mechanistic reasoning layer that composes the
-                path one step at a time &mdash; receptor to cell type to circuit to region to network to
-                cognition. Each step is a stated, inspectable claim, so a conclusion can be examined
-                link by link and rejected at whichever link fails.
-              </p>
-              <p>A neural network that outputs a ranked list cannot be argued with. A composed mechanistic path can.</p>
-            </article>
-          </div>
-        </section>
-
-        <div class="toggle-row">
-          <div class="toggle" role="group" aria-label="Level of detail">
-            <button type="button" id="btn-short" aria-pressed="true">Overview</button>
-            <button type="button" id="btn-detailed" aria-pressed="false">Detailed</button>
-          </div>
-          <p class="toggle-hint">The year ahead &mdash; four phases</p>
+      <section class="roadmap-section page-shell" id="roadmap" aria-labelledby="roadmap-title">
+        <div class="section-heading roadmap-heading">
+          <p class="section-index"><span>//</span> Development roadmap</p>
+          <h2 id="roadmap-title">From current foundation to future direction</h2>
+          <p>Stages describe relative development horizons, not calendar commitments.</p>
         </div>
 
-        <section class="rm-section" id="phases" style="padding-top:0.5rem" aria-label="Roadmap phases">
-          <div class="timeline">
+        <div class="loading-state" id="loading-state" role="status">Loading the current roadmap…</div>
+        <div class="timeline" id="timeline" hidden></div>
+        <div class="error-state" id="error-state" role="alert" hidden>
+          The current roadmap could not be loaded. Please refresh the page and try again.
+        </div>
+        <noscript>
+          <p class="error-state">JavaScript is required to display the interactive roadmap.</p>
+        </noscript>
+      </section>
 
-            <article class="phase">
-              <div class="phase-head">
-                <span class="phase-q">Q1</span>
-                <h3>Evidence you can audit</h3>
-              </div>
-              <p class="phase-hook">Most platforms ask you to trust their data. We are going to publish ours.</p>
-              <p class="today">
-                <b>Today</b>
-                The knowledge base carries compound&ndash;target evidence with provenance attached, and
-                reports show the sources behind them. What it does not yet do is publish a measured
-                account of how accurate that evidence is, or guarantee that the evidence shown and the
-                data trained on can never disagree.
-              </p>
-              <ul>
-                <li><b>A public data-quality standard.</b> We measure the precision of our compound&ndash;target evidence &mdash; including direction, the difference between a compound switching a target on and switching it off &mdash; and publish the measurement rather than asserting the result.
-                  <span class="detail">An agonist switches a target on; an antagonist switches it off. The distinction is the difference between predicting an effect and predicting its opposite, so we audit direction systematically &mdash; starting with the cases a machine can settle without human review, which makes high-precision coverage affordable at scale.</span>
-                </li>
-                <li><b>Citations that always resolve.</b> Every identifier we publish points to a real, checkable source. A fabricated reference is a build failure, not a warning.
-                  <span class="detail">AI systems are known to invent plausible-looking references. Identifiers are resolved against source databases, and anything that does not resolve is removed rather than published. An empty citation list is an acceptable outcome; an invented one is not.</span>
-                </li>
-                <li><b>One source of truth.</b> The evidence we show and the models we train speak with a single voice, by construction &mdash; one resolved record behind both.
-                  <span class="detail">The two views have different jobs, so they legitimately differ in what they include. What they must never do is describe the same fact in opposite terms. Both are consolidated onto a single resolved record, so that class of contradiction cannot arise &mdash; enforced by construction rather than by inspection.</span>
-                </li>
-                <li><b>Pharmacology with context.</b> Compounds whose effect depends on tissue or on the state of the system are represented as such, rather than flattened into a single yes-or-no answer.
-                  <span class="detail">A partial agonist can behave as an activator when a system is quiet and as a blocker when it is already active; some drugs act one way in one tissue and the opposite way in another. This is real pharmacology, and a yes-or-no field cannot express it.</span>
-                </li>
-                <li><b>Mechanism with explicit structure.</b> Every step in a mechanistic path carries its own type, direction and evidence, so a chain of reasoning can be inspected link by link rather than taken on trust.
-                  <span class="detail">Two things follow. A reader can reject a conclusion at the specific step that fails, rather than accepting or dismissing the whole chain. And a step established once becomes reusable everywhere it applies, so mechanistic coverage compounds instead of being rebuilt per compound.</span>
-                </li>
-                <li><b>Evaluation that holds still.</b> Versioned, frozen evaluation sets, so progress is comparable over time and improvements are real.
-                  <span class="detail">With the held-out portion independently reconstructable, so a result from six months ago means the same thing today and improvement is never an artefact of a changed test.</span>
-                </li>
-              </ul>
-              <p class="delivered"><b>Delivered as</b>A published data-quality report, a unified versioned knowledge base, and a typed mechanistic representation underneath the reasoning layer.</p>
-            </article>
-
-            <article class="phase">
-              <div class="phase-head">
-                <span class="phase-q">Q2</span>
-                <h3>Evidence at scale</h3>
-              </div>
-              <p class="phase-hook">The bottleneck in computational neuroscience is not models. It is evidence with its context intact.</p>
-              <p class="today">
-                <b>Today</b>
-                Evidence reaches the knowledge base largely through structured databases and hand
-                curation. That produces high precision and slow growth, and it means the primary
-                literature &mdash; where the context lives &mdash; is only partly reachable.
-              </p>
-              <ul>
-                <li><b>A literature-to-evidence pipeline.</b> Primary studies become structured observations that keep what makes them meaningful &mdash; species, dose, route, comparator, endpoint, effect size, uncertainty, and the negative results that most pipelines discard.
-                  <span class="detail">Negative results are routinely discarded and are often the most informative records in the set.</span>
-                </li>
-                <li><b>A pipeline that reports its own accuracy.</b> We publish how well the extraction performs, including how often two expert reviewers disagree with each other.
-                  <span class="detail">Automated extraction accelerates the processing of candidate evidence; it does not by itself make an observation scientifically admissible. So the pipeline is evaluated like any other component, and those numbers are published alongside the capability.</span>
-                </li>
-                <li><b>Deeper pharmacology.</b> Dose, exposure, selectivity, metabolites, and documented disagreements between studies &mdash; the context that separates a mechanism that is plausible in a brain from one that is merely possible in an assay.</li>
-                <li><b>Performance reported per capability.</b> Targets, brain regions, cognition, indications and side effects are not equally hard and are not equally well evidenced. Each is reported separately, with a model card stating what it is ready for.
-                  <span class="detail">A single accuracy number for a system that predicts all of those would be meaningless, and averaging them hides exactly what a researcher needs to know.</span>
-                </li>
-                <li><b>Knowing when to stop.</b> The most useful thing a research tool can say is often that the evidence does not support an answer. We measure how often NeuroLab declines &mdash; and whether the cases it declines are the ones it would otherwise have got wrong.
-                  <span class="detail">Abstention is only a virtue if it is aimed well; a system that refuses at random is merely unhelpful. Note the distinction we hold to: a statement that a compound falls outside the system&rsquo;s applicable range is a description of scope, not a calibrated probability that an answer is correct.</span>
-                </li>
-                <li><b>Reports that reproduce.</b> A saved analysis carries its inputs, its settings, and the versions of every model and evidence source behind it, so it can be re-run, cited, shared, and challenged.
-                  <span class="detail">Reproducible execution is not the same as scientific correctness &mdash; it means a result can be examined rather than merely trusted, which is the precondition for anyone challenging it.</span>
-                </li>
-              </ul>
-              <p class="delivered"><b>Delivered as</b>An evidence-acquisition pipeline with published accuracy, a public evaluation page, a model card, and reproducible citable reports.</p>
-            </article>
-
-            <article class="phase">
-              <div class="phase-head">
-                <span class="phase-q">Q3</span>
-                <h3>NeuroLab in your pipeline</h3>
-              </div>
-              <p class="phase-hook">Discovery work is already in motion. NeuroLab should slot into it, not interrupt it.</p>
-              <p class="today">
-                <b>Today</b>
-                NeuroLab analyses one small molecule at a time, submitted as a chemical structure. The
-                API exists and is richly featured, but it is not publicly documented or
-                version-guaranteed, and there is no free way to try the system.
-              </p>
-              <ul>
-                <li><b>Models trained on the deepened evidence base,</b> with the before-and-after published.
-                  <span class="detail">If the gain is smaller than expected, that is published too &mdash; a stronger evidence base that does not move the numbers is itself an important finding about where the real limits sit, and it is the kind of result that usually goes unreported.</span>
-                </li>
-                <li><b>Novel structures.</b> Analysis of compounds not yet in the knowledge base, working from chemical structure &mdash; with candidate targets and the experiments that would distinguish between them.</li>
-                <li><b>Beyond small molecules: peptides.</b> Chemical fingerprints describe a small molecule well and a peptide poorly, so peptide drugs are currently under-served by the structure route. This phase adds a sequence-aware path for peptides and related biologics.
-                  <span class="detail">Two things keep this honest. Coverage is not the same as prediction: a peptide can be represented, carry its documented effects and evidence, and still have no target we are willing to name. And that is frequently the correct answer rather than a gap &mdash; a large share of the peptides we have curated do not act through a single characterised receptor. A system that invents a plausible receptor for every peptide would score better on coverage and be worse at science.</span>
-                </li>
-                <li><b>Reasoning that keeps its alternatives.</b> When the evidence supports more than one mechanism, NeuroLab preserves the competing branches and names the experiment that would separate them, instead of collapsing to a single confident answer.
-                  <span class="detail">For a researcher deciding which experiment to run next, the branch point is the useful output, and collapsing it destroys the information.</span>
-                </li>
-                <li><b>Whole compound sets, side by side.</b> Where they agree, where they diverge, and which differences the evidence actually supports.</li>
-                <li><b>A free exploration tier.</b> Anyone can inspect the brain map and the knowledge graph.</li>
-                <li><b>A documented, versioned API,</b> so NeuroLab can be called as a deterministic step inside pipelines that are already running &mdash; including by AI agents that need a citable answer rather than a generated one.
-                  <span class="detail">A cold start takes roughly nine seconds. Warm responses range from well under a second to a few seconds depending on the analysis requested. Holding a warm-path budget as the system grows richer is part of this phase.</span>
-                </li>
-              </ul>
-              <p class="delivered"><b>Delivered as</b>Retrained models with published evaluation, a sequence-aware path for peptides, comparison across compound sets, public API documentation, and a free tier anyone can use.</p>
-            </article>
-
-            <article class="phase">
-              <div class="phase-head">
-                <span class="phase-q">Q4</span>
-                <h3>Mechanism, proven</h3>
-              </div>
-              <p class="phase-hook">Depth we can defend, tested by people who are not us.</p>
-              <p class="today">
-                <b>Today</b>
-                Mechanistic paths are composed across a whole-brain map, and outputs carry uncertainty
-                and abstention. What has not happened yet is publishing a brain system together with
-                its full adversarial test record, or putting predictions in front of an external group.
-              </p>
-              <ul>
-                <li><b>Validated mechanism modules.</b> A focused set of brain systems tested exhaustively &mdash; including against deliberately wrong inputs &mdash; and published with their failures alongside their successes.
-                  <span class="detail">Wrong compound, wrong dose, wrong species, wrong task &mdash; to confirm the system fails when it should. Each module passes its own gate before it is reused. Validating one does not validate the others, and we say so plainly.</span>
-                </li>
-                <li><b>Anatomy with resolution.</b> Cell types, cortical layers, and directed pathways between regions, so a hypothesis can say where, and in which population, an effect is proposed to occur.
-                  <span class="detail">Directed anatomy also works as a filter rather than only a ranking: a route that no known pathway supports can be excluded outright, which is often more valuable than another plausible-looking suggestion.</span>
-                </li>
-                <li><b>Persistent research workspaces.</b> Repeated analyses accumulate into a queryable body of work instead of disappearing after each session.</li>
-                <li><b>Independent validation, on a published standard.</b> We publish the protocol &mdash; predefined endpoints, comparators, and a commitment to report results that do not support our predictions &mdash; and begin external studies against it.
-                  <span class="detail">This depends on external partners and on studies that take time, so we separate what we control from what we do not. External results complete when the science completes, and we will not describe them as finished before they are.</span>
-                </li>
-              </ul>
-              <p class="delivered"><b>Delivered as</b>Validated mechanism modules, an expanded anatomical layer, research workspaces, a public validation protocol, and external studies underway.</p>
-            </article>
-
-          </div>
-        </section>
-
-        <section class="rm-section" aria-labelledby="dir-h">
-          <p class="eyebrow">Beyond the plan</p>
-          <h2 id="dir-h">Where the research is heading</h2>
-          <div class="directions">
-            <p class="fence">
-              <b>These are directions, not commitments.</b> They are separated from the four phases
-              above on purpose: each depends on a scientific method that is still open, and we will not
-              attach a date to work whose approach is not yet settled. They are listed because they
-              explain where the platform is pointed.
-            </p>
-            <div class="direction">
-              <h4>Reading the brain backwards</h4>
-              <p>Today NeuroLab reasons forward &mdash; from a molecule to the effects it is likely to produce. The inverse problem is harder and considerably more valuable: given an observed brain signature, which mechanisms could have produced it, which of them are genuinely indistinguishable on the current evidence, and what experiment would separate them?</p>
-            </div>
-            <div class="direction">
-              <h4>From molecule to distributed network</h4>
-              <p>Carrying a molecular action all the way outward across the whole-brain map &mdash; through the cell populations expressing the target, the circuits they sit in, and the directed pathways connecting them &mdash; to the distributed networks the compound is likely to reach, with the route shown rather than asserted.</p>
-            </div>
-            <div class="direction">
-              <h4>Measurements as lenses, not truths</h4>
-              <p>PET, EEG, fMRI, electrophysiology and behaviour do not measure the same underlying thing, and treating them as interchangeable signals is one of the quieter ways computational neuroscience goes wrong. The direction here is an explicit model of what each method actually observes.</p>
-            </div>
-            <div class="direction">
-              <h4>Denser mechanistic coverage</h4>
-              <p>Extending validated mechanistic depth across the major neuromodulatory and cognitive systems &mdash; cholinergic, noradrenergic, serotonergic, dopaminergic, thalamocortical and beyond &mdash; one validated system at a time rather than by asserting whole-brain coverage.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="rm-section" aria-labelledby="lines-h">
-          <p class="eyebrow">Standards</p>
-          <h2 id="lines-h">The lines we don&rsquo;t cross</h2>
-          <div class="lines">
-            <p>Stated up front, because in this field the omissions are where the overclaiming happens.</p>
-            <ol>
-              <li>Binding to a target is not the same as producing a brain effect, and we never present it as such.</li>
-              <li>A visualized brain map is a hypothesis about where an effect may occur, not a measurement of that compound&rsquo;s effect.</li>
-              <li>Our reasoning layer composes mechanistic pathways. It is not a validated simulation of causation.</li>
-              <li>Development results are not independent validation, and we label them accordingly.</li>
-              <li>We do not describe prospective validation as existing until the studies are complete.</li>
-            </ol>
-          </div>
-        </section>
-
-        <footer class="rm-footer">
-          <span>// NeuroLab &mdash; Public Roadmap v0.2 &mdash; draft for review</span>
-          <span><a href="https://neurolab-ai.github.io/whitepaper/">Read the whitepaper &nearr;</a></span>
-        </footer>
-
-      </div>
+      <footer class="page-shell site-footer">
+        <span><span class="comment-mark">//</span> NeuroLab Public Roadmap · Draft for Review</span>
+        <a href="https://neurolab-ai.github.io/whitepaper/">Read the Whitepaper ↗</a>
+      </footer>
     </main>
 
-    <script>
-      (function () {
-        var body = document.body;
-        var btnShort = document.getElementById("btn-short");
-        var btnDetailed = document.getElementById("btn-detailed");
+    <dialog class="initiative-dialog" id="initiative-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-shell">
+        <button class="dialog-close" id="dialog-close" type="button" aria-label="Close initiative details">×</button>
+        <div class="dialog-meta">
+          <span class="dialog-category" id="dialog-category"></span>
+          <span aria-hidden="true">·</span>
+          <span class="dialog-id" id="dialog-id"></span>
+        </div>
+        <h2 id="dialog-title"></h2>
+        <p class="dialog-outcome" id="dialog-outcome"></p>
+        <div class="dialog-signals" id="dialog-signals"></div>
+        <dl class="dialog-details" id="dialog-details"></dl>
+      </div>
+    </dialog>
 
-        function setView(view) {
-          body.setAttribute("data-view", view);
-          var detailed = view === "detailed";
-          btnShort.setAttribute("aria-pressed", String(!detailed));
-          btnDetailed.setAttribute("aria-pressed", String(detailed));
-          try { localStorage.setItem("neurolab-roadmap-view", view); } catch (e) {}
-        }
-
-        btnShort.addEventListener("click", function () { setView("short"); });
-        btnDetailed.addEventListener("click", function () { setView("detailed"); });
-
-        try {
-          if (localStorage.getItem("neurolab-roadmap-view") === "detailed") setView("detailed");
-        } catch (e) {}
-      })();
-    </script>
+    <script src="./app.js" defer></script>
   </body>
 </html>
