@@ -21,7 +21,8 @@ approved application screenshots independently of the interaction code. Each ent
 hero caption and a more detailed fullscreen description. Selecting the active preview
 opens an individual near-fullscreen viewer with previous/next navigation, outside-click dismissal,
 and focus return. Desktop pointer movement adds restrained depth and directional lighting, with flat
-mobile and reduced-motion fallbacks.
+mobile and reduced-motion fallbacks. In the hero, each screenshot index is grouped with its active
+title while navigation controls remain visually attached to the carousel itself.
 
 Each initiative keeps its technical registry ID visible as a stable reference, but the public title
 and category lead the visual hierarchy. Selecting an initiative opens an accessible detail dialog

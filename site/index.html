@@ -59,25 +59,27 @@
           <section class="product-showcase" aria-labelledby="product-showcase-title">
             <div class="showcase-shell">
               <div class="showcase-toolbar">
-                <span class="showcase-index" id="showcase-counter" aria-label="Preview 1 of 3">01</span>
+                <span class="showcase-toolbar-spacer" aria-hidden="true"></span>
                 <p id="product-showcase-title"><span aria-hidden="true">//</span> Current Development Build</p>
                 <button class="showcase-expand" id="showcase-expand" type="button" aria-label="Expand current product preview">
                   <span class="expand-corners" aria-hidden="true"></span>
                 </button>
               </div>
+              <div class="showcase-slide-header">
+                <span class="showcase-index" id="showcase-counter" aria-label="Preview 1 of 3">01</span>
+                <p id="showcase-title"><span class="comment-mark">//</span> inference_stream</p>
+                <span class="showcase-slide-spacer" aria-hidden="true"></span>
+              </div>
               <div class="showcase-viewport">
+                <button class="showcase-arrow" id="showcase-prev" type="button" aria-label="Show previous product preview">←</button>
                 <div class="showcase-stage" id="product-showcase-stage" tabindex="0" aria-label="NeuroLab product previews"></div>
+                <button class="showcase-arrow" id="showcase-next" type="button" aria-label="Show next product preview">→</button>
               </div>
               <div class="showcase-pagination">
                 <div class="showcase-dots" id="showcase-dots" aria-label="Choose product preview"></div>
               </div>
-              <div class="showcase-footer">
-                <button class="showcase-arrow" id="showcase-prev" type="button" aria-label="Show previous product preview">←</button>
-                <div class="showcase-copy">
-                  <p id="showcase-title"><span class="comment-mark">//</span> inference_stream</p>
-                  <p id="showcase-caption">Graph-assisted inference streams into structured evidence bundles and report outputs.</p>
-                </div>
-                <button class="showcase-arrow" id="showcase-next" type="button" aria-label="Show next product preview">→</button>
+              <div class="showcase-caption-row">
+                <p id="showcase-caption">Graph-assisted inference streams into structured evidence bundles and report outputs.</p>
               </div>
             </div>
             <p class="showcase-error" id="showcase-error" role="alert" hidden>
