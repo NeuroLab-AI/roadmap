@@ -116,6 +116,15 @@
     return String(index + 1).padStart(2, "0") + " / " + String(productPreviews.length).padStart(2, "0");
   }
 
+  function renderPreviewTitle(container, title) {
+    var match = String(title).match(/^\/\/\s*(.*)$/);
+    if (!match) {
+      container.textContent = title;
+      return;
+    }
+    container.replaceChildren(element("span", "comment-mark", "//"), document.createTextNode(" " + match[1]));
+  }
+
   function previewArtwork(preview, index, expanded) {
     var frame = element("div", "preview-media-frame" + (expanded ? " is-expanded" : ""));
     if (preview.image) {
@@ -125,6 +134,9 @@
       image.loading = index === activePreviewIndex ? "eager" : "lazy";
       image.decoding = "async";
       frame.appendChild(image);
+      var imageIndex = element("span", "preview-image-index", String(index + 1).padStart(2, "0"));
+      imageIndex.setAttribute("aria-hidden", "true");
+      frame.appendChild(imageIndex);
       return frame;
     }
 
@@ -163,7 +175,7 @@
     if (!productPreviews.length) return;
     var preview = productPreviews[activePreviewIndex];
     previewDialogMedia.replaceChildren(previewArtwork(preview, activePreviewIndex, true));
-    previewDialogTitle.textContent = preview.title;
+    renderPreviewTitle(previewDialogTitle, preview.title);
     previewDialogCaption.textContent = preview.caption;
     previewDialogCounter.textContent = previewCounter(activePreviewIndex);
   }
@@ -211,7 +223,7 @@
     });
 
     showcaseCounter.textContent = previewCounter(activePreviewIndex);
-    showcaseTitle.textContent = activePreview.title;
+    renderPreviewTitle(showcaseTitle, activePreview.title);
     showcaseCaption.textContent = activePreview.caption;
     showcaseExpand.setAttribute("aria-label", "Expand " + activePreview.title);
     if (previewDialog.open) updatePreviewDialog();
@@ -593,6 +605,26 @@
     if (event.pointerType === "mouse") return;
     previewPointerStart = event.clientX;
   });
+
+  function resetShowcaseParallax() {
+    showcaseStage.style.setProperty("--tilt-x", "0deg");
+    showcaseStage.style.setProperty("--tilt-y", "0deg");
+    showcaseStage.style.setProperty("--glare-x", "50%");
+    showcaseStage.style.setProperty("--glare-y", "34%");
+  }
+
+  showcaseStage.addEventListener("pointermove", function (event) {
+    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var bounds = showcaseStage.getBoundingClientRect();
+    var horizontal = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+    var vertical = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
+    showcaseStage.style.setProperty("--tilt-x", ((0.5 - vertical) * 5).toFixed(2) + "deg");
+    showcaseStage.style.setProperty("--tilt-y", ((horizontal - 0.5) * 5).toFixed(2) + "deg");
+    showcaseStage.style.setProperty("--glare-x", (22 + horizontal * 56).toFixed(1) + "%");
+    showcaseStage.style.setProperty("--glare-y", (18 + vertical * 48).toFixed(1) + "%");
+  });
+
+  showcaseStage.addEventListener("pointerleave", resetShowcaseParallax);
 
   showcaseStage.addEventListener("pointerup", function (event) {
     if (previewPointerStart === null || event.pointerType === "mouse") return;
