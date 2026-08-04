@@ -5,7 +5,6 @@
   var previewDataUrl = "./data/app-previews.json";
   var showcaseStage = document.getElementById("product-showcase-stage");
   var showcaseCounter = document.getElementById("showcase-counter");
-  var showcaseTitle = document.getElementById("showcase-title");
   var showcaseCaption = document.getElementById("showcase-caption");
   var showcaseDots = document.getElementById("showcase-dots");
   var showcaseStatus = document.getElementById("showcase-status");
@@ -104,6 +103,7 @@
       if (ids.has(preview.id)) throw new Error("Duplicate preview id");
       ids.add(preview.id);
       if (typeof preview.title !== "string" || !preview.title.trim()) throw new Error("Invalid preview title");
+      if (typeof preview.featureLabel !== "string" || !preview.featureLabel.trim()) throw new Error("Invalid preview feature label");
       if (typeof preview.previewCaption !== "string" || !preview.previewCaption.trim()) throw new Error("Invalid preview caption summary");
       if (typeof preview.caption !== "string" || !preview.caption.trim()) throw new Error("Invalid preview caption");
       if (preview.image !== null && (typeof preview.image !== "string" || !preview.image.trim())) {
@@ -119,15 +119,6 @@
 
   function previewPositionLabel(index) {
     return "Preview " + (index + 1) + " of " + productPreviews.length;
-  }
-
-  function renderPreviewTitle(container, title) {
-    var match = String(title).match(/^\/\/\s*(.*)$/);
-    if (!match) {
-      container.textContent = title;
-      return;
-    }
-    container.replaceChildren(element("span", "comment-mark", "//"), document.createTextNode(" " + match[1]));
   }
 
   function previewArtwork(preview, index, expanded) {
@@ -156,7 +147,7 @@
     label.appendChild(element("span", "comment-mark", "//"));
     label.appendChild(document.createTextNode(" Screenshot Asset Pending"));
     artwork.appendChild(label);
-    artwork.appendChild(element("span", "preview-placeholder-title", preview.title));
+    artwork.appendChild(element("span", "preview-placeholder-title", preview.featureLabel));
     frame.appendChild(artwork);
     return frame;
   }
@@ -176,7 +167,7 @@
     if (!productPreviews.length) return;
     var preview = productPreviews[activePreviewIndex];
     previewDialogMedia.replaceChildren(previewArtwork(preview, activePreviewIndex, true));
-    renderPreviewTitle(previewDialogTitle, preview.title);
+    previewDialogTitle.textContent = preview.featureLabel;
     previewDialogCaption.textContent = preview.caption;
     previewDialogCounter.textContent = previewIndex(activePreviewIndex);
     previewDialogCounter.setAttribute("aria-label", previewPositionLabel(activePreviewIndex));
@@ -203,7 +194,7 @@
       card.type = "button";
       card.dataset.position = position;
       card.dataset.previewId = preview.id;
-      card.setAttribute("aria-label", (position === "active" ? "Expand " : "Show ") + preview.title);
+      card.setAttribute("aria-label", (position === "active" ? "Expand " : "Show ") + preview.featureLabel);
       card.setAttribute("aria-current", position === "active" ? "true" : "false");
       if (position.indexOf("far-") === 0) {
         card.tabIndex = -1;
@@ -218,7 +209,7 @@
 
       var dot = element("button", "showcase-dot");
       dot.type = "button";
-      dot.setAttribute("aria-label", "Show " + preview.title);
+      dot.setAttribute("aria-label", "Show " + preview.featureLabel);
       dot.setAttribute("aria-pressed", index === activePreviewIndex ? "true" : "false");
       dot.addEventListener("click", function () { setActivePreview(index, true); });
       showcaseDots.appendChild(dot);
@@ -226,11 +217,10 @@
 
     showcaseCounter.textContent = previewIndex(activePreviewIndex);
     showcaseCounter.setAttribute("aria-label", previewPositionLabel(activePreviewIndex));
-    renderPreviewTitle(showcaseTitle, activePreview.title);
     showcaseCaption.textContent = activePreview.previewCaption;
-    showcaseExpand.setAttribute("aria-label", "Expand " + activePreview.title);
+    showcaseExpand.setAttribute("aria-label", "Expand " + activePreview.featureLabel);
     if (previewDialog.open) updatePreviewDialog();
-    if (announce) showcaseStatus.textContent = activePreview.title + ", preview " + (activePreviewIndex + 1) + " of " + productPreviews.length + ".";
+    if (announce) showcaseStatus.textContent = activePreview.featureLabel + ", preview " + (activePreviewIndex + 1) + " of " + productPreviews.length + ".";
   }
 
   function setActivePreview(index, announce) {

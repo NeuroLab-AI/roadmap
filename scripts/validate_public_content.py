@@ -69,7 +69,7 @@ INITIATIVE_KEYS = {
     "horizon",
     "details",
 }
-PREVIEW_KEYS = {"id", "title", "previewCaption", "caption", "image", "alt"}
+PREVIEW_KEYS = {"id", "title", "featureLabel", "previewCaption", "caption", "image", "alt"}
 DETAIL_KEYS = {
     "currentFoundation",
     "primaryUserValue",
@@ -193,6 +193,7 @@ def validate_preview_data(data: dict[str, Any]) -> None:
         if preview_id in preview_ids:
             raise ValueError(f"Duplicate product preview ID: {preview_id}")
         require_text(preview["title"], f"product preview {preview_id} title")
+        require_text(preview["featureLabel"], f"product preview {preview_id} feature label")
         require_text(preview["previewCaption"], f"product preview {preview_id} caption summary")
         require_text(preview["caption"], f"product preview {preview_id} caption")
         require_text(preview["image"], f"product preview {preview_id} image", nullable=True)

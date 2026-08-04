@@ -4,6 +4,7 @@
     {
       "id": "inference-stream",
       "title": "// inference_stream",
+      "featureLabel": "Evidence-Backed Inference",
       "previewCaption": "Graph-assisted inference streams into structured evidence bundles and report outputs.",
       "caption": "Follow NeuroLab's evidence-backed inference process as it assembles mechanisms, knowledge support, and structured report outputs in real time.",
       "image": "./assets/app-inference-stream.png",
@@ -12,6 +13,7 @@
     {
       "id": "brain-explorer",
       "title": "// brain_explorer",
+      "featureLabel": "Mechanistic Brain Visualization",
       "previewCaption": "Interactive brain visualization across regions, circuits, and tract systems.",
       "caption": "Explore mechanistic localization across cortical, subcortical, cerebellar, nuclear, and tract-level views with interactive visualization controls.",
       "image": "./assets/app-brain-explorer.png",
@@ -20,6 +22,7 @@
     {
       "id": "interactive-output-vectors",
       "title": "// interactive_output_vectors",
+      "featureLabel": "Interactive Output Vectors",
       "previewCaption": "Expandable output vectors with structured signals and reusable payloads.",
       "caption": "Inspect structured output vectors, expand nested brain-region signals, and carry selected payloads into downstream analysis.",
       "image": "./assets/app-interactive-output-vectors.png",
