@@ -15,6 +15,12 @@ content, and combine keyword search with one or more technical-domain filters. T
 controls remain available while the roadmap is in view without competing with the introductory
 sections.
 
+The landing hero also includes a keyboard- and touch-accessible product showcase. Its perspective
+gallery is deliberately driven by `site/data/app-previews.json`, so approved application screenshots
+can replace the temporary abstract preview panels without changing the interaction code. Selecting
+the active preview opens an individual near-fullscreen viewer with previous/next navigation,
+outside-click dismissal, and focus return.
+
 Each initiative keeps its technical registry ID visible as a stable reference, but the public title
 and category lead the visual hierarchy. Selecting an initiative opens an accessible detail dialog
 with its outcome, maturity, confidence, calendar target, validation gate, dependencies, and claim
@@ -65,6 +71,7 @@ scripts/
   validate_public_content.py
 site/
   app.js
+  data/app-previews.json
   data/public-roadmap.json
   index.html
   styles.css

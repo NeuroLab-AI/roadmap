@@ -2,6 +2,25 @@
   "use strict";
 
   var dataUrl = "./data/public-roadmap.json";
+  var previewDataUrl = "./data/app-previews.json";
+  var showcaseStage = document.getElementById("product-showcase-stage");
+  var showcaseCounter = document.getElementById("showcase-counter");
+  var showcaseTitle = document.getElementById("showcase-title");
+  var showcaseCaption = document.getElementById("showcase-caption");
+  var showcaseDots = document.getElementById("showcase-dots");
+  var showcaseStatus = document.getElementById("showcase-status");
+  var showcaseError = document.getElementById("showcase-error");
+  var showcaseExpand = document.getElementById("showcase-expand");
+  var showcasePrevious = document.getElementById("showcase-prev");
+  var showcaseNext = document.getElementById("showcase-next");
+  var previewDialog = document.getElementById("preview-dialog");
+  var previewDialogMedia = document.getElementById("preview-dialog-media");
+  var previewDialogTitle = document.getElementById("preview-dialog-title");
+  var previewDialogCaption = document.getElementById("preview-dialog-caption");
+  var previewDialogCounter = document.getElementById("preview-dialog-counter");
+  var previewDialogClose = document.getElementById("preview-dialog-close");
+  var previewDialogPrevious = document.getElementById("preview-dialog-prev");
+  var previewDialogNext = document.getElementById("preview-dialog-next");
   var timeline = document.getElementById("timeline");
   var roadmapTable = document.getElementById("roadmap-table");
   var roadmapTableBody = document.getElementById("roadmap-table-body");
@@ -32,6 +51,10 @@
   var currentView = "timeline";
   var totalInitiatives = 0;
   var visibleInitiatives = 0;
+  var productPreviews = [];
+  var activePreviewIndex = 0;
+  var previewLastTrigger = null;
+  var previewPointerStart = null;
 
   var detailLabels = {
     currentFoundation: "Current technical substrate",
@@ -68,6 +91,141 @@
     if (className) node.className = className;
     if (text !== undefined) node.textContent = text;
     return node;
+  }
+
+  function validatePreviewData(data) {
+    if (!data || data.schemaVersion !== "1.0.0" || !Array.isArray(data.previews)) {
+      throw new Error("Unsupported preview data");
+    }
+    if (!data.previews.length || data.previews.length > 5) throw new Error("Invalid preview count");
+    var ids = new Set();
+    data.previews.forEach(function (preview) {
+      if (!preview || typeof preview.id !== "string" || !preview.id.trim()) throw new Error("Invalid preview id");
+      if (ids.has(preview.id)) throw new Error("Duplicate preview id");
+      ids.add(preview.id);
+      if (typeof preview.title !== "string" || !preview.title.trim()) throw new Error("Invalid preview title");
+      if (typeof preview.caption !== "string" || !preview.caption.trim()) throw new Error("Invalid preview caption");
+      if (preview.image !== null && (typeof preview.image !== "string" || !preview.image.trim())) {
+        throw new Error("Invalid preview image");
+      }
+      if (preview.image && (typeof preview.alt !== "string" || !preview.alt.trim())) throw new Error("Missing preview alt text");
+    });
+  }
+
+  function previewCounter(index) {
+    return String(index + 1).padStart(2, "0") + " / " + String(productPreviews.length).padStart(2, "0");
+  }
+
+  function previewArtwork(preview, index, expanded) {
+    var frame = element("div", "preview-media-frame" + (expanded ? " is-expanded" : ""));
+    if (preview.image) {
+      var image = document.createElement("img");
+      image.src = preview.image;
+      image.alt = preview.alt;
+      image.loading = index === activePreviewIndex ? "eager" : "lazy";
+      image.decoding = "async";
+      frame.appendChild(image);
+      return frame;
+    }
+
+    var artwork = element("div", "preview-placeholder");
+    artwork.dataset.variant = String((index % 3) + 1);
+    artwork.appendChild(element("span", "preview-placeholder-index", String(index + 1).padStart(2, "0")));
+    var motif = element("span", "preview-placeholder-motif");
+    motif.appendChild(element("span", "preview-placeholder-core"));
+    motif.appendChild(element("span", "preview-placeholder-orbit preview-placeholder-orbit-one"));
+    motif.appendChild(element("span", "preview-placeholder-orbit preview-placeholder-orbit-two"));
+    motif.appendChild(element("span", "preview-placeholder-node preview-placeholder-node-one"));
+    motif.appendChild(element("span", "preview-placeholder-node preview-placeholder-node-two"));
+    motif.appendChild(element("span", "preview-placeholder-node preview-placeholder-node-three"));
+    artwork.appendChild(motif);
+    var label = element("span", "preview-placeholder-label");
+    label.appendChild(element("span", "comment-mark", "//"));
+    label.appendChild(document.createTextNode(" Screenshot Asset Pending"));
+    artwork.appendChild(label);
+    artwork.appendChild(element("span", "preview-placeholder-title", preview.title));
+    frame.appendChild(artwork);
+    return frame;
+  }
+
+  function relativePreviewPosition(index) {
+    var delta = index - activePreviewIndex;
+    var count = productPreviews.length;
+    if (delta > count / 2) delta -= count;
+    if (delta < -count / 2) delta += count;
+    if (delta === 0) return "active";
+    if (delta === -1) return "previous";
+    if (delta === 1) return "next";
+    return delta < 0 ? "far-previous" : "far-next";
+  }
+
+  function updatePreviewDialog() {
+    if (!productPreviews.length) return;
+    var preview = productPreviews[activePreviewIndex];
+    previewDialogMedia.replaceChildren(previewArtwork(preview, activePreviewIndex, true));
+    previewDialogTitle.textContent = preview.title;
+    previewDialogCaption.textContent = preview.caption;
+    previewDialogCounter.textContent = previewCounter(activePreviewIndex);
+  }
+
+  function openPreviewDialog(trigger) {
+    if (!productPreviews.length) return;
+    previewLastTrigger = trigger || document.activeElement;
+    updatePreviewDialog();
+    document.body.classList.add("modal-open");
+    previewDialog.showModal();
+    previewDialogClose.focus();
+  }
+
+  function renderProductShowcase(announce) {
+    if (!productPreviews.length) return;
+    var activePreview = productPreviews[activePreviewIndex];
+    showcaseStage.replaceChildren();
+    showcaseDots.replaceChildren();
+
+    productPreviews.forEach(function (preview, index) {
+      var position = relativePreviewPosition(index);
+      var card = element("button", "preview-card");
+      card.type = "button";
+      card.dataset.position = position;
+      card.dataset.previewId = preview.id;
+      card.setAttribute("aria-label", (position === "active" ? "Expand " : "Show ") + preview.title);
+      card.setAttribute("aria-current", position === "active" ? "true" : "false");
+      if (position.indexOf("far-") === 0) {
+        card.tabIndex = -1;
+        card.setAttribute("aria-hidden", "true");
+      }
+      card.appendChild(previewArtwork(preview, index, false));
+      card.addEventListener("click", function () {
+        if (index === activePreviewIndex) openPreviewDialog(card);
+        else setActivePreview(index, true);
+      });
+      showcaseStage.appendChild(card);
+
+      var dot = element("button", "showcase-dot");
+      dot.type = "button";
+      dot.setAttribute("aria-label", "Show " + preview.title);
+      dot.setAttribute("aria-pressed", index === activePreviewIndex ? "true" : "false");
+      dot.addEventListener("click", function () { setActivePreview(index, true); });
+      showcaseDots.appendChild(dot);
+    });
+
+    showcaseCounter.textContent = previewCounter(activePreviewIndex);
+    showcaseTitle.textContent = activePreview.title;
+    showcaseCaption.textContent = activePreview.caption;
+    showcaseExpand.setAttribute("aria-label", "Expand " + activePreview.title);
+    if (previewDialog.open) updatePreviewDialog();
+    if (announce) showcaseStatus.textContent = activePreview.title + ", preview " + (activePreviewIndex + 1) + " of " + productPreviews.length + ".";
+  }
+
+  function setActivePreview(index, announce) {
+    if (!productPreviews.length) return;
+    activePreviewIndex = (index + productPreviews.length) % productPreviews.length;
+    renderProductShowcase(announce);
+  }
+
+  function stepPreview(direction, announce) {
+    setActivePreview(activePreviewIndex + direction, announce);
   }
 
   function expandIcon(extraClass) {
@@ -407,6 +565,64 @@
     if (lastTrigger) lastTrigger.focus();
   });
 
+  function closePreviewDialog() {
+    if (previewDialog.open) previewDialog.close();
+  }
+
+  showcasePrevious.addEventListener("click", function () { stepPreview(-1, true); });
+  showcaseNext.addEventListener("click", function () { stepPreview(1, true); });
+  showcaseExpand.addEventListener("click", function () { openPreviewDialog(showcaseExpand); });
+
+  showcaseStage.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      stepPreview(-1, true);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      stepPreview(1, true);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setActivePreview(0, true);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setActivePreview(productPreviews.length - 1, true);
+    }
+  });
+
+  showcaseStage.addEventListener("pointerdown", function (event) {
+    if (event.pointerType === "mouse") return;
+    previewPointerStart = event.clientX;
+  });
+
+  showcaseStage.addEventListener("pointerup", function (event) {
+    if (previewPointerStart === null || event.pointerType === "mouse") return;
+    var delta = event.clientX - previewPointerStart;
+    previewPointerStart = null;
+    if (Math.abs(delta) < 42) return;
+    stepPreview(delta > 0 ? -1 : 1, true);
+  });
+
+  showcaseStage.addEventListener("pointercancel", function () { previewPointerStart = null; });
+  previewDialogClose.addEventListener("click", closePreviewDialog);
+  previewDialogPrevious.addEventListener("click", function () { stepPreview(-1, true); });
+  previewDialogNext.addEventListener("click", function () { stepPreview(1, true); });
+  previewDialog.addEventListener("click", function (event) {
+    if (event.target === previewDialog) closePreviewDialog();
+  });
+  previewDialog.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      stepPreview(-1, true);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      stepPreview(1, true);
+    }
+  });
+  previewDialog.addEventListener("close", function () {
+    document.body.classList.remove("modal-open");
+    if (previewLastTrigger) previewLastTrigger.focus();
+  });
+
   viewOptions.forEach(function (button) {
     button.addEventListener("click", function () { setView(button.dataset.view); });
   });
@@ -431,6 +647,21 @@
     applyFilters();
     initiativeSearch.focus();
   });
+
+  fetch(previewDataUrl, { cache: "no-store" })
+    .then(function (response) { if (!response.ok) throw new Error("Preview request failed"); return response.json(); })
+    .then(function (data) {
+      validatePreviewData(data);
+      productPreviews = data.previews;
+      renderProductShowcase(false);
+    })
+    .catch(function () {
+      showcaseError.hidden = false;
+      showcaseStage.setAttribute("aria-disabled", "true");
+      showcaseExpand.disabled = true;
+      showcasePrevious.disabled = true;
+      showcaseNext.disabled = true;
+    });
 
   fetch(dataUrl, { cache: "no-store" })
     .then(function (response) { if (!response.ok) throw new Error("Roadmap request failed"); return response.json(); })

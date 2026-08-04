@@ -23,7 +23,7 @@
     <div class="ambient ambient-one" aria-hidden="true"></div>
     <div class="ambient ambient-two" aria-hidden="true"></div>
 
-    <header class="site-header">
+    <header class="site-header" aria-label="NeuroLab publication header">
       <a class="wordmark" href="https://neurolab-ai.github.io/" aria-label="NeuroLab home">
         <img src="./assets/neurolab-wordmark.png" alt="NeuroLab">
       </a>
@@ -33,24 +33,61 @@
 
     <main>
       <section class="hero page-shell" aria-labelledby="page-title">
-        <div class="status-pill" aria-label="Publication status">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span>Draft for Review</span>
-          <span class="comment-mark" aria-hidden="true">//</span>
-          <span id="publication-version">Version 0.5</span>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="status-pill" aria-label="Publication status">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span>Draft for Review</span>
+              <span class="comment-mark" aria-hidden="true">//</span>
+              <span id="publication-version">Version 0.5</span>
+            </div>
+            <p class="hero-kicker">Calendar Targets for Technical Delivery</p>
+            <h1 id="page-title"><span>NeuroLab:</span> <em>The Roadmap</em></h1>
+            <p class="hero-lead">
+              Explore the working NeuroLab platform and the technical systems extending it. Select any
+              initiative to inspect its scope, dependencies, validation gate, and claim boundary.
+            </p>
+            <div class="hero-stats" aria-label="Roadmap summary">
+              <div><span id="initiative-count">19</span><small>Initiatives</small></div>
+              <div><span id="category-count">7</span><small>Categories</small></div>
+              <div><span id="target-window-count">5</span><small>Target Windows</small></div>
+            </div>
+            <div class="hero-cta-zone">
+              <p><span aria-hidden="true">//</span> Inspect the delivery sequence</p>
+              <a class="primary-action" href="#roadmap">Explore the Roadmap <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+
+          <section class="product-showcase" aria-labelledby="product-showcase-title">
+            <div class="showcase-shell">
+              <div class="showcase-toolbar">
+                <p id="product-showcase-title"><span aria-hidden="true">//</span> Current Development Build</p>
+                <div class="showcase-toolbar-actions">
+                  <span id="showcase-counter">01 / 03</span>
+                  <button class="showcase-expand" id="showcase-expand" type="button" aria-label="Expand current product preview">
+                    <span class="expand-corners" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="showcase-viewport">
+                <div class="showcase-stage" id="product-showcase-stage" tabindex="0" aria-label="NeuroLab product previews"></div>
+              </div>
+              <div class="showcase-footer">
+                <button class="showcase-arrow" id="showcase-prev" type="button" aria-label="Show previous product preview">←</button>
+                <div class="showcase-copy">
+                  <p id="showcase-title">Product Preview 01</p>
+                  <p id="showcase-caption">A current NeuroLab application screenshot will be added in the next publication pass.</p>
+                </div>
+                <div class="showcase-dots" id="showcase-dots" aria-label="Choose product preview"></div>
+                <button class="showcase-arrow" id="showcase-next" type="button" aria-label="Show next product preview">→</button>
+              </div>
+            </div>
+            <p class="showcase-error" id="showcase-error" role="alert" hidden>
+              Product previews are temporarily unavailable.
+            </p>
+            <p class="sr-only" id="showcase-status" aria-live="polite"></p>
+          </section>
         </div>
-        <p class="hero-kicker">Calendar Targets for Technical Delivery</p>
-        <h1 id="page-title">NeuroLab <em>Roadmap</em></h1>
-        <p class="hero-lead">
-          Explore the evidence, product, modeling, and validation systems we are building. Select any
-          initiative to inspect its foundation, dependencies, validation gate, and claim boundary.
-        </p>
-        <div class="hero-stats" aria-label="Roadmap summary">
-          <div><span id="initiative-count">19</span><small>Initiatives</small></div>
-          <div><span id="category-count">7</span><small>Categories</small></div>
-          <div><span id="target-window-count">5</span><small>Target Windows</small></div>
-        </div>
-        <a class="primary-action" href="#roadmap">Explore the Roadmap <span aria-hidden="true">↓</span></a>
       </section>
 
       <section class="legend-section page-shell" aria-labelledby="legend-title">
@@ -159,6 +196,27 @@
         <a href="https://neurolab-ai.github.io/whitepaper/">Read the Whitepaper ↗</a>
       </footer>
     </main>
+
+    <dialog class="preview-dialog" id="preview-dialog" aria-labelledby="preview-dialog-title">
+      <div class="preview-dialog-shell">
+        <header class="preview-dialog-header">
+          <p><span aria-hidden="true">//</span> Application Preview</p>
+          <div>
+            <span id="preview-dialog-counter">01 / 03</span>
+            <button class="preview-dialog-close" id="preview-dialog-close" type="button" aria-label="Close product preview">×</button>
+          </div>
+        </header>
+        <div class="preview-dialog-media" id="preview-dialog-media"></div>
+        <footer class="preview-dialog-footer">
+          <button class="preview-dialog-arrow" id="preview-dialog-prev" type="button" aria-label="Show previous product preview">←</button>
+          <div>
+            <h2 id="preview-dialog-title">Product Preview 01</h2>
+            <p id="preview-dialog-caption"></p>
+          </div>
+          <button class="preview-dialog-arrow" id="preview-dialog-next" type="button" aria-label="Show next product preview">→</button>
+        </footer>
+      </div>
+    </dialog>
 
     <dialog class="initiative-dialog" id="initiative-dialog" aria-labelledby="dialog-title">
       <div class="dialog-shell">
