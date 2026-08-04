@@ -69,7 +69,7 @@ INITIATIVE_KEYS = {
     "horizon",
     "details",
 }
-PREVIEW_KEYS = {"id", "title", "caption", "image", "alt"}
+PREVIEW_KEYS = {"id", "title", "previewCaption", "caption", "image", "alt"}
 DETAIL_KEYS = {
     "currentFoundation",
     "primaryUserValue",
@@ -163,8 +163,8 @@ def validate_site() -> None:
         "NeuroLab:",
         "The Roadmap",
         "Current Development Build",
-        "Timeline Targets",
-        "From Peptide Prediction Support to Personalized Data Spaces",
+        "Timeline Targets: Q3 2026 – Q3 2027",
+        'From <span class="roadmap-title-accent">Peptide</span> Prediction Support to <span class="roadmap-title-accent">Personalized</span> Data Spaces',
     )
     for phrase in required_copy:
         if phrase not in index:
@@ -193,6 +193,7 @@ def validate_preview_data(data: dict[str, Any]) -> None:
         if preview_id in preview_ids:
             raise ValueError(f"Duplicate product preview ID: {preview_id}")
         require_text(preview["title"], f"product preview {preview_id} title")
+        require_text(preview["previewCaption"], f"product preview {preview_id} caption summary")
         require_text(preview["caption"], f"product preview {preview_id} caption")
         require_text(preview["image"], f"product preview {preview_id} image", nullable=True)
         if preview["image"] is None:
