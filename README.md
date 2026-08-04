@@ -17,7 +17,8 @@ sections.
 
 The landing hero also includes a keyboard- and touch-accessible product showcase. Its perspective
 gallery is deliberately driven by `site/data/app-previews.json`, which orders and describes the
-approved application screenshots independently of the interaction code. Selecting the active preview
+approved application screenshots independently of the interaction code. Each entry provides a compact
+hero caption and a more detailed fullscreen description. Selecting the active preview
 opens an individual near-fullscreen viewer with previous/next navigation, outside-click dismissal,
 and focus return. Desktop pointer movement adds restrained depth and directional lighting, with flat
 mobile and reduced-motion fallbacks.

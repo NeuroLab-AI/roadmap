@@ -104,6 +104,7 @@
       if (ids.has(preview.id)) throw new Error("Duplicate preview id");
       ids.add(preview.id);
       if (typeof preview.title !== "string" || !preview.title.trim()) throw new Error("Invalid preview title");
+      if (typeof preview.previewCaption !== "string" || !preview.previewCaption.trim()) throw new Error("Invalid preview caption summary");
       if (typeof preview.caption !== "string" || !preview.caption.trim()) throw new Error("Invalid preview caption");
       if (preview.image !== null && (typeof preview.image !== "string" || !preview.image.trim())) {
         throw new Error("Invalid preview image");
@@ -112,8 +113,12 @@
     });
   }
 
-  function previewCounter(index) {
-    return String(index + 1).padStart(2, "0") + " / " + String(productPreviews.length).padStart(2, "0");
+  function previewIndex(index) {
+    return String(index + 1).padStart(2, "0");
+  }
+
+  function previewPositionLabel(index) {
+    return "Preview " + (index + 1) + " of " + productPreviews.length;
   }
 
   function renderPreviewTitle(container, title) {
@@ -134,15 +139,11 @@
       image.loading = index === activePreviewIndex ? "eager" : "lazy";
       image.decoding = "async";
       frame.appendChild(image);
-      var imageIndex = element("span", "preview-image-index", String(index + 1).padStart(2, "0"));
-      imageIndex.setAttribute("aria-hidden", "true");
-      frame.appendChild(imageIndex);
       return frame;
     }
 
     var artwork = element("div", "preview-placeholder");
     artwork.dataset.variant = String((index % 3) + 1);
-    artwork.appendChild(element("span", "preview-placeholder-index", String(index + 1).padStart(2, "0")));
     var motif = element("span", "preview-placeholder-motif");
     motif.appendChild(element("span", "preview-placeholder-core"));
     motif.appendChild(element("span", "preview-placeholder-orbit preview-placeholder-orbit-one"));
@@ -177,7 +178,8 @@
     previewDialogMedia.replaceChildren(previewArtwork(preview, activePreviewIndex, true));
     renderPreviewTitle(previewDialogTitle, preview.title);
     previewDialogCaption.textContent = preview.caption;
-    previewDialogCounter.textContent = previewCounter(activePreviewIndex);
+    previewDialogCounter.textContent = previewIndex(activePreviewIndex);
+    previewDialogCounter.setAttribute("aria-label", previewPositionLabel(activePreviewIndex));
   }
 
   function openPreviewDialog(trigger) {
@@ -222,9 +224,10 @@
       showcaseDots.appendChild(dot);
     });
 
-    showcaseCounter.textContent = previewCounter(activePreviewIndex);
+    showcaseCounter.textContent = previewIndex(activePreviewIndex);
+    showcaseCounter.setAttribute("aria-label", previewPositionLabel(activePreviewIndex));
     renderPreviewTitle(showcaseTitle, activePreview.title);
-    showcaseCaption.textContent = activePreview.caption;
+    showcaseCaption.textContent = activePreview.previewCaption;
     showcaseExpand.setAttribute("aria-label", "Expand " + activePreview.title);
     if (previewDialog.open) updatePreviewDialog();
     if (announce) showcaseStatus.textContent = activePreview.title + ", preview " + (activePreviewIndex + 1) + " of " + productPreviews.length + ".";
@@ -354,7 +357,9 @@
     document.body.dataset.roadmapView = currentView;
     timeline.hidden = currentView === "table";
     roadmapTable.hidden = currentView !== "table";
-    roadmapViewLabel.textContent = currentView === "table" ? "Roadmap Table" : "Timeline Targets";
+    roadmapViewLabel.textContent = currentView === "table"
+      ? "Roadmap Table: Q3 2026 – Q3 2027"
+      : "Timeline Targets: Q3 2026 – Q3 2027";
     viewOptions.forEach(function (button) {
       button.setAttribute("aria-pressed", button.dataset.view === currentView ? "true" : "false");
     });
@@ -481,7 +486,7 @@
       var section = element("section", "stage");
       section.id = "era-" + stage.id;
       section.dataset.stageId = stage.id;
-      section.dataset.headerSide = stageIndex % 2 === 0 ? "left" : "right";
+      section.dataset.headerSide = stageIndex % 2 === 0 ? "right" : "left";
       section.setAttribute("aria-labelledby", "stage-" + stage.id);
       section.appendChild(element("span", "stage-marker"));
 

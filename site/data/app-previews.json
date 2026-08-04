@@ -4,6 +4,7 @@
     {
       "id": "inference-stream",
       "title": "// inference_stream",
+      "previewCaption": "Graph-assisted inference streams into structured evidence bundles and report outputs.",
       "caption": "Follow NeuroLab's evidence-backed inference process as it assembles mechanisms, knowledge support, and structured report outputs in real time.",
       "image": "./assets/app-inference-stream.png",
       "alt": "NeuroLab inference stream showing a live evidence-backed report for ketamine with structured payload output."
@@ -11,6 +12,7 @@
     {
       "id": "brain-explorer",
       "title": "// brain_explorer",
+      "previewCaption": "Interactive brain visualization across regions, circuits, and tract systems.",
       "caption": "Explore mechanistic localization across cortical, subcortical, cerebellar, nuclear, and tract-level views with interactive visualization controls.",
       "image": "./assets/app-brain-explorer.png",
       "alt": "NeuroLab brain explorer showing interactive mechanistic localization controls and a three-dimensional brain visualization for ketamine."
@@ -18,6 +20,7 @@
     {
       "id": "interactive-output-vectors",
       "title": "// interactive_output_vectors",
+      "previewCaption": "Expandable output vectors with structured signals and reusable payloads.",
       "caption": "Inspect structured output vectors, expand nested brain-region signals, and carry selected payloads into downstream analysis.",
       "image": "./assets/app-interactive-output-vectors.png",
       "alt": "NeuroLab interactive output vector displaying expandable structured brain-region data in the raw payload interface."
