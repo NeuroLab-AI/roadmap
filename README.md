@@ -21,8 +21,11 @@ approved application screenshots independently of the interaction code. Each ent
 hero caption and a more detailed fullscreen description. Selecting the active preview
 opens an individual near-fullscreen viewer with previous/next navigation, outside-click dismissal,
 and focus return. Desktop pointer movement adds restrained depth and directional lighting, with flat
-mobile and reduced-motion fallbacks. In the hero, each screenshot index is grouped with its active
-title while navigation controls remain visually attached to the carousel itself.
+mobile and reduced-motion fallbacks. A standalone build label introduces the gallery, while each
+screenshot index, active title, and expansion control share one slide-specific header. Navigation
+remains attached to the image plane, followed by the concise description and illuminated pagination.
+The fullscreen viewer mirrors that hierarchy with the active title in its header and centered
+navigation controls over the image.
 
 Each initiative keeps its technical registry ID visible as a stable reference, but the public title
 and category lead the visual hierarchy. Selecting an initiative opens an accessible detail dialog

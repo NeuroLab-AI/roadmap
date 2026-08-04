@@ -57,29 +57,25 @@
           </div>
 
           <section class="product-showcase" aria-labelledby="product-showcase-title">
+            <p class="showcase-section-title" id="product-showcase-title"><span aria-hidden="true">//</span> Current Development Build</p>
             <div class="showcase-shell">
-              <div class="showcase-toolbar">
-                <span class="showcase-toolbar-spacer" aria-hidden="true"></span>
-                <p id="product-showcase-title"><span aria-hidden="true">//</span> Current Development Build</p>
-                <button class="showcase-expand" id="showcase-expand" type="button" aria-label="Expand current product preview">
-                  <span class="expand-corners" aria-hidden="true"></span>
-                </button>
-              </div>
               <div class="showcase-slide-header">
                 <span class="showcase-index" id="showcase-counter" aria-label="Preview 1 of 3">01</span>
                 <p id="showcase-title"><span class="comment-mark">//</span> inference_stream</p>
-                <span class="showcase-slide-spacer" aria-hidden="true"></span>
+                <button class="showcase-expand" id="showcase-expand" type="button" aria-label="Expand current product preview">
+                  <span class="expand-corners" aria-hidden="true"></span>
+                </button>
               </div>
               <div class="showcase-viewport">
                 <button class="showcase-arrow" id="showcase-prev" type="button" aria-label="Show previous product preview">←</button>
                 <div class="showcase-stage" id="product-showcase-stage" tabindex="0" aria-label="NeuroLab product previews"></div>
                 <button class="showcase-arrow" id="showcase-next" type="button" aria-label="Show next product preview">→</button>
               </div>
-              <div class="showcase-pagination">
-                <div class="showcase-dots" id="showcase-dots" aria-label="Choose product preview"></div>
-              </div>
               <div class="showcase-caption-row">
                 <p id="showcase-caption">Graph-assisted inference streams into structured evidence bundles and report outputs.</p>
+              </div>
+              <div class="showcase-pagination">
+                <div class="showcase-dots" id="showcase-dots" aria-label="Choose product preview"></div>
               </div>
             </div>
             <p class="showcase-error" id="showcase-error" role="alert" hidden>
@@ -201,17 +197,16 @@
       <div class="preview-dialog-shell">
         <header class="preview-dialog-header">
           <span class="preview-dialog-index" id="preview-dialog-counter" aria-label="Preview 1 of 3">01</span>
-          <p><span aria-hidden="true">//</span> Application Preview</p>
+          <h2 id="preview-dialog-title"><span class="comment-mark">//</span> inference_stream</h2>
           <button class="preview-dialog-close" id="preview-dialog-close" type="button" aria-label="Close product preview">×</button>
         </header>
-        <div class="preview-dialog-media" id="preview-dialog-media"></div>
-        <footer class="preview-dialog-footer">
+        <div class="preview-dialog-media-wrap">
           <button class="preview-dialog-arrow" id="preview-dialog-prev" type="button" aria-label="Show previous product preview">←</button>
-          <div>
-            <h2 id="preview-dialog-title"><span class="comment-mark">//</span> inference_stream</h2>
-            <p id="preview-dialog-caption"></p>
-          </div>
+          <div class="preview-dialog-media" id="preview-dialog-media"></div>
           <button class="preview-dialog-arrow" id="preview-dialog-next" type="button" aria-label="Show next product preview">→</button>
+        </div>
+        <footer class="preview-dialog-footer">
+          <p id="preview-dialog-caption"></p>
         </footer>
       </div>
     </dialog>
