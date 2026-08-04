@@ -15,11 +15,13 @@ PUBLICATION_DIR = ROOT / "publication"
 SCHEMA_PATH = PUBLICATION_DIR / "public-roadmap.schema.json"
 DATA_PATH = PUBLICATION_DIR / "public-roadmap.json"
 SITE_DATA_PATH = ROOT / "site" / "data" / "public-roadmap.json"
+PREVIEW_DATA_PATH = ROOT / "site" / "data" / "app-previews.json"
 
 REQUIRED_SITE_FILES = (
     "site/index.html",
     "site/styles.css",
     "site/app.js",
+    "site/data/app-previews.json",
     "site/data/public-roadmap.json",
     "site/assets/neurolab-wordmark.png",
     "site/assets/neural-brain-hero.webp",
@@ -67,6 +69,7 @@ INITIATIVE_KEYS = {
     "horizon",
     "details",
 }
+PREVIEW_KEYS = {"id", "title", "caption", "image", "alt"}
 DETAIL_KEYS = {
     "currentFoundation",
     "primaryUserValue",
@@ -150,11 +153,16 @@ def validate_site() -> None:
         raise ValueError("site/index.html does not load the roadmap application")
     if '"./data/public-roadmap.json"' not in script:
         raise ValueError("site/app.js does not load the generated public roadmap data")
+    if '"./data/app-previews.json"' not in script:
+        raise ValueError("site/app.js does not load the product preview manifest")
     if "Target window " in script or "stage-count" in script:
         raise ValueError("Removed target-window ordinal or detached initiative count returned to the timeline")
     required_copy = (
         "Current and Upcoming Initiatives",
         "Explore the Roadmap by Technical Domain",
+        "NeuroLab:",
+        "The Roadmap",
+        "Current Development Build",
         "Timeline Targets",
         "From Peptide Prediction Support to Personalized Data Spaces",
     )
@@ -165,6 +173,37 @@ def validate_site() -> None:
     for phrase in ("current foundation", "near term", "mid term", "future direction", "development era"):
         if phrase in visible_copy:
             raise ValueError(f"Superseded relative-era copy remains in the public site: {phrase}")
+
+
+def validate_preview_data(data: dict[str, Any]) -> None:
+    if set(data) != {"schemaVersion", "previews"} or data.get("schemaVersion") != "1.0.0":
+        raise ValueError("Product preview manifest does not match schema version 1.0.0")
+    previews = data.get("previews")
+    if not isinstance(previews, list) or not 1 <= len(previews) <= 5:
+        raise ValueError("Product preview manifest must contain between one and five previews")
+
+    preview_ids: set[str] = set()
+    for preview in previews:
+        if not isinstance(preview, dict):
+            raise ValueError("Every product preview must be an object")
+        require_exact_keys(preview, PREVIEW_KEYS, "product preview")
+        preview_id = preview["id"]
+        if not isinstance(preview_id, str) or not SLUG_RE.fullmatch(preview_id):
+            raise ValueError(f"Invalid product preview ID: {preview_id}")
+        if preview_id in preview_ids:
+            raise ValueError(f"Duplicate product preview ID: {preview_id}")
+        require_text(preview["title"], f"product preview {preview_id} title")
+        require_text(preview["caption"], f"product preview {preview_id} caption")
+        require_text(preview["image"], f"product preview {preview_id} image", nullable=True)
+        if preview["image"] is None:
+            if preview["alt"] != "":
+                raise ValueError(f"Placeholder product preview {preview_id} must have empty alt text")
+        else:
+            require_text(preview["alt"], f"product preview {preview_id} alt")
+            image_path = ROOT / "site" / preview["image"].removeprefix("./")
+            if not image_path.is_file() or image_path.stat().st_size == 0:
+                raise ValueError(f"Missing product preview image: {preview['image']}")
+        preview_ids.add(preview_id)
 
 
 def validate_public_data(data: dict[str, Any]) -> None:
@@ -297,15 +336,18 @@ def main() -> int:
         validate_site()
         publication_data = load_json(DATA_PATH)
         site_data = load_json(SITE_DATA_PATH)
+        preview_data = load_json(PREVIEW_DATA_PATH)
         if publication_data != site_data:
             raise ValueError("Publication contract and served site data are not identical")
         validate_public_data(publication_data)
+        validate_preview_data(preview_data)
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
     print(f"Sanitized public roadmap data is valid ({len(publication_data['initiatives'])} initiatives)")
     print("Publication contract and served site data are identical")
+    print(f"Product preview manifest is valid ({len(preview_data['previews'])} previews)")
     print("Public repository boundary and required GitHub Pages files are valid")
     return 0
 

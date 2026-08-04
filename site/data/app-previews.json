@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "previews": [
+    {
+      "id": "product-preview-01",
+      "title": "Research Workspace",
+      "caption": "A current NeuroLab application screenshot will be added in the next publication pass.",
+      "image": null,
+      "alt": ""
+    },
+    {
+      "id": "product-preview-02",
+      "title": "Evidence Exploration",
+      "caption": "A second product view is reserved for a real NeuroLab workflow screenshot.",
+      "image": null,
+      "alt": ""
+    },
+    {
+      "id": "product-preview-03",
+      "title": "Technical Review",
+      "caption": "A third product view is reserved for a real NeuroLab application screenshot.",
+      "image": null,
+      "alt": ""
+    }
+  ]
+}
