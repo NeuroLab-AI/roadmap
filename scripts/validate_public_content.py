@@ -162,7 +162,7 @@ def validate_site() -> None:
         "Explore the Roadmap by Technical Domain",
         "NeuroLab:",
         "The Roadmap",
-        "Current Development Build",
+        'aria-label="Beta Release: Q3 2026"',
         "Timeline Targets: Q3 2026 – Q3 2027",
         'From <span class="roadmap-title-accent">Peptide</span> Prediction Support to <span class="roadmap-title-accent">Personalized</span> Data Spaces',
     )
