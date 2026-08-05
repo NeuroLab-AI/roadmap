@@ -432,7 +432,7 @@ h1 em {
   letter-spacing: -0.008em;
   line-height: 1.4;
   text-align: center;
-  transform: translateY(0.12rem);
+  transform: translateY(0.72rem);
 }
 
 .showcase-image-title {
@@ -454,6 +454,7 @@ h1 em {
   letter-spacing: 0.035em;
   line-height: 1.2;
   text-align: center;
+  transform: translateY(-0.68rem);
 }
 
 .showcase-image-title span {
@@ -1689,8 +1690,8 @@ body.modal-open { overflow: hidden; }
   .showcase-section-title { margin-bottom: 0.72rem; padding-bottom: 0; font-size: 1.15rem; }
   .showcase-shell { height: 27.75rem; border-radius: 1.2rem; }
   .showcase-slide-header { grid-template-columns: 2rem minmax(0, 1fr) 2.15rem; gap: 0.5rem; min-height: 3.65rem; padding: 0.62rem 0.72rem 0.32rem; }
-  .showcase-slide-header p { max-width: 100%; font-size: 0.65rem; }
-  .showcase-image-title { min-height: 1.85rem; margin-top: -0.28rem; padding: 0.3rem 0.75rem 0.22rem; font-size: 0.61rem; }
+  .showcase-slide-header p { max-width: 100%; font-size: 0.65rem; transform: translateY(0.46rem); }
+  .showcase-image-title { min-height: 1.85rem; margin-top: -0.28rem; padding: 0.3rem 0.75rem 0.22rem; font-size: 0.61rem; transform: translateY(-0.4rem); }
   .showcase-index { width: 2rem; height: 1.65rem; font-size: 0.56rem; }
   .showcase-viewport { perspective: none; }
   .showcase-viewport > .showcase-arrow { width: 2.25rem; height: 2.25rem; font-size: 0.92rem; }
