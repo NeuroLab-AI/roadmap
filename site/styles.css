@@ -1616,7 +1616,7 @@ body.modal-open { overflow: hidden; }
 @media (min-width: 1440px) {
   .product-showcase {
     width: calc(100% + clamp(5.5rem, 7vw, 7.5rem));
-    transform: translateX(clamp(1rem, 1.8vw, 2rem));
+    transform: translateX(clamp(2rem, calc(7vw - 4.3rem), 5rem));
   }
   .showcase-viewport {
     perspective: 940px;
