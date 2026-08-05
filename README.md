@@ -30,7 +30,12 @@ caption rises into the space immediately beneath its screenshot and retains deli
 from the illuminated pagination. Navigation remains attached to the image plane. A brighter
 glass hairline and restrained warm edge glow separate the gallery from the dark hero without turning
 it into a neon panel. The proportionally larger left-column typography and call to action use more of
-the hero's available depth without changing the compact mobile flow. Publication status and version
+the hero's available depth without changing the compact mobile flow. On wide screens, the gallery
+extends into the previously unused right-side space without reducing the focused screenshot. Its
+active image advances toward the viewer while brighter, sharply angled neighboring panels recede
+behind it, creating a cinematic Cover Flow composition with stronger occlusion, rim lighting, and a
+grounded depth shadow. Mobile and reduced-motion views retain their compact flat presentation.
+Publication status and version
 metadata live in the footer so the hero opens directly on its primary message. The gallery heading
 publishes the Q3 2026 beta release commitment, while the fullscreen viewer uses a human-readable
 feature label with centered navigation controls over the image.

@@ -620,8 +620,8 @@
     var bounds = showcaseStage.getBoundingClientRect();
     var horizontal = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
     var vertical = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
-    showcaseStage.style.setProperty("--tilt-x", ((0.5 - vertical) * 5).toFixed(2) + "deg");
-    showcaseStage.style.setProperty("--tilt-y", ((horizontal - 0.5) * 5).toFixed(2) + "deg");
+    showcaseStage.style.setProperty("--tilt-x", ((0.5 - vertical) * 6.5).toFixed(2) + "deg");
+    showcaseStage.style.setProperty("--tilt-y", ((horizontal - 0.5) * 6.5).toFixed(2) + "deg");
     showcaseStage.style.setProperty("--glare-x", (22 + horizontal * 56).toFixed(1) + "%");
     showcaseStage.style.setProperty("--glare-y", (18 + vertical * 48).toFixed(1) + "%");
   });
