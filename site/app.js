@@ -133,8 +133,9 @@
       var image = document.createElement("img");
       image.src = preview.image;
       image.alt = preview.alt;
-      image.loading = index === activePreviewIndex ? "eager" : "lazy";
+      image.loading = "eager";
       image.decoding = "async";
+      image.fetchPriority = index === activePreviewIndex ? "high" : "auto";
       frame.appendChild(image);
       return frame;
     }
@@ -195,7 +196,7 @@
     showcaseStage.replaceChildren();
     showcaseDots.replaceChildren();
 
-    return productPreviews.map(function (preview, index) {
+    var slots = productPreviews.map(function (preview, index) {
       var slot = element("div", "preview-slot");
       slot.dataset.previewId = preview.id;
 
@@ -219,6 +220,13 @@
 
       return slot;
     });
+
+    slots.forEach(function (slot) {
+      var image = slot.querySelector("img");
+      if (image && typeof image.decode === "function") image.decode().catch(function () {});
+    });
+
+    return slots;
   }
 
   function renderProductShowcase(announce) {
