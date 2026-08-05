@@ -20,8 +20,9 @@ gallery is deliberately driven by `site/data/app-previews.json`, which orders an
 approved application screenshots independently of the interaction code. Each entry provides a compact
 hero caption and a more detailed fullscreen description. Selecting the active preview
 opens an individual near-fullscreen viewer with previous/next navigation, outside-click dismissal,
-and focus return. Desktop pointer movement adds restrained depth and directional lighting, with flat
-mobile and reduced-motion fallbacks. A display-style beta-release heading introduces the higher-contrast
+and focus return. Desktop pointer movement adjusts restrained directional lighting without rotating
+the image plane. Mobile keeps a compact flat fallback, while reduced-motion mode preserves the static
+3D composition without animated movement. A display-style beta-release heading introduces the higher-contrast
 gallery. Each slide foregrounds its concise feature description rather than an internal technical
 title, with the index and expansion control framing that description in a single metadata row. A
 small technical caption reconnects each feature statement to its application screenshot without
@@ -37,7 +38,7 @@ behind it, creating a cinematic Cover Flow composition with stronger occlusion, 
 grounded depth shadow. The technical caption occupies its own layout row across browsers, while the
 fullscreen viewer contains each complete 16:9 screenshot without cropping its edges. A restrained
 wide-screen, short-viewport adjustment preserves the depth effect without crowding the caption.
-Mobile and reduced-motion views retain their compact flat presentation.
+Mobile retains its compact flat presentation.
 Publication status and version
 metadata live in the footer so the hero opens directly on its primary message. The gallery heading
 publishes the Q3 2026 beta release commitment, while the fullscreen viewer uses a human-readable
