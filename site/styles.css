@@ -1973,14 +1973,22 @@ body.modal-open { overflow: hidden; }
     transform: translateZ(-26px);
   }
   .showcase-shell--naked .preview-card[data-position="previous"] {
-    opacity: 0.76;
-    filter: brightness(0.67) contrast(1.08) saturate(0.82);
-    transform: translate(-50%, -50%) translate3d(-54%, 0.75rem, -230px) rotateY(-43deg) scale(0.88);
+    opacity: 0.8;
+    filter: brightness(0.72) contrast(1.08) saturate(0.86);
+    transform: translate(-50%, -50%) translate3d(-67%, 0.7rem, -150px) rotateY(-40deg) scale(0.92);
   }
   .showcase-shell--naked .preview-card[data-position="next"] {
-    opacity: 0.82;
-    filter: brightness(0.71) contrast(1.08) saturate(0.85);
-    transform: translate(-50%, -50%) translate3d(54%, 0.75rem, -230px) rotateY(43deg) scale(0.88);
+    opacity: 0.84;
+    filter: brightness(0.76) contrast(1.08) saturate(0.88);
+    transform: translate(-50%, -50%) translate3d(67%, 0.7rem, -150px) rotateY(40deg) scale(0.92);
+  }
+
+  .showcase-shell--naked .preview-card[data-position="previous"],
+  .showcase-shell--naked .preview-card[data-position="next"] {
+    box-shadow:
+      0 2.6rem 5.8rem rgba(0, 0, 0, 0.84),
+      0 0 2.4rem rgba(191, 106, 69, 0.14),
+      inset 0 1px rgba(255, 255, 255, 0.14);
   }
 }
 
@@ -2001,14 +2009,14 @@ body.modal-open { overflow: hidden; }
       inset 0 -1px rgba(191, 106, 69, 0.34);
   }
   .showcase-shell--naked .preview-card[data-position="previous"] {
-    opacity: 0.83;
-    filter: brightness(0.72) contrast(1.1) saturate(0.88);
-    transform: translate(-50%, -50%) translate3d(-63%, 0.85rem, -310px) rotateY(-56deg) scale(0.97);
+    opacity: 0.86;
+    filter: brightness(0.76) contrast(1.1) saturate(0.9);
+    transform: translate(-50%, -50%) translate3d(-72%, 0.75rem, -175px) rotateY(-46deg) scale(0.98);
   }
   .showcase-shell--naked .preview-card[data-position="next"] {
-    opacity: 0.88;
-    filter: brightness(0.76) contrast(1.1) saturate(0.9);
-    transform: translate(-50%, -50%) translate3d(63%, 0.85rem, -310px) rotateY(56deg) scale(0.97);
+    opacity: 0.9;
+    filter: brightness(0.8) contrast(1.1) saturate(0.92);
+    transform: translate(-50%, -50%) translate3d(72%, 0.75rem, -175px) rotateY(46deg) scale(0.98);
   }
   .showcase-shell--naked #showcase-prev { left: -1.1rem; }
   .showcase-shell--naked #showcase-next { right: -1.1rem; }
