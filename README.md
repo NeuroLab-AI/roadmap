@@ -21,11 +21,14 @@ approved application screenshots independently of the interaction code. Each ent
 hero caption and a more detailed fullscreen description. Selecting the active preview
 opens an individual near-fullscreen viewer with previous/next navigation, outside-click dismissal,
 and focus return. Desktop pointer movement adds restrained depth and directional lighting, with flat
-mobile and reduced-motion fallbacks. A display-style build heading introduces the higher-contrast
+mobile and reduced-motion fallbacks. A display-style beta-release heading introduces the higher-contrast
 gallery. Each slide foregrounds its concise feature description rather than an internal technical
-title, while the index and expansion control share a slim utility row. Navigation remains attached
-to the image plane and illuminated pagination closes the sequence. The fullscreen viewer uses a
-human-readable feature label with centered navigation controls over the image.
+title, with the index and expansion control framing that description in a single metadata row. A
+small technical caption reconnects each feature statement to its application screenshot without
+competing with the image. Navigation remains attached to the image plane and illuminated pagination
+closes the sequence. The gallery heading publishes the Q3 2026 beta release commitment, while the
+fullscreen viewer uses a human-readable feature label with centered navigation controls over the
+image.
 
 Each initiative keeps its technical registry ID visible as a stable reference, but the public title
 and category lead the visual hierarchy. Selecting an initiative opens an accessible detail dialog

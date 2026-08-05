@@ -6,6 +6,7 @@
   var showcaseStage = document.getElementById("product-showcase-stage");
   var showcaseCounter = document.getElementById("showcase-counter");
   var showcaseCaption = document.getElementById("showcase-caption");
+  var showcaseImageTitle = document.getElementById("showcase-image-title");
   var showcaseDots = document.getElementById("showcase-dots");
   var showcaseStatus = document.getElementById("showcase-status");
   var showcaseError = document.getElementById("showcase-error");
@@ -121,6 +122,11 @@
     return "Preview " + (index + 1) + " of " + productPreviews.length;
   }
 
+  function renderTechnicalTitle(container, value) {
+    var title = String(value || "").trim().replace(/^\/\/\s*/, "");
+    container.replaceChildren(element("span", "comment-mark", "//"), document.createTextNode(" " + title));
+  }
+
   function previewArtwork(preview, index, expanded) {
     var frame = element("div", "preview-media-frame" + (expanded ? " is-expanded" : ""));
     if (preview.image) {
@@ -218,6 +224,7 @@
     showcaseCounter.textContent = previewIndex(activePreviewIndex);
     showcaseCounter.setAttribute("aria-label", previewPositionLabel(activePreviewIndex));
     showcaseCaption.textContent = activePreview.previewCaption;
+    renderTechnicalTitle(showcaseImageTitle, activePreview.title);
     showcaseExpand.setAttribute("aria-label", "Expand " + activePreview.featureLabel);
     if (previewDialog.open) updatePreviewDialog();
     if (announce) showcaseStatus.textContent = activePreview.featureLabel + ", preview " + (activePreviewIndex + 1) + " of " + productPreviews.length + ".";
