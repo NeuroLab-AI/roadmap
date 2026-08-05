@@ -615,6 +615,15 @@ h1 em {
   pointer-events: none;
 }
 
+.preview-slot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.preview-slot > .preview-card { pointer-events: auto; }
+
 .preview-card {
   position: absolute;
   top: 50%;
@@ -2028,10 +2037,9 @@ body.modal-open { overflow: hidden; }
   }
 }
 
-/* Give the neighboring screens a true bleed canvas instead of asking them to
-   project from underneath the focused screen's footprint. The card width is
-   reduced relative to the wider stage so the active screen keeps its existing
-   apparent size while the side planes gain dedicated horizontal space. */
+/* Slot-based Cover Flow: the wrapper owns placement and stacking while the
+   screenshot owns only its viewing angle. Keeping those transforms separate
+   prevents the side planes from folding back underneath the focused screen. */
 @media (min-width: 1280px) {
   .hero,
   .hero-grid,
@@ -2043,64 +2051,103 @@ body.modal-open { overflow: hidden; }
 
   .showcase-shell--naked .showcase-stage {
     inset: 0 auto;
-    left: 48.5%;
-    width: 138%;
+    left: 49%;
+    width: 118%;
     transform: translateX(-50%);
   }
 
-  .showcase-shell--naked .preview-card {
-    width: 53.65%;
+  .showcase-shell--naked .preview-slot {
+    z-index: 1;
+    opacity: 0;
+    transform: translate3d(0, 0.7rem, 8px) scale(0.82);
     transition:
-      left 620ms cubic-bezier(0.2, 0.82, 0.24, 1),
-      transform 620ms cubic-bezier(0.2, 0.82, 0.24, 1),
+      transform 720ms cubic-bezier(0.18, 0.82, 0.22, 1),
+      opacity 480ms ease,
+      filter 480ms ease;
+    will-change: transform, opacity;
+  }
+
+  .showcase-shell--naked .preview-card {
+    left: 50%;
+    width: 66.1%;
+    transition:
+      transform 720ms cubic-bezier(0.18, 0.82, 0.22, 1),
       opacity 440ms ease,
       border-color 220ms ease,
       filter 440ms ease,
       box-shadow 300ms ease;
   }
 
-  .showcase-shell--naked .preview-card[data-position="active"] {
-    left: 50%;
+  .showcase-shell--naked .preview-slot[data-slot="active"] {
     z-index: 7;
+    opacity: 1;
+    transform: translate3d(0, -0.08rem, 174px);
   }
 
-  .showcase-shell--naked .preview-card[data-position="previous"] {
-    left: 13%;
+  .showcase-shell--naked .preview-slot[data-slot="previous"] {
+    z-index: 4;
+    opacity: 0.88;
+    transform: translate3d(-35%, 0.62rem, 28px);
+  }
+
+  .showcase-shell--naked .preview-slot[data-slot="next"] {
     z-index: 4;
     opacity: 0.9;
+    transform: translate3d(35%, 0.62rem, 28px);
+  }
+
+  .showcase-shell--naked .preview-slot[data-slot^="far-"] {
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(0, 0.8rem, -40px) scale(0.72);
+  }
+
+  .showcase-shell--naked .preview-slot[data-slot="active"] .preview-card {
+    z-index: 7;
+    opacity: 1;
+    filter: brightness(1.09) contrast(1.055) saturate(1.08);
+    transform: translate(-50%, -50%) scale(1.02);
+    transform-origin: 50% 50%;
+  }
+
+  .showcase-shell--naked .preview-slot[data-slot="previous"] .preview-card {
+    z-index: 4;
+    opacity: 1;
     border-color: rgba(229, 188, 167, 0.31);
-    filter: brightness(0.82) contrast(1.08) saturate(0.94);
-    transform: translate(-50%, -50%) translate3d(0, 0.72rem, -92px) rotateY(-42deg) scale(0.96);
+    filter: brightness(0.78) contrast(1.1) saturate(0.9);
+    transform: translate(-50%, -50%) rotateY(-38deg) scale(0.88);
     transform-origin: 100% 50%;
   }
 
-  .showcase-shell--naked .preview-card[data-position="next"] {
-    left: 87%;
+  .showcase-shell--naked .preview-slot[data-slot="next"] .preview-card {
     z-index: 4;
-    opacity: 0.92;
+    opacity: 1;
     border-color: rgba(229, 188, 167, 0.34);
-    filter: brightness(0.85) contrast(1.08) saturate(0.96);
-    transform: translate(-50%, -50%) translate3d(0, 0.72rem, -92px) rotateY(42deg) scale(0.96);
+    filter: brightness(0.81) contrast(1.1) saturate(0.92);
+    transform: translate(-50%, -50%) rotateY(38deg) scale(0.88);
     transform-origin: 0 50%;
   }
 
-  .showcase-shell--naked .preview-card[data-position="previous"],
-  .showcase-shell--naked .preview-card[data-position="next"] {
+  .showcase-shell--naked .preview-slot[data-slot="previous"] .preview-card,
+  .showcase-shell--naked .preview-slot[data-slot="next"] .preview-card {
     box-shadow:
       0 3rem 7rem rgba(0, 0, 0, 0.9),
-      0 0 3.2rem rgba(191, 106, 69, 0.2),
+      0 0 3.5rem rgba(191, 106, 69, 0.24),
       0 0 0 1px rgba(222, 178, 156, 0.12),
       inset 0 1px rgba(255, 255, 255, 0.17);
   }
 
-  .showcase-shell--naked .preview-card[data-position="previous"]::after,
-  .showcase-shell--naked .preview-card[data-position="next"]::after {
-    opacity: 0.46;
+  .showcase-shell--naked .preview-slot[data-slot="previous"] .preview-card::after,
+  .showcase-shell--naked .preview-slot[data-slot="next"] .preview-card::after {
+    opacity: 0.42;
   }
 }
 
 @media (min-width: 1280px) and (max-width: 1439px) {
-  .showcase-shell--naked .preview-card { width: 56.52%; }
+  .showcase-shell--naked .preview-card { width: 68%; }
+  .showcase-shell--naked .preview-slot[data-slot="previous"] { transform: translate3d(-33%, 0.56rem, 24px); }
+  .showcase-shell--naked .preview-slot[data-slot="next"] { transform: translate3d(33%, 0.56rem, 24px); }
 }
 
 @media (max-width: 860px) {

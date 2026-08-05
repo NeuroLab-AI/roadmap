@@ -188,37 +188,62 @@
     previewDialogClose.focus();
   }
 
-  function renderProductShowcase(announce) {
-    if (!productPreviews.length) return;
-    var activePreview = productPreviews[activePreviewIndex];
+  function ensureProductShowcaseNodes() {
+    var existingSlots = Array.prototype.slice.call(showcaseStage.querySelectorAll(".preview-slot"));
+    if (existingSlots.length === productPreviews.length) return existingSlots;
+
     showcaseStage.replaceChildren();
     showcaseDots.replaceChildren();
 
-    productPreviews.forEach(function (preview, index) {
-      var position = relativePreviewPosition(index);
+    return productPreviews.map(function (preview, index) {
+      var slot = element("div", "preview-slot");
+      slot.dataset.previewId = preview.id;
+
       var card = element("button", "preview-card");
       card.type = "button";
-      card.dataset.position = position;
       card.dataset.previewId = preview.id;
-      card.setAttribute("aria-label", (position === "active" ? "Expand " : "Show ") + preview.featureLabel);
-      card.setAttribute("aria-current", position === "active" ? "true" : "false");
-      if (position.indexOf("far-") === 0) {
-        card.tabIndex = -1;
-        card.setAttribute("aria-hidden", "true");
-      }
       card.appendChild(previewArtwork(preview, index, false));
       card.addEventListener("click", function () {
         if (index === activePreviewIndex) openPreviewDialog(card);
         else setActivePreview(index, true);
       });
-      showcaseStage.appendChild(card);
+      slot.appendChild(card);
+      showcaseStage.appendChild(slot);
 
       var dot = element("button", "showcase-dot");
       dot.type = "button";
+      dot.dataset.previewId = preview.id;
       dot.setAttribute("aria-label", "Show " + preview.featureLabel);
-      dot.setAttribute("aria-pressed", index === activePreviewIndex ? "true" : "false");
       dot.addEventListener("click", function () { setActivePreview(index, true); });
       showcaseDots.appendChild(dot);
+
+      return slot;
+    });
+  }
+
+  function renderProductShowcase(announce) {
+    if (!productPreviews.length) return;
+    var activePreview = productPreviews[activePreviewIndex];
+    var slots = ensureProductShowcaseNodes();
+    var dots = Array.prototype.slice.call(showcaseDots.querySelectorAll(".showcase-dot"));
+
+    productPreviews.forEach(function (preview, index) {
+      var position = relativePreviewPosition(index);
+      var slot = slots[index];
+      var card = slot.querySelector(".preview-card");
+      slot.dataset.slot = position;
+      card.dataset.position = position;
+      card.setAttribute("aria-label", (position === "active" ? "Expand " : "Show ") + preview.featureLabel);
+      card.setAttribute("aria-current", position === "active" ? "true" : "false");
+      if (position.indexOf("far-") === 0) {
+        card.tabIndex = -1;
+        card.setAttribute("aria-hidden", "true");
+      } else {
+        card.tabIndex = 0;
+        card.removeAttribute("aria-hidden");
+      }
+      var dot = dots[index];
+      dot.setAttribute("aria-pressed", index === activePreviewIndex ? "true" : "false");
     });
 
     showcaseCounter.textContent = previewIndex(activePreviewIndex);
