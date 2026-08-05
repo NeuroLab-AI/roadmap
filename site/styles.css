@@ -2028,6 +2028,81 @@ body.modal-open { overflow: hidden; }
   }
 }
 
+/* Give the neighboring screens a true bleed canvas instead of asking them to
+   project from underneath the focused screen's footprint. The card width is
+   reduced relative to the wider stage so the active screen keeps its existing
+   apparent size while the side planes gain dedicated horizontal space. */
+@media (min-width: 1280px) {
+  .hero,
+  .hero-grid,
+  .product-showcase,
+  .showcase-shell--naked,
+  .showcase-shell--naked .showcase-viewport {
+    overflow: visible;
+  }
+
+  .showcase-shell--naked .showcase-stage {
+    inset: 0 auto;
+    left: 48.5%;
+    width: 138%;
+    transform: translateX(-50%);
+  }
+
+  .showcase-shell--naked .preview-card {
+    width: 53.65%;
+    transition:
+      left 620ms cubic-bezier(0.2, 0.82, 0.24, 1),
+      transform 620ms cubic-bezier(0.2, 0.82, 0.24, 1),
+      opacity 440ms ease,
+      border-color 220ms ease,
+      filter 440ms ease,
+      box-shadow 300ms ease;
+  }
+
+  .showcase-shell--naked .preview-card[data-position="active"] {
+    left: 50%;
+    z-index: 7;
+  }
+
+  .showcase-shell--naked .preview-card[data-position="previous"] {
+    left: 13%;
+    z-index: 4;
+    opacity: 0.9;
+    border-color: rgba(229, 188, 167, 0.31);
+    filter: brightness(0.82) contrast(1.08) saturate(0.94);
+    transform: translate(-50%, -50%) translate3d(0, 0.72rem, -92px) rotateY(-42deg) scale(0.96);
+    transform-origin: 100% 50%;
+  }
+
+  .showcase-shell--naked .preview-card[data-position="next"] {
+    left: 87%;
+    z-index: 4;
+    opacity: 0.92;
+    border-color: rgba(229, 188, 167, 0.34);
+    filter: brightness(0.85) contrast(1.08) saturate(0.96);
+    transform: translate(-50%, -50%) translate3d(0, 0.72rem, -92px) rotateY(42deg) scale(0.96);
+    transform-origin: 0 50%;
+  }
+
+  .showcase-shell--naked .preview-card[data-position="previous"],
+  .showcase-shell--naked .preview-card[data-position="next"] {
+    box-shadow:
+      0 3rem 7rem rgba(0, 0, 0, 0.9),
+      0 0 3.2rem rgba(191, 106, 69, 0.2),
+      0 0 0 1px rgba(222, 178, 156, 0.12),
+      inset 0 1px rgba(255, 255, 255, 0.17);
+  }
+
+  .showcase-shell--naked .preview-card[data-position="previous"]::after,
+  .showcase-shell--naked .preview-card[data-position="next"]::after {
+    opacity: 0.46;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .showcase-shell--naked .preview-card { width: 56.52%; }
+}
+
 @media (max-width: 860px) {
   .showcase-shell--naked { height: clamp(29.5rem, 76vw, 34.5rem); }
   .showcase-shell--naked .showcase-slide-header { width: min(calc(100% - 1rem), 40rem); }
