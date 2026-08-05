@@ -608,9 +608,7 @@
     previewPointerStart = event.clientX;
   });
 
-  function resetShowcaseParallax() {
-    showcaseStage.style.setProperty("--tilt-x", "0deg");
-    showcaseStage.style.setProperty("--tilt-y", "0deg");
+  function resetShowcaseLighting() {
     showcaseStage.style.setProperty("--glare-x", "50%");
     showcaseStage.style.setProperty("--glare-y", "34%");
   }
@@ -620,13 +618,11 @@
     var bounds = showcaseStage.getBoundingClientRect();
     var horizontal = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
     var vertical = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
-    showcaseStage.style.setProperty("--tilt-x", ((0.5 - vertical) * 6.5).toFixed(2) + "deg");
-    showcaseStage.style.setProperty("--tilt-y", ((horizontal - 0.5) * 6.5).toFixed(2) + "deg");
     showcaseStage.style.setProperty("--glare-x", (22 + horizontal * 56).toFixed(1) + "%");
     showcaseStage.style.setProperty("--glare-y", (18 + vertical * 48).toFixed(1) + "%");
   });
 
-  showcaseStage.addEventListener("pointerleave", resetShowcaseParallax);
+  showcaseStage.addEventListener("pointerleave", resetShowcaseLighting);
 
   showcaseStage.addEventListener("pointerup", function (event) {
     if (previewPointerStart === null || event.pointerType === "mouse") return;
