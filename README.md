@@ -22,8 +22,9 @@ hero caption and a more detailed fullscreen description. Selecting the active pr
 opens an individual near-fullscreen viewer with previous/next navigation, outside-click dismissal,
 and focus return. Desktop pointer movement adjusts restrained directional lighting without rotating
 the image plane. Mobile keeps a compact flat fallback, while reduced-motion mode preserves the static
-3D composition without animated movement. A display-style beta-release heading introduces the higher-contrast
-gallery. Each slide foregrounds its concise feature description rather than an internal technical
+3D composition without animated movement. A display-style beta-release heading introduces a naked,
+cinematic gallery whose visible composition is formed by the projected screens rather than an enclosing
+glass panel. Each slide foregrounds its concise feature description rather than an internal technical
 title, with the index and expansion control framing that description in a single metadata row. A
 small technical caption reconnects each feature statement to its application screenshot without
 competing with the image. The feature statement sits lower in its metadata band, while the technical
@@ -35,7 +36,8 @@ the hero's available depth without changing the compact mobile flow. On wide scr
 extends into the previously unused right-side space without reducing the focused screenshot. Its
 active image advances toward the viewer while brighter, sharply angled neighboring panels recede
 behind it, creating a cinematic Cover Flow composition with stronger occlusion, rim lighting, and a
-grounded depth shadow. The technical caption occupies its own layout row across browsers, while the
+grounded depth shadow. Floating glass metadata, controls, caption, and pagination remain independently
+legible without rebuilding a rectangular container around the experience. The technical caption occupies its own layout row across browsers, while the
 fullscreen viewer contains each complete 16:9 screenshot without cropping its edges. A restrained
 wide-screen, short-viewport adjustment preserves the depth effect without crowding the caption.
 Mobile retains its compact flat presentation.
