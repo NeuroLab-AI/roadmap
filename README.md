@@ -25,10 +25,12 @@ mobile and reduced-motion fallbacks. A display-style beta-release heading introd
 gallery. Each slide foregrounds its concise feature description rather than an internal technical
 title, with the index and expansion control framing that description in a single metadata row. A
 small technical caption reconnects each feature statement to its application screenshot without
-competing with the image. Navigation remains attached to the image plane and illuminated pagination
-closes the sequence. The gallery heading publishes the Q3 2026 beta release commitment, while the
-fullscreen viewer uses a human-readable feature label with centered navigation controls over the
-image.
+competing with the image. The caption sits directly below its screenshot and immediately above the
+illuminated pagination, while navigation remains attached to the image plane. The proportionally
+larger left-column typography and call to action use more of the hero's available depth without
+changing the compact mobile flow. The gallery heading publishes the Q3 2026 beta release commitment,
+while the fullscreen viewer uses a human-readable feature label with centered navigation controls
+over the image.
 
 Each initiative keeps its technical registry ID visible as a stable reference, but the public title
 and category lead the visual hierarchy. Selecting an initiative opens an accessible detail dialog
