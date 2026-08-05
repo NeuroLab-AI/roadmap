@@ -34,7 +34,10 @@ the hero's available depth without changing the compact mobile flow. On wide scr
 extends into the previously unused right-side space without reducing the focused screenshot. Its
 active image advances toward the viewer while brighter, sharply angled neighboring panels recede
 behind it, creating a cinematic Cover Flow composition with stronger occlusion, rim lighting, and a
-grounded depth shadow. Mobile and reduced-motion views retain their compact flat presentation.
+grounded depth shadow. The technical caption occupies its own layout row across browsers, while the
+fullscreen viewer contains each complete 16:9 screenshot without cropping its edges. A restrained
+wide-screen, short-viewport adjustment preserves the depth effect without crowding the caption.
+Mobile and reduced-motion views retain their compact flat presentation.
 Publication status and version
 metadata live in the footer so the hero opens directly on its primary message. The gallery heading
 publishes the Q3 2026 beta release commitment, while the fullscreen viewer uses a human-readable
