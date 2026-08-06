@@ -21,6 +21,7 @@
   var previewDialogClose = document.getElementById("preview-dialog-close");
   var previewDialogPrevious = document.getElementById("preview-dialog-prev");
   var previewDialogNext = document.getElementById("preview-dialog-next");
+  var previewDialogMediaWrap = previewDialogMedia.parentElement;
   var timeline = document.getElementById("timeline");
   var roadmapTable = document.getElementById("roadmap-table");
   var roadmapTableBody = document.getElementById("roadmap-table-body");
@@ -170,14 +171,32 @@
     return delta < 0 ? "far-previous" : "far-next";
   }
 
+  function updatePreviewScrollState() {
+    var canScroll = previewDialogMedia.scrollHeight > previewDialogMedia.clientHeight + 2
+      || previewDialogMedia.scrollWidth > previewDialogMedia.clientWidth + 2;
+    previewDialogMediaWrap.classList.toggle("is-scrollable", canScroll);
+  }
+
+  function resetPreviewScroll() {
+    previewDialogMedia.scrollTop = 0;
+    previewDialogMedia.scrollLeft = 0;
+    previewDialogMediaWrap.classList.remove("has-scrolled");
+    window.requestAnimationFrame(updatePreviewScrollState);
+  }
+
   function updatePreviewDialog() {
     if (!productPreviews.length) return;
     var preview = productPreviews[activePreviewIndex];
-    previewDialogMedia.replaceChildren(previewArtwork(preview, activePreviewIndex, true));
+    var artwork = previewArtwork(preview, activePreviewIndex, true);
+    var image = artwork.querySelector("img");
+    previewDialogMedia.replaceChildren(artwork);
     previewDialogTitle.textContent = preview.featureLabel;
     previewDialogCaption.textContent = preview.caption;
     previewDialogCounter.textContent = previewIndex(activePreviewIndex);
     previewDialogCounter.setAttribute("aria-label", previewPositionLabel(activePreviewIndex));
+    previewDialogMedia.setAttribute("aria-label", "Scrollable application screenshot: " + preview.featureLabel);
+    resetPreviewScroll();
+    if (image && !image.complete) image.addEventListener("load", updatePreviewScrollState, { once: true });
   }
 
   function openPreviewDialog(trigger) {
@@ -669,6 +688,14 @@
   previewDialogClose.addEventListener("click", closePreviewDialog);
   previewDialogPrevious.addEventListener("click", function () { stepPreview(-1, true); });
   previewDialogNext.addEventListener("click", function () { stepPreview(1, true); });
+  previewDialogMedia.addEventListener("scroll", function () {
+    if (previewDialogMedia.scrollTop > 10 || previewDialogMedia.scrollLeft > 10) {
+      previewDialogMediaWrap.classList.add("has-scrolled");
+    }
+  }, { passive: true });
+  window.addEventListener("resize", function () {
+    if (previewDialog.open) updatePreviewScrollState();
+  });
   previewDialog.addEventListener("click", function (event) {
     if (event.target === previewDialog) closePreviewDialog();
   });
