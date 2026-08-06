@@ -198,7 +198,11 @@
         </header>
         <div class="preview-dialog-media-wrap">
           <button class="preview-dialog-arrow" id="preview-dialog-prev" type="button" aria-label="Show previous product preview">←</button>
-          <div class="preview-dialog-media" id="preview-dialog-media"></div>
+          <div class="preview-dialog-media" id="preview-dialog-media" role="region" aria-label="Scrollable application screenshot" tabindex="0"></div>
+          <div class="preview-dialog-scroll-cue" id="preview-dialog-scroll-cue" aria-hidden="true">
+            <span>Scroll to explore</span>
+            <span aria-hidden="true">↓</span>
+          </div>
           <button class="preview-dialog-arrow" id="preview-dialog-next" type="button" aria-label="Show next product preview">→</button>
         </div>
         <footer class="preview-dialog-footer">

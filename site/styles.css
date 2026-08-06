@@ -841,10 +841,48 @@ h1 em {
 .preview-dialog-index { width: 2.35rem; height: 1.9rem; justify-self: start; }
 .preview-dialog-close { width: 2.35rem; height: 2.35rem; justify-self: end; border-radius: 0.65rem; font-size: 1.35rem; }
 .preview-dialog-media-wrap { position: relative; min-height: 0; overflow: hidden; background: #040405; }
-.preview-dialog-media { width: 100%; height: 100%; min-height: 0; padding: clamp(0.75rem, 1.5vw, 1.25rem); overflow: hidden; }
-.preview-dialog-media .preview-media-frame { display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 0.8rem; background: #020203; box-shadow: 0 26px 72px rgba(0, 0, 0, 0.68); }
-.preview-dialog-media .preview-media-frame > img { object-fit: contain; object-position: center; }
+.preview-dialog-media {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--accent) rgba(255, 255, 255, 0.055);
+  scrollbar-gutter: stable both-edges;
+}
+.preview-dialog-media:focus-visible { outline: 1px solid rgba(222, 178, 156, 0.76); outline-offset: -3px; }
+.preview-dialog-media::-webkit-scrollbar { width: 0.72rem; height: 0.72rem; }
+.preview-dialog-media::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.045); }
+.preview-dialog-media::-webkit-scrollbar-thumb { border: 2px solid #080809; border-radius: 999px; background: linear-gradient(180deg, #d67b55, #9f4d31); box-shadow: 0 0 12px rgba(191, 106, 69, 0.34); }
+.preview-dialog-media::-webkit-scrollbar-corner { background: #080809; }
+.preview-dialog-media .preview-media-frame { display: block; width: max(100%, 64rem); height: auto; min-height: 0; aspect-ratio: 16 / 9; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 0.8rem; background: #020203; box-shadow: 0 26px 72px rgba(0, 0, 0, 0.68); }
+.preview-dialog-media .preview-media-frame > img { width: 100%; height: auto; object-fit: initial; object-position: initial; }
 .preview-dialog-media .preview-placeholder-motif { width: min(35%, 24rem); }
+.preview-dialog-scroll-cue {
+  position: absolute;
+  right: 50%;
+  bottom: clamp(1rem, 2vw, 1.6rem);
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.52rem 0.78rem;
+  border: 1px solid rgba(222, 178, 156, 0.32);
+  border-radius: 999px;
+  background: linear-gradient(145deg, rgba(47, 31, 27, 0.92), rgba(9, 9, 10, 0.9));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.14), 0 14px 34px rgba(0, 0, 0, 0.58), 0 0 20px rgba(191, 106, 69, 0.18);
+  color: #fff;
+  font-family: "Space Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(50%, 0.45rem);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.preview-dialog-media-wrap.is-scrollable:not(.has-scrolled) .preview-dialog-scroll-cue { opacity: 1; transform: translate(50%, 0); }
+.preview-dialog-media-wrap.has-scrolled .preview-dialog-scroll-cue { opacity: 0; }
 .preview-dialog-footer { justify-content: center; min-height: 4.2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); text-align: center; }
 .preview-dialog-footer p { max-width: min(78rem, 88%); margin: 0; color: #fff; font-size: 0.8rem; line-height: 1.5; }
 .preview-dialog-arrow { position: absolute; top: 50%; z-index: 10; width: 3.65rem; height: 3.65rem; border-color: rgba(255, 255, 255, 0.3); border-radius: 999px; background: radial-gradient(circle at 34% 26%, rgba(255, 255, 255, 0.18), transparent 29%), linear-gradient(145deg, rgba(48, 39, 36, 0.94), rgba(9, 9, 10, 0.92) 62%, rgba(30, 16, 13, 0.92)); box-shadow: inset 0 1px rgba(255, 255, 255, 0.24), inset 0 -1px rgba(191, 106, 69, 0.22), 0 18px 38px rgba(0, 0, 0, 0.64), 0 0 22px rgba(191, 106, 69, 0.22); font-size: 1.12rem; font-weight: 650; backdrop-filter: blur(18px) saturate(120%); transform: translateY(-50%); }
