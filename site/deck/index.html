@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore the NeuroLab project deck in an interactive three-dimensional presentation viewer.">
+    <meta name="theme-color" content="#050505">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NeuroLab Project Deck">
+    <meta property="og:description" content="An interactive overview of the NeuroLab platform, workflow, and public beta roadmap.">
+    <meta property="og:url" content="https://neurolab-ai.github.io/roadmap/deck/">
+    <meta property="og:image" content="https://neurolab-ai.github.io/roadmap/deck/slides/slide-01.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://neurolab-ai.github.io/roadmap/deck/">
+    <link rel="icon" href="data:,">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="./slides/slide-01.webp" type="image/webp">
+    <link rel="stylesheet" href="./deck.css">
+    <title>NeuroLab Project Deck</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#deck-carousel">Skip to the presentation</a>
+    <div class="ambient ambient-left" aria-hidden="true"></div>
+    <div class="ambient ambient-right" aria-hidden="true"></div>
+
+    <header class="site-header" aria-label="NeuroLab presentation header">
+      <a class="wordmark" href="../" aria-label="Return to the NeuroLab roadmap">
+        <img src="../assets/neurolab-wordmark.png" alt="NeuroLab">
+      </a>
+      <span class="header-divider" aria-hidden="true"></span>
+      <p>Evidence-Led Systems for CNS Drug Discovery</p>
+    </header>
+
+    <main>
+      <section class="deck-intro" aria-labelledby="page-title">
+        <p class="deck-eyebrow"><span aria-hidden="true">//</span> Public Presentation <b aria-hidden="true">·</b> 11 Slides</p>
+        <h1 id="page-title">NeuroLab <em>Project Deck</em></h1>
+        <p class="deck-lead">
+          An overview of the platform, research workflow, technical architecture, and public beta roadmap.
+        </p>
+      </section>
+
+      <section class="deck-experience" id="deck-carousel" aria-labelledby="carousel-title">
+        <h2 class="sr-only" id="carousel-title">Interactive project deck</h2>
+
+        <div class="carousel-meta" aria-live="polite">
+          <span class="slide-counter" id="slide-counter">01 / 11</span>
+          <p id="slide-title">Introducing NeuroLab</p>
+          <button class="expand-control" id="expand-control" type="button" aria-label="Open slide 1 in full-screen presentation mode">
+            <span class="expand-corners" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="carousel-viewport">
+          <div class="depth-floor" aria-hidden="true"></div>
+          <button class="carousel-arrow carousel-arrow-previous" id="carousel-previous" type="button" aria-label="Show previous slide">←</button>
+          <div class="carousel-stage" id="carousel-stage" tabindex="0" aria-label="NeuroLab project deck carousel"></div>
+          <button class="carousel-arrow carousel-arrow-next" id="carousel-next" type="button" aria-label="Show next slide">→</button>
+        </div>
+
+        <div class="carousel-toolbar">
+          <button class="open-presentation" id="open-presentation" type="button">
+            Open Full-Screen Presentation <span aria-hidden="true">↗</span>
+          </button>
+          <div class="carousel-dots" id="carousel-dots" aria-label="Choose a slide"></div>
+          <p>Presentation view only</p>
+        </div>
+        <p class="sr-only" id="carousel-status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a href="../">Explore the Roadmap <span aria-hidden="true">↗</span></a>
+      <span><span aria-hidden="true">//</span> NeuroLab Project Deck</span>
+      <a href="../../whitepaper/">Read the Whitepaper <span aria-hidden="true">↗</span></a>
+    </footer>
+
+    <dialog class="presentation-dialog" id="presentation-dialog" aria-labelledby="presentation-title">
+      <div class="presentation-shell">
+        <header class="presentation-header">
+          <span class="presentation-counter" id="presentation-counter">01 / 11</span>
+          <h2 id="presentation-title">Introducing NeuroLab</h2>
+          <button class="presentation-close" id="presentation-close" type="button" aria-label="Close full-screen presentation">×</button>
+        </header>
+
+        <div class="presentation-stage" id="presentation-stage">
+          <button class="presentation-arrow presentation-arrow-previous" id="presentation-previous" type="button" aria-label="Show previous slide">←</button>
+          <figure class="presentation-slide">
+            <img id="presentation-image" src="./slides/slide-01.webp" alt="The NeuroLab project deck cover slide." draggable="false">
+          </figure>
+          <button class="presentation-arrow presentation-arrow-next" id="presentation-next" type="button" aria-label="Show next slide">→</button>
+        </div>
+
+        <footer class="presentation-footer">
+          <div class="presentation-progress" aria-hidden="true"><span id="presentation-progress"></span></div>
+          <p>Use the arrow keys or swipe to move through the presentation. Press Escape to close.</p>
+        </footer>
+      </div>
+    </dialog>
+
+    <script src="./deck.js" defer></script>
+  </body>
+</html>

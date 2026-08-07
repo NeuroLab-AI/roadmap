@@ -25,6 +25,9 @@ REQUIRED_SITE_FILES = (
     "site/data/public-roadmap.json",
     "site/assets/neurolab-wordmark.png",
     "site/assets/neural-brain-hero.webp",
+    "site/deck/index.html",
+    "site/deck/deck.css",
+    "site/deck/deck.js",
 )
 
 FORBIDDEN_PUBLIC_PATHS = (
@@ -173,6 +176,27 @@ def validate_site() -> None:
     for phrase in ("current foundation", "near term", "mid term", "future direction", "development era"):
         if phrase in visible_copy:
             raise ValueError(f"Superseded relative-era copy remains in the public site: {phrase}")
+
+    deck_dir = ROOT / "site" / "deck"
+    deck_index = (deck_dir / "index.html").read_text(encoding="utf-8")
+    deck_script = (deck_dir / "deck.js").read_text(encoding="utf-8")
+    if 'src="./deck.js"' not in deck_index or 'href="./deck.css"' not in deck_index:
+        raise ValueError("The project deck page does not load its application assets")
+    if "Open Full-Screen Presentation" not in deck_index:
+        raise ValueError("The project deck is missing its presentation-mode control")
+    expected_slides = {f"slide-{index:02d}.webp" for index in range(1, 12)}
+    actual_slides = {path.name for path in (deck_dir / "slides").glob("slide-*.webp")}
+    if actual_slides != expected_slides:
+        raise ValueError("The public project deck must contain exactly 11 approved slide images")
+    if "slides.length" not in deck_script:
+        raise ValueError("The project deck application does not derive its slide count from the approved set")
+    forbidden_deck_sources = [
+        path.relative_to(ROOT)
+        for suffix in ("*.pdf", "*.ppt", "*.pptx")
+        for path in (ROOT / "site").rglob(suffix)
+    ]
+    if forbidden_deck_sources:
+        raise ValueError(f"Downloadable presentation source present in the public site: {forbidden_deck_sources}")
 
 
 def validate_preview_data(data: dict[str, Any]) -> None:
@@ -350,6 +374,7 @@ def main() -> int:
     print(f"Sanitized public roadmap data is valid ({len(publication_data['initiatives'])} initiatives)")
     print("Publication contract and served site data are identical")
     print(f"Product preview manifest is valid ({len(preview_data['previews'])} previews)")
+    print("Project deck is valid (11 presentation-only slides)")
     print("Public repository boundary and required GitHub Pages files are valid")
     return 0
 
