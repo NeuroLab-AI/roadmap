@@ -339,7 +339,7 @@ h1 em {
     0 0 1.25rem rgba(232, 194, 176, 0.14),
     inset 0 1px rgba(255, 255, 255, 0.25);
   filter: brightness(1.08) contrast(1.04) saturate(1.07);
-  transform: translate(-50%, -50%) translate3d(0, 0, 110px) scale(1);
+  transform: translate(-50%, -50%) translate3d(0, 0, 160px) scale(0.95);
 }
 
 .deck-card[data-position="previous"] {
@@ -697,7 +697,7 @@ h1 em {
   .deck-card { width: min(48%, 48rem); }
 
   .deck-card[data-position="active"] {
-    transform: translate(-50%, -50%) translate3d(0, 0, 65px) scale(1);
+    transform: translate(-50%, -50%) translate3d(0, 0, 140px) scale(0.93);
   }
 
   .deck-card[data-position="previous"] {
