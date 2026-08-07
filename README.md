@@ -3,6 +3,7 @@
 Registry-driven GitHub Pages publication for the NeuroLab development roadmap.
 
 - Live URL: <https://neurolab-ai.github.io/roadmap/>
+- Project deck: <https://neurolab-ai.github.io/roadmap/deck/>
 - Publication version: `0.5.0`
 - Current state: Draft for Review
 - Public selection: 19 initiatives across 7 categories and 5 calendar target windows
@@ -51,6 +52,12 @@ and category lead the visual hierarchy. Selecting an initiative opens an accessi
 with its outcome, maturity, confidence, calendar target, validation gate, dependencies, and claim
 boundary.
 
+The project deck is published as an interactive, centered 3D carousel at `/deck/`. It contains the
+11 approved slides from the source presentation; the unintended blank first page is excluded. The
+active slide can be opened in a full-viewport presentation dialog with keyboard, touch, and visible
+previous/next controls. The public site includes optimized slide images only: the source PDF is not
+published and the interface intentionally provides no download action.
+
 The sequence is a curated development narrative, not an ID sort. Calendar labels are target windows
 for the draft roadmap rather than guaranteed release dates.
 
@@ -71,13 +78,14 @@ No rejected candidates, private notes, source provenance, or synchronization log
 python -m http.server 4321 --directory site
 ```
 
-Then open <http://localhost:4321>.
+Then open <http://localhost:4321> for the roadmap or <http://localhost:4321/deck/> for the deck.
 
 Validate the publication boundary and site inputs:
 
 ```shell
 python scripts/validate_public_content.py
 node --check site/app.js
+node --check site/deck/deck.js
 ```
 
 ## Deployment
@@ -96,6 +104,11 @@ scripts/
   validate_public_content.py
 site/
   app.js
+  deck/
+    deck.css
+    deck.js
+    index.html
+    slides/
   data/app-previews.json
   data/public-roadmap.json
   index.html
