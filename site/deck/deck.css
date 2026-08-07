@@ -90,8 +90,8 @@ button { color: inherit; }
   flex-direction: column;
   align-items: center;
   width: min(calc(100% - 2rem), 55rem);
-  margin: 1.2rem auto 0;
-  padding: 1rem 2rem 0.9rem;
+  margin: 0.9rem auto 0;
+  padding: 0.85rem 2rem 0.78rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 2.2rem;
   background:
@@ -130,37 +130,17 @@ main {
 }
 
 .deck-intro {
-  max-width: 58rem;
-  margin: clamp(2.5rem, 6vh, 5rem) auto clamp(1.8rem, 4vh, 3rem);
+  max-width: 64rem;
+  margin: clamp(1.35rem, 3vh, 2.4rem) auto clamp(1rem, 2vh, 1.5rem);
   text-align: center;
-}
-
-.deck-eyebrow {
-  margin: 0 0 1rem;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: clamp(0.7rem, 1.1vw, 0.84rem);
-  letter-spacing: 0.055em;
-}
-
-.deck-eyebrow span {
-  margin-right: 0.45rem;
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.deck-eyebrow b {
-  padding: 0 0.55rem;
-  color: var(--accent);
-  font-weight: 400;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(3.2rem, 7vw, 6.8rem);
+  font-size: clamp(3rem, 5.1vw, 5.4rem);
   font-weight: 300;
   letter-spacing: -0.065em;
-  line-height: 0.94;
+  line-height: 0.98;
 }
 
 h1 em {
@@ -175,17 +155,17 @@ h1 em {
 }
 
 .deck-lead {
-  max-width: 47rem;
-  margin: 1.35rem auto 0;
+  max-width: 55rem;
+  margin: 0.85rem auto 0;
   color: var(--muted);
-  font-size: clamp(1rem, 1.65vw, 1.24rem);
-  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+  line-height: 1.48;
 }
 
 .deck-experience {
   position: relative;
   width: min(100%, 94rem);
-  margin: 0 auto 4rem;
+  margin: 0 auto 2.75rem;
 }
 
 .carousel-meta {
@@ -195,10 +175,10 @@ h1 em {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 1rem;
-  width: min(calc(100% - 4rem), 59rem);
-  min-height: 3.8rem;
-  margin: 0 auto -1rem;
-  padding: 0.5rem 0.65rem;
+  width: min(calc(100% - 4rem), 62rem);
+  min-height: 3.55rem;
+  margin: 0 auto -0.35rem;
+  padding: 0.42rem 0.58rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
   background:
@@ -222,17 +202,6 @@ h1 em {
   font-family: var(--mono);
   font-size: 0.66rem;
   text-align: center;
-}
-
-.carousel-meta p {
-  margin: 0;
-  overflow: hidden;
-  color: var(--text);
-  font-size: clamp(0.78rem, 1.2vw, 1rem);
-  font-weight: 500;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .expand-control,
@@ -265,7 +234,7 @@ h1 em {
 
 .carousel-viewport {
   position: relative;
-  height: clamp(26rem, 47vw, 43rem);
+  height: clamp(22rem, 31vw, 32rem);
   overflow: visible;
   perspective: 1150px;
   perspective-origin: 50% 43%;
@@ -307,7 +276,7 @@ h1 em {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(66%, 64rem);
+  width: min(61%, 58rem);
   aspect-ratio: 16 / 9;
   padding: 0;
   overflow: visible;
@@ -364,14 +333,14 @@ h1 em {
   z-index: 7;
   opacity: 1;
   filter: brightness(1.08) contrast(1.04) saturate(1.07);
-  transform: translate(-50%, -50%) translate3d(0, 0, 170px) scale(1.025);
+  transform: translate(-50%, -50%) translate3d(0, 0, 170px) scale(1.012);
 }
 
 .deck-card[data-position="previous"] {
   z-index: 4;
   opacity: 0.9;
   filter: brightness(0.67) contrast(1.08) saturate(0.82);
-  transform: translate(-50%, -50%) translate3d(-69%, 0.6rem, -115px) rotateY(47deg) scale(0.88);
+  transform: translate(-50%, -50%) translate3d(-69%, 0.6rem, -115px) rotateY(-47deg) scale(0.88);
   transform-origin: 100% 50%;
 }
 
@@ -379,7 +348,7 @@ h1 em {
   z-index: 4;
   opacity: 0.92;
   filter: brightness(0.7) contrast(1.08) saturate(0.84);
-  transform: translate(-50%, -50%) translate3d(69%, 0.6rem, -115px) rotateY(-47deg) scale(0.88);
+  transform: translate(-50%, -50%) translate3d(69%, 0.6rem, -115px) rotateY(47deg) scale(0.88);
   transform-origin: 0 50%;
 }
 
@@ -451,20 +420,20 @@ h1 em {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 1rem;
-  width: min(calc(100% - 4rem), 61rem);
-  margin: -2.2rem auto 0;
+  width: min(calc(100% - 4rem), 62rem);
+  margin: -0.8rem auto 0;
 }
 
 .open-presentation {
-  justify-self: start;
-  min-height: 2.75rem;
-  padding: 0.6rem 1.1rem;
+  justify-self: center;
+  min-height: 2.55rem;
+  padding: 0.55rem 1.25rem;
   border: 1px solid rgba(201, 111, 71, 0.4);
   border-radius: 999px;
   background: linear-gradient(145deg, rgba(72, 43, 35, 0.8), rgba(8, 8, 9, 0.88));
   color: var(--text);
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: clamp(0.62rem, 0.9vw, 0.72rem);
   cursor: pointer;
 }
 
@@ -500,7 +469,18 @@ h1 em {
   box-shadow: 0 0 18px rgba(230, 150, 111, 0.72);
 }
 
-.carousel-toolbar > p {
+.carousel-caption {
+  justify-self: start;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: clamp(0.78rem, 1.05vw, 0.94rem);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carousel-toolbar > p:last-child {
   justify-self: end;
   margin: 0;
   color: var(--subtle);
@@ -671,21 +651,20 @@ h1 em {
 
 @media (min-width: 1600px) {
   .deck-experience { width: min(100%, 100rem); }
-  .deck-card { width: min(64%, 65rem); }
-  .deck-card[data-position="previous"] { transform: translate(-50%, -50%) translate3d(-72%, 0.7rem, -130px) rotateY(50deg) scale(0.9); }
-  .deck-card[data-position="next"] { transform: translate(-50%, -50%) translate3d(72%, 0.7rem, -130px) rotateY(-50deg) scale(0.9); }
+  .deck-card { width: min(61%, 59rem); }
+  .deck-card[data-position="previous"] { transform: translate(-50%, -50%) translate3d(-72%, 0.7rem, -130px) rotateY(-50deg) scale(0.9); }
+  .deck-card[data-position="next"] { transform: translate(-50%, -50%) translate3d(72%, 0.7rem, -130px) rotateY(50deg) scale(0.9); }
 }
 
 @media (max-width: 900px) {
   main { width: min(100% - 1rem, 62rem); }
-  .deck-intro { margin-top: 2.6rem; }
-  h1 em { display: block; margin: 0.08em 0 0; }
+  .deck-intro { margin-top: 1.8rem; }
   .carousel-meta { width: calc(100% - 1rem); }
   .carousel-viewport { height: clamp(22rem, 63vw, 34rem); perspective: 900px; }
   .deck-card { width: 78%; }
   .deck-card[data-position="active"] { transform: translate(-50%, -50%) translate3d(0, 0, 110px) scale(1); }
-  .deck-card[data-position="previous"] { transform: translate(-50%, -50%) translate3d(-58%, 0.4rem, -120px) rotateY(43deg) scale(0.84); }
-  .deck-card[data-position="next"] { transform: translate(-50%, -50%) translate3d(58%, 0.4rem, -120px) rotateY(-43deg) scale(0.84); }
+  .deck-card[data-position="previous"] { transform: translate(-50%, -50%) translate3d(-58%, 0.4rem, -120px) rotateY(-43deg) scale(0.84); }
+  .deck-card[data-position="next"] { transform: translate(-50%, -50%) translate3d(58%, 0.4rem, -120px) rotateY(43deg) scale(0.84); }
   .carousel-toolbar { width: calc(100% - 2rem); }
 }
 
@@ -693,23 +672,22 @@ h1 em {
   .site-header { padding-inline: 1rem; border-radius: 1.65rem; }
   .site-header p { font-size: 0.56rem; letter-spacing: 0.055em; text-align: center; }
   .deck-intro { margin-bottom: 1.2rem; }
-  h1 { font-size: clamp(3.2rem, 15vw, 4.5rem); }
+  h1 { font-size: clamp(2.75rem, 13.5vw, 4.25rem); }
   .deck-lead { padding-inline: 0.75rem; font-size: 0.94rem; }
   .carousel-meta { grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.45rem; min-height: 3.35rem; padding: 0.42rem; border-radius: 1rem; }
   .slide-counter { min-width: 2.5rem; padding-inline: 0.4rem; font-size: 0.53rem; }
-  .carousel-meta p { font-size: 0.68rem; }
+  .open-presentation { min-height: 2.35rem; padding-inline: 0.65rem; font-size: 0.54rem; }
   .expand-control { width: 2.35rem; height: 2.35rem; }
   .carousel-viewport { height: 19rem; perspective: 700px; }
   .deck-card { width: 86%; border-radius: 0.75rem; }
   .deck-card[data-position="active"] { transform: translate(-50%, -50%) translate3d(0, 0, 70px) scale(0.96); }
-  .deck-card[data-position="previous"] { opacity: 0.42; transform: translate(-50%, -50%) translate3d(-45%, 0, -120px) rotateY(36deg) scale(0.78); }
-  .deck-card[data-position="next"] { opacity: 0.42; transform: translate(-50%, -50%) translate3d(45%, 0, -120px) rotateY(-36deg) scale(0.78); }
+  .deck-card[data-position="previous"] { opacity: 0.42; transform: translate(-50%, -50%) translate3d(-45%, 0, -120px) rotateY(-36deg) scale(0.78); }
+  .deck-card[data-position="next"] { opacity: 0.42; transform: translate(-50%, -50%) translate3d(45%, 0, -120px) rotateY(36deg) scale(0.78); }
   .carousel-arrow { width: 2.6rem; height: 2.6rem; font-size: 0.95rem; }
   .carousel-arrow-previous { left: -0.15rem; }
   .carousel-arrow-next { right: -0.15rem; }
-  .carousel-toolbar { grid-template-columns: 1fr auto; width: calc(100% - 1rem); margin-top: -1.2rem; }
-  .open-presentation { min-height: 2.4rem; font-size: 0.58rem; }
-  .carousel-toolbar > p { display: none; }
+  .carousel-toolbar { grid-template-columns: minmax(0, 1fr) auto; width: calc(100% - 1rem); margin-top: -0.6rem; }
+  .carousel-toolbar > p:last-child { display: none; }
   .carousel-dots { padding-inline: 0.6rem; }
   .carousel-dot { width: 0.32rem; height: 0.32rem; }
   .carousel-dot[aria-current="true"] { width: 1rem; }
