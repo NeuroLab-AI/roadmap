@@ -177,7 +177,7 @@ h1 em {
   gap: 1rem;
   width: min(calc(100% - 4rem), 62rem);
   min-height: 3.55rem;
-  margin: 0 auto -0.35rem;
+  margin: 0 auto 3.4rem;
   padding: 0.42rem 0.58rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
@@ -243,12 +243,12 @@ h1 em {
 
 .carousel-viewport::before {
   position: absolute;
-  inset: 7% 6% 4%;
+  inset: 0 4% 2%;
   z-index: -1;
   border-radius: 50%;
   background:
-    radial-gradient(ellipse at 50% 40%, rgba(201, 111, 71, 0.24), transparent 44%),
-    radial-gradient(ellipse at 50% 66%, rgba(85, 111, 134, 0.12), transparent 58%);
+    radial-gradient(ellipse at 50% 34%, rgba(201, 111, 71, 0.3), transparent 43%),
+    radial-gradient(ellipse at 50% 68%, rgba(85, 111, 134, 0.14), transparent 58%);
   content: "";
   filter: blur(40px);
 }
@@ -276,7 +276,7 @@ h1 em {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(54%, 54rem);
+  width: min(52%, 52rem);
   aspect-ratio: 16 / 9;
   padding: 0;
   overflow: visible;
@@ -332,8 +332,14 @@ h1 em {
 .deck-card[data-position="active"] {
   z-index: 7;
   opacity: 1;
+  border-color: rgba(242, 203, 184, 0.58);
+  box-shadow:
+    0 4.4rem 9rem rgba(0, 0, 0, 0.97),
+    0 0 5.2rem rgba(201, 111, 71, 0.3),
+    0 0 1.25rem rgba(232, 194, 176, 0.14),
+    inset 0 1px rgba(255, 255, 255, 0.25);
   filter: brightness(1.08) contrast(1.04) saturate(1.07);
-  transform: translate(-50%, -50%) translate3d(0, 0, 95px) scale(1);
+  transform: translate(-50%, -50%) translate3d(0, 0, 110px) scale(1);
 }
 
 .deck-card[data-position="previous"] {
@@ -651,7 +657,7 @@ h1 em {
 
 @media (min-width: 1600px) {
   .deck-experience { width: min(100%, 100rem); }
-  .deck-card { width: min(54%, 54rem); }
+  .deck-card { width: min(52%, 52rem); }
   .deck-card[data-position="previous"] { transform: translate(-50%, -50%) translate3d(-80%, 0.6rem, -140px) rotateY(-46deg) scale(0.87); }
   .deck-card[data-position="next"] { transform: translate(-50%, -50%) translate3d(80%, 0.6rem, -140px) rotateY(46deg) scale(0.87); }
 }
@@ -674,26 +680,34 @@ h1 em {
     font-size: clamp(0.9rem, 1.15vw, 1rem);
   }
 
-  .deck-experience { margin-bottom: 1.5rem; }
+  .deck-experience { margin-bottom: 0.75rem; }
 
-  .carousel-meta { min-height: 3.25rem; }
+  .site-footer {
+    padding-top: 0.75rem;
+    padding-bottom: 1rem;
+  }
 
-  .carousel-viewport { height: clamp(20rem, 24.5vw, 27rem); }
+  .carousel-meta {
+    min-height: 3.25rem;
+    margin-bottom: clamp(2.75rem, 3.3vw, 3.1rem);
+  }
 
-  .deck-card { width: min(50%, 50rem); }
+  .carousel-viewport { height: clamp(19.5rem, 23.5vw, 26rem); }
+
+  .deck-card { width: min(48%, 48rem); }
 
   .deck-card[data-position="active"] {
-    transform: translate(-50%, -50%) translate3d(0, 0, 55px) scale(1);
+    transform: translate(-50%, -50%) translate3d(0, 0, 65px) scale(1);
   }
 
   .deck-card[data-position="previous"] {
     opacity: 0.8;
-    transform: translate(-50%, -50%) translate3d(-82%, 0.4rem, -125px) rotateY(-42deg) scale(0.84);
+    transform: translate(-50%, -50%) translate3d(-86%, 0.4rem, -125px) rotateY(-42deg) scale(0.84);
   }
 
   .deck-card[data-position="next"] {
     opacity: 0.82;
-    transform: translate(-50%, -50%) translate3d(82%, 0.4rem, -125px) rotateY(42deg) scale(0.84);
+    transform: translate(-50%, -50%) translate3d(86%, 0.4rem, -125px) rotateY(42deg) scale(0.84);
   }
 
   .carousel-toolbar { margin-top: -0.35rem; }
@@ -702,7 +716,10 @@ h1 em {
 @media (max-width: 900px) {
   main { width: min(100% - 1rem, 62rem); }
   .deck-intro { margin-top: 1.8rem; }
-  .carousel-meta { width: calc(100% - 1rem); }
+  .carousel-meta {
+    width: calc(100% - 1rem);
+    margin-bottom: 1rem;
+  }
   .carousel-viewport { height: clamp(22rem, 63vw, 34rem); perspective: 900px; }
   .deck-card { width: 78%; }
   .deck-card[data-position="active"] { transform: translate(-50%, -50%) translate3d(0, 0, 110px) scale(1); }
@@ -717,7 +734,7 @@ h1 em {
   .deck-intro { margin-bottom: 1.2rem; }
   h1 { font-size: clamp(2.75rem, 13.5vw, 4.25rem); }
   .deck-lead { padding-inline: 0.75rem; font-size: 0.94rem; }
-  .carousel-meta { grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.45rem; min-height: 3.35rem; padding: 0.42rem; border-radius: 1rem; }
+  .carousel-meta { grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.45rem; min-height: 3.35rem; margin-bottom: 0.75rem; padding: 0.42rem; border-radius: 1rem; }
   .slide-counter { min-width: 2.5rem; padding-inline: 0.4rem; font-size: 0.53rem; }
   .open-presentation { min-height: 2.35rem; padding-inline: 0.65rem; font-size: 0.54rem; }
   .expand-control { width: 2.35rem; height: 2.35rem; }
