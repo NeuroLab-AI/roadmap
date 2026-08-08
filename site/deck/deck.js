@@ -169,6 +169,13 @@
     return deltaX > 0 ? -1 : 1;
   }
 
+  function canStartDialogSwipe(event) {
+    var target = event.target;
+    if (event.isPrimary === false) return false;
+    if (typeof event.button === "number" && event.button !== 0) return false;
+    return !(target && typeof target.closest === "function" && target.closest("button, a"));
+  }
+
   buildCarousel();
   updateCarousel(false);
 
@@ -220,6 +227,8 @@
   });
 
   dialogStage.addEventListener("pointerdown", function (event) {
+    dialogPointerStart = null;
+    if (!canStartDialogSwipe(event)) return;
     dialogPointerStart = pointerStart(event);
     dialogStage.setPointerCapture(event.pointerId);
   });

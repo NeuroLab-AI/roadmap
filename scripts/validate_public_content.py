@@ -190,6 +190,13 @@ def validate_site() -> None:
         raise ValueError("The public project deck must contain exactly 11 approved slide images")
     if "slides.length" not in deck_script:
         raise ValueError("The project deck application does not derive its slide count from the approved set")
+    required_deck_interactions = (
+        "function canStartDialogSwipe(event)",
+        'target.closest("button, a")',
+        "if (!canStartDialogSwipe(event)) return;",
+    )
+    if any(fragment not in deck_script for fragment in required_deck_interactions):
+        raise ValueError("The full-screen deck must preserve arrow clicks while retaining swipe navigation")
     forbidden_deck_sources = [
         path.relative_to(ROOT)
         for suffix in ("*.pdf", "*.ppt", "*.pptx")
