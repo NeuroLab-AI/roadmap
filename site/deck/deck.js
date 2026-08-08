@@ -37,6 +37,7 @@
   var dialogNext = document.getElementById("presentation-next");
   var dialogClose = document.getElementById("presentation-close");
   var dialogStage = document.getElementById("presentation-stage");
+  var dialogSlide = dialogStage.querySelector(".presentation-slide");
 
   var currentIndex = 0;
   var lastFocus = null;
@@ -133,6 +134,16 @@
     showSlide(currentIndex + direction, announce);
   }
 
+  function resetDialogViewport() {
+    dialogSlide.scrollTop = 0;
+    dialogSlide.scrollLeft = 0;
+  }
+
+  function stepPresentation(direction) {
+    step(direction, true);
+    resetDialogViewport();
+  }
+
   function updateDialog() {
     var activeSlide = slides[currentIndex];
     dialogCounter.textContent = slideNumber(currentIndex) + " / " + slides.length;
@@ -199,8 +210,14 @@
 
   stage.addEventListener("pointercancel", function () { carouselPointerStart = null; });
 
-  dialogPrevious.addEventListener("click", function () { step(-1, true); });
-  dialogNext.addEventListener("click", function () { step(1, true); });
+  dialogPrevious.addEventListener("click", function (event) {
+    event.stopPropagation();
+    stepPresentation(-1);
+  });
+  dialogNext.addEventListener("click", function (event) {
+    event.stopPropagation();
+    stepPresentation(1);
+  });
   dialogClose.addEventListener("click", closeDialog);
 
   dialog.addEventListener("click", function (event) {
@@ -211,15 +228,35 @@
     document.body.style.overflow = "";
   });
 
-  document.addEventListener("keydown", function (event) {
+  dialog.addEventListener("keydown", function (event) {
     if (!dialog.open) return;
-    if (event.key === "ArrowLeft") { event.preventDefault(); step(-1, true); }
-    if (event.key === "ArrowRight") { event.preventDefault(); step(1, true); }
-    if (event.key === "Home") { event.preventDefault(); showSlide(0, true); }
-    if (event.key === "End") { event.preventDefault(); showSlide(slides.length - 1, true); }
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.repeat) return;
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      event.stopPropagation();
+      stepPresentation(-1);
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      event.stopPropagation();
+      stepPresentation(1);
+    }
+    if (event.key === "Home") {
+      event.preventDefault();
+      event.stopPropagation();
+      showSlide(0, true);
+      resetDialogViewport();
+    }
+    if (event.key === "End") {
+      event.preventDefault();
+      event.stopPropagation();
+      showSlide(slides.length - 1, true);
+      resetDialogViewport();
+    }
   });
 
   dialogStage.addEventListener("pointerdown", function (event) {
+    if (event.target.closest(".presentation-arrow")) return;
     dialogPointerStart = pointerStart(event);
     dialogStage.setPointerCapture(event.pointerId);
   });
@@ -227,7 +264,7 @@
   dialogStage.addEventListener("pointerup", function (event) {
     var direction = pointerDirection(dialogPointerStart, event);
     dialogPointerStart = null;
-    if (direction) step(direction, true);
+    if (direction) stepPresentation(direction);
   });
 
   dialogStage.addEventListener("pointercancel", function () { dialogPointerStart = null; });
