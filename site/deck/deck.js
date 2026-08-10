@@ -43,6 +43,7 @@
   var currentIndex = 0;
   var lastFocus = null;
   var carouselPointerStart = null;
+  var carouselDidSwipe = false;
   var dialogPointerStart = null;
 
   function slideNumber(index) {
@@ -77,6 +78,10 @@
       card.appendChild(image);
 
       card.addEventListener("click", function () {
+        if (carouselDidSwipe) {
+          carouselDidSwipe = false;
+          return;
+        }
         var position = card.dataset.position;
         if (position === "active") {
           openDialog(card);
@@ -199,14 +204,17 @@
   });
 
   stage.addEventListener("pointerdown", function (event) {
+    carouselDidSwipe = false;
     carouselPointerStart = pointerStart(event);
-    stage.setPointerCapture(event.pointerId);
   });
 
   stage.addEventListener("pointerup", function (event) {
     var direction = pointerDirection(carouselPointerStart, event);
     carouselPointerStart = null;
-    if (direction) step(direction, true);
+    if (direction) {
+      carouselDidSwipe = true;
+      step(direction, true);
+    }
   });
 
   stage.addEventListener("pointercancel", function () { carouselPointerStart = null; });
