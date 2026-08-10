@@ -12,6 +12,7 @@
     { title: "Knowledge Graph", alt: "NeuroLab knowledge graph interface showing local evidence and support bundles." },
     { title: "Brain Explorer", alt: "NeuroLab brain explorer with mechanistic localization controls and a three-dimensional brain visualization." },
     { title: "API for Agents", alt: "NeuroLab API overview for agent-oriented autonomous research workflows." },
+    { title: "Tokenomics", alt: "NeuroLab indicative working plan for token allocation and use of funds, showing the allocation split across the BioProtocol ecosystem, launch liquidity, treasury, early supporters and the ignition sale, alongside the proposed deployment of the raise across initial liquidity, direct development, and growth and operations." },
     { title: "Public Beta", alt: "NeuroLab public beta announcement for September 15, 2026 with the public roadmap address." }
   ].map(function (slide, index) {
     slide.src = "./slides/slide-" + String(index + 1).padStart(2, "0") + ".webp";
