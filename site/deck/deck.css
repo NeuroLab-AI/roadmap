@@ -165,7 +165,7 @@ h1 em {
 .deck-experience {
   position: relative;
   width: min(100%, 94rem);
-  margin: 0 auto 2rem;
+  margin: 0 auto 0.35rem;
 }
 
 .carousel-meta {
@@ -177,7 +177,7 @@ h1 em {
   gap: 1rem;
   width: min(calc(100% - 4rem), 62rem);
   min-height: 3.55rem;
-  margin: 0 auto 3.4rem;
+  margin: 0 auto clamp(0.85rem, 1.5vh, 1.2rem);
   padding: 0.42rem 0.58rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
@@ -234,7 +234,7 @@ h1 em {
 
 .carousel-viewport {
   position: relative;
-  height: clamp(21rem, 28vw, 29rem);
+  height: clamp(19rem, min(28vw, calc(100svh - 28rem)), 29rem);
   overflow: visible;
   perspective: 1150px;
   perspective-origin: 50% 43%;
@@ -274,7 +274,7 @@ h1 em {
 
 .deck-card {
   position: absolute;
-  top: 50%;
+  top: 44%;
   left: 50%;
   width: min(52%, 52rem);
   aspect-ratio: 16 / 9;
@@ -426,7 +426,8 @@ h1 em {
   align-items: center;
   justify-content: center;
   width: min(calc(100% - 4rem), 62rem);
-  margin: -0.8rem auto 0;
+  min-height: 2.35rem;
+  margin: 0.7rem auto 0;
 }
 
 .open-presentation {
@@ -502,13 +503,15 @@ h1 em {
 }
 
 .site-footer {
+  position: relative;
+  z-index: 20;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 1rem;
   width: min(calc(100% - 2rem), 92rem);
   margin: 0 auto;
-  padding: 1.2rem 0 2rem;
+  padding: 0.6rem 0 0.8rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--subtle);
   font-family: var(--mono);
@@ -711,19 +714,21 @@ h1 em {
     font-size: clamp(0.9rem, 1.15vw, 1rem);
   }
 
-  .deck-experience { margin-bottom: 0.75rem; }
+  .deck-experience { margin-bottom: 0.25rem; }
 
   .site-footer {
-    padding-top: 0.75rem;
-    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.65rem;
   }
 
   .carousel-meta {
     min-height: 3.25rem;
-    margin-bottom: clamp(2.75rem, 3.3vw, 3.1rem);
+    margin-bottom: clamp(0.7rem, 1.3vh, 0.95rem);
   }
 
-  .carousel-viewport { height: clamp(19.5rem, 23.5vw, 26rem); }
+  .carousel-viewport {
+    height: clamp(19rem, min(23.5vw, calc(100svh - 31rem)), 26rem);
+  }
 
   .deck-card { width: min(48%, 48rem); }
 
@@ -741,7 +746,7 @@ h1 em {
     transform: translate(-50%, -50%) translate3d(86%, 0.4rem, -125px) rotateY(42deg) scale(0.84);
   }
 
-  .carousel-toolbar { margin-top: -0.35rem; }
+  .carousel-toolbar { margin-top: 0.65rem; }
 }
 
 @media (max-width: 900px) {
@@ -752,7 +757,7 @@ h1 em {
     margin-bottom: 1rem;
   }
   .carousel-viewport { height: clamp(22rem, 63vw, 34rem); perspective: 900px; }
-  .deck-card { width: 78%; }
+  .deck-card { top: 50%; width: 78%; }
   .deck-card[data-position="active"] { transform: translate(-50%, -50%) translate3d(0, 0, 110px) scale(1); }
   .deck-card[data-position="previous"] { transform: translate(-50%, -50%) translate3d(-58%, 0.4rem, -120px) rotateY(-43deg) scale(0.84); }
   .deck-card[data-position="next"] { transform: translate(-50%, -50%) translate3d(58%, 0.4rem, -120px) rotateY(43deg) scale(0.84); }
@@ -777,7 +782,7 @@ h1 em {
   .carousel-arrow { width: 2.6rem; height: 2.6rem; font-size: 0.95rem; }
   .carousel-arrow-previous { left: -0.15rem; }
   .carousel-arrow-next { right: -0.15rem; }
-  .carousel-toolbar { width: calc(100% - 1rem); margin-top: -0.6rem; }
+  .carousel-toolbar { width: calc(100% - 1rem); margin-top: 0.55rem; }
   .carousel-dots { padding-inline: 0.6rem; }
   .carousel-dot { width: 0.32rem; height: 0.32rem; }
   .carousel-dot[aria-current="true"] { width: 1rem; }
