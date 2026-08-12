@@ -150,20 +150,21 @@ button { font: inherit; }
 
 .skip-link:focus { transform: translateY(0); }
 
+/* Ambient orbs: the whitepaper page's spec (kept below this page's
+   interactive layers). */
 .ambient {
   position: fixed;
-  z-index: -1;
-  width: 32rem;
-  height: 32rem;
+  z-index: 0;
+  width: 34rem;
+  height: 34rem;
   border-radius: 50%;
-  opacity: 0.18;
-  filter: blur(145px);
+  opacity: 0.22;
+  filter: blur(120px);
   pointer-events: none;
-  animation: ambient-drift 18s ease-in-out infinite alternate;
 }
 
-.ambient-one { top: -18rem; left: 8%; background: #6b3324; }
-.ambient-two { right: -22rem; bottom: -20rem; background: #503125; animation-delay: -9s; }
+.ambient-one { top: -15rem; left: 18%; background: #6d3626; }
+.ambient-two { bottom: -19rem; left: -12rem; background: #592e22; }
 
 @keyframes ambient-drift {
   from { transform: translate3d(-1.5rem, -0.75rem, 0) scale(0.96); }
