@@ -122,26 +122,29 @@ button { color: inherit; }
 
 .skip-link:focus { transform: translateY(0); }
 
+/* Ambient orbs: the whitepaper page's spec (kept below this page's
+   interactive layers). */
 .ambient {
   position: fixed;
-  z-index: -2;
-  width: 42rem;
-  height: 42rem;
+  z-index: -1;
+  width: 34rem;
+  height: 34rem;
   border-radius: 50%;
-  filter: blur(90px);
+  opacity: 0.22;
+  filter: blur(120px);
   pointer-events: none;
 }
 
 .ambient-left {
-  top: -16rem;
-  left: -18rem;
-  background: rgba(154, 65, 34, 0.19);
+  top: -15rem;
+  left: 18%;
+  background: #6d3626;
 }
 
 .ambient-right {
-  right: -20rem;
-  bottom: -22rem;
-  background: rgba(79, 49, 43, 0.13);
+  bottom: -19rem;
+  left: -12rem;
+  background: #592e22;
 }
 
 .site-header {
