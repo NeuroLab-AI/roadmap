@@ -61,7 +61,7 @@ body::after {
 body::before {
   z-index: -2;
   opacity: 0.4;
-  background: url("./assets/neural-brain-hero.webp") 50% 6.5rem / min(78rem, 102vw) auto no-repeat;
+  background: url("./assets/neural-brain-hero.webp") 45% 7.2rem / min(86rem, 102vw) auto no-repeat;
   filter: brightness(0.72) contrast(1.14) saturate(0.7);
   mix-blend-mode: screen;
   -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 5rem, #000 72%, transparent 100%);
@@ -140,13 +140,13 @@ button { font: inherit; }
   flex-direction: column;
   align-items: center;
   gap: 0.42rem;
-  width: min(calc(100% - 2rem), 55rem);
+  width: min(46rem, calc(100% - 3rem));
   min-height: auto;
-  margin: 0.9rem auto 0;
-  padding: 0.85rem 2rem 0.78rem;
+  margin: 1rem auto 0;
+  padding: 0.9rem 2.1rem 0.82rem;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.105);
-  border-radius: 2.2rem;
+  border-radius: 2.1rem;
   background:
     linear-gradient(135deg, rgba(31, 29, 31, 0.72), rgba(8, 8, 10, 0.48) 58%, rgba(20, 13, 12, 0.58)),
     radial-gradient(circle at 50% -80%, rgba(255, 255, 255, 0.18), transparent 60%);
@@ -181,8 +181,8 @@ button { font: inherit; }
 }
 
 .wordmark { display: inline-flex; text-decoration: none; }
-.wordmark img { display: block; width: clamp(10rem, 17vw, 13rem); height: auto; }
-.header-divider { width: clamp(11rem, 20vw, 15rem); height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.64), transparent); }
+.wordmark img { display: block; width: clamp(10.8rem, 15vw, 12.8rem); height: auto; }
+.header-divider { width: clamp(12rem, 18vw, 15rem); height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.62), transparent); }
 
 .site-header p,
 .hero-stats small,
@@ -198,8 +198,8 @@ button { font: inherit; }
 
 .site-header p {
   margin: 0;
-  font-size: clamp(0.62rem, 1vw, 0.78rem);
-  letter-spacing: 0.09em;
+  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+  letter-spacing: 0.085em;
   text-align: center;
 }
 
