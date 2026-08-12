@@ -25,25 +25,84 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at 50% 34%, rgba(71, 41, 29, 0.18), transparent 32rem),
-    linear-gradient(112deg, rgba(61, 26, 16, 0.3), transparent 32%, transparent 72%, rgba(43, 19, 14, 0.16)),
-    var(--background);
+  background: #0a0a0a;
   color: var(--text);
   font-family: var(--sans);
   text-rendering: optimizeLegibility;
 }
 
-body::before {
+/* Backdrop: the whitepaper page's treatment, verbatim — large brain
+   offset left under layered dark gradients, plus its noise/grid film. */
+body::before,
+body::after {
   position: fixed;
   inset: 0;
-  z-index: -3;
   content: "";
+  pointer-events: none;
+}
+
+body::before {
+  z-index: -3;
   background:
+    linear-gradient(
+      90deg,
+      rgba(10, 10, 10, 0.8) 0%,
+      rgba(10, 10, 10, 0.48) 34%,
+      rgba(10, 10, 10, 0.62) 54%,
+      rgba(10, 10, 10, 0.9) 68%,
+      rgba(10, 10, 10, 0.99) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.7) 0%,
+      rgba(10, 10, 10, 0.08) 30%,
+      rgba(10, 10, 10, 0.24) 68%,
+      rgba(10, 10, 10, 0.94) 100%
+    ),
+    radial-gradient(
+      circle at 38% 44%,
+      rgba(191, 106, 69, 0.16) 0%,
+      rgba(105, 50, 34, 0.07) 28%,
+      transparent 55%
+    ),
+    url("../assets/neural-brain-hero.webp") calc(50% - 23vw) center / cover no-repeat;
+}
+
+body::after {
+  z-index: -2;
+  opacity: 0.76;
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E"),
     linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 86%);
+  background-size: auto, 52px 52px, 52px 52px;
+}
+
+@media (max-width: 900px) {
+  body::before {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.58) 0%,
+        rgba(10, 10, 10, 0.28) 24%,
+        rgba(10, 10, 10, 0.82) 62%,
+        rgba(10, 10, 10, 0.99) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(10, 10, 10, 0.82) 0%,
+        rgba(10, 10, 10, 0.38) 58%,
+        rgba(10, 10, 10, 0.64) 100%
+      ),
+      radial-gradient(
+        circle at 72% 20%,
+        rgba(191, 106, 69, 0.14) 0%,
+        transparent 48%
+      ),
+      url("../assets/neural-brain-hero.webp") 80% top / auto 68vh no-repeat;
+  }
+
+  body::after { opacity: 0.62; }
 }
 
 button, a { font: inherit; }
@@ -138,20 +197,22 @@ main {
 h1 {
   margin: 0;
   font-size: clamp(3rem, 4.8vw, 5rem);
-  font-weight: 300;
-  letter-spacing: -0.065em;
+  font-weight: 500;
+  letter-spacing: -0.07em;
   line-height: 0.98;
+  text-shadow: 0 14px 56px rgba(0, 0, 0, 0.72), 0 0 26px rgba(255, 255, 255, 0.025);
 }
 
 h1 em {
   display: inline-block;
   margin-left: 0.06em;
-  background: linear-gradient(105deg, #dfb29d, var(--accent) 54%, #8f3f27);
+  background: linear-gradient(110deg, #e8c0ae 4%, #cf805f 48%, #a94f32 96%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
+  letter-spacing: -0.06em;
 }
 
 .deck-lead {
