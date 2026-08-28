@@ -4,13 +4,18 @@ Registry-driven GitHub Pages publication for the NeuroLab development roadmap.
 
 - Live URL: <https://neurolab-ai.github.io/roadmap/>
 - Project deck: <https://neurolab-ai.github.io/roadmap/deck/>
-- Publication version: `0.5.0`
+- Publication version: `0.6.0`
 - Current state: Draft for Review
-- Public selection: 19 initiatives across 7 categories and 5 calendar target windows
+- Public selection: 6 major releases and 19 initiatives across 7 categories and 5 calendar target windows
 
 ## Experience
 
-The page presents a calendar-driven roadmap from Q3 2026 through Q3 2027. Visitors can switch
+The page leads with an interactive release runway spanning Atlas through Commons from Q4 2026 to
+Q3 2027. Each release exposes its deliverables, direct validation criteria, and links to the existing
+technical initiatives that support it. The release sequence becomes a two-column overview at tablet
+and embedded widths, then a chronological inline accordion on mobile.
+
+The technical roadmap remains available beneath the release runway from Q3 2026 through Q3 2027. Visitors can switch
 between the visual timeline and a chronological data table, search across the public initiative
 content, and combine keyword search with one or more technical-domain filters. The contextual
 controls remain available while the roadmap is in view without competing with the introductory
@@ -23,7 +28,7 @@ hero caption and a more detailed fullscreen description. Selecting the active pr
 opens an individual near-fullscreen viewer with previous/next navigation, outside-click dismissal,
 and focus return. Desktop pointer movement adjusts restrained directional lighting without rotating
 the image plane. Mobile keeps a compact flat fallback, while reduced-motion mode preserves the static
-3D composition without animated movement. A display-style beta-release heading introduces a naked,
+3D composition without animated movement. A display-style platform-beta heading introduces a naked,
 cinematic gallery whose visible composition is formed by the projected screens rather than an enclosing
 glass panel. Each slide foregrounds its concise feature description rather than an internal technical
 title, with the index and expansion control framing that description in a single metadata row. A
@@ -58,8 +63,8 @@ active slide can be opened in a full-viewport presentation dialog with keyboard,
 previous/next controls. The public site includes optimized slide images only: the source PDF is not
 published and the interface intentionally provides no download action.
 
-The sequence is a curated development narrative, not an ID sort. Calendar labels are target windows
-for the draft roadmap rather than guaranteed release dates.
+The sequence is a curated development narrative, not an ID sort. Technical initiative quarter labels
+and named-release targets are planned delivery windows rather than guarantees.
 
 ## Data Boundary
 

@@ -37,6 +37,12 @@
   var resetFilters = document.getElementById("reset-filters");
   var roadmapEmpty = document.getElementById("roadmap-empty");
   var roadmapViewLabel = document.getElementById("roadmap-view-label");
+  var releaseRunwayShell = document.getElementById("release-runway-shell");
+  var releaseRunway = document.getElementById("release-runway");
+  var releaseDetailHome = document.getElementById("release-detail-home");
+  var releaseDetail = document.getElementById("release-detail");
+  var releaseLoading = document.getElementById("release-loading");
+  var releaseError = document.getElementById("release-error");
   var viewOptions = Array.prototype.slice.call(document.querySelectorAll("[data-view]"));
   var loading = document.getElementById("loading-state");
   var errorState = document.getElementById("error-state");
@@ -56,6 +62,13 @@
   var activePreviewIndex = 0;
   var previewLastTrigger = null;
   var previewPointerStart = null;
+  var orderedReleases = [];
+  var releaseButtons = [];
+  var activeReleaseIndex = 0;
+  var releaseMobileQuery = window.matchMedia("(max-width: 620px)");
+  var roadmapInitiatives = new Map();
+  var roadmapCategories = new Map();
+  var roadmapStages = new Map();
 
   var detailLabels = {
     currentFoundation: "Current technical substrate",
@@ -79,12 +92,24 @@
   }
 
   function validateData(data) {
-    if (!data || data.schemaVersion !== "2.0.0") throw new Error("Unsupported roadmap data");
-    if (!Array.isArray(data.stages) || !Array.isArray(data.categories) || !Array.isArray(data.initiatives)) {
+    if (!data || data.schemaVersion !== "3.0.0") throw new Error("Unsupported roadmap data");
+    if (!Array.isArray(data.releases) || !Array.isArray(data.stages) || !Array.isArray(data.categories) || !Array.isArray(data.initiatives)) {
       throw new Error("Incomplete roadmap data");
     }
     var sequences = data.initiatives.map(function (item) { return item.sequence; }).sort(function (a, b) { return a - b; });
     if (sequences.some(function (value, index) { return value !== index + 1; })) throw new Error("Invalid roadmap sequence");
+    var releaseSequences = data.releases.map(function (item) { return item.sequence; }).sort(function (a, b) { return a - b; });
+    if (releaseSequences.some(function (value, index) { return value !== index + 1; })) throw new Error("Invalid release sequence");
+    var initiativeIds = new Set(data.initiatives.map(function (item) { return item.id; }));
+    var stageIds = new Set(data.stages.map(function (item) { return item.id; }));
+    data.releases.forEach(function (release) {
+      if (!stageIds.has(release.stageId)) throw new Error("Unknown release target window");
+      if (!Array.isArray(release.deliverables) || !release.deliverables.length) throw new Error("Missing release deliverables");
+      if (!Array.isArray(release.validation) || !release.validation.length) throw new Error("Missing release validation");
+      if (!Array.isArray(release.relatedInitiativeIds) || release.relatedInitiativeIds.some(function (id) { return !initiativeIds.has(id); })) {
+        throw new Error("Unknown release initiative reference");
+      }
+    });
   }
 
   function element(tag, className, text) {
@@ -313,6 +338,169 @@
     ].concat(Object.keys(initiative.details || {}).map(function (key) {
       return initiative.details[key];
     })).join(" "));
+  }
+
+  function releaseName(title) {
+    return String(title || "").replace(/^NeuroLab:\s*/, "");
+  }
+
+  function buildReleaseList(className, values) {
+    var list = element("ul", className);
+    values.forEach(function (value) {
+      list.appendChild(element("li", "", value));
+    });
+    return list;
+  }
+
+  function renderReleaseDetail(release) {
+    var header = element("header", "release-detail-header");
+    var headingCopy = element("div");
+    headingCopy.appendChild(element("p", "release-detail-kicker", "// Release " + String(release.sequence).padStart(2, "0") + " · " + release.targetLabel));
+    var heading = element("h3", "", release.title);
+    heading.id = "release-detail-title";
+    headingCopy.appendChild(heading);
+    header.appendChild(headingCopy);
+    header.appendChild(element("span", "release-detail-quarter", roadmapStages.get(release.stageId).title));
+
+    var summary = element("p", "release-detail-summary", release.description);
+    var detailGrid = element("div", "release-detail-grid");
+    var deliverables = element("section", "release-detail-group release-detail-deliverables");
+    deliverables.appendChild(element("h4", "", "Deliverables"));
+    deliverables.appendChild(buildReleaseList("release-deliverable-list", release.deliverables));
+    detailGrid.appendChild(deliverables);
+
+    var validation = element("section", "release-detail-group release-detail-validation");
+    validation.appendChild(element("h4", "", "Validation"));
+    validation.appendChild(buildReleaseList("release-validation-list", release.validation));
+    detailGrid.appendChild(validation);
+
+    releaseDetail.replaceChildren(header, summary, detailGrid);
+
+    if (release.relatedInitiativeIds.length) {
+      var foundations = element("section", "release-foundations");
+      foundations.appendChild(element("h4", "", "Technical foundations"));
+      var foundationList = element("div", "release-foundation-list");
+      release.relatedInitiativeIds.forEach(function (initiativeId) {
+        var initiative = roadmapInitiatives.get(initiativeId);
+        var category = initiative ? roadmapCategories.get(initiative.categoryId) : null;
+        var stage = initiative ? roadmapStages.get(initiative.stage) : null;
+        if (!initiative || !category || !stage) return;
+        var button = element("button", "release-foundation", initiative.id + " · " + initiative.title);
+        button.type = "button";
+        button.addEventListener("click", function () { openDialog(initiative, category, stage, button); });
+        foundationList.appendChild(button);
+      });
+      foundations.appendChild(foundationList);
+      releaseDetail.appendChild(foundations);
+    }
+
+    releaseDetail.classList.remove("is-entering");
+    void releaseDetail.offsetWidth;
+    releaseDetail.classList.add("is-entering");
+  }
+
+  function placeReleaseDetail() {
+    if (!releaseButtons.length) return;
+    var activeButton = releaseButtons[activeReleaseIndex];
+    var mobile = releaseMobileQuery.matches;
+
+    if (mobile) {
+      releaseRunway.removeAttribute("role");
+      releaseRunway.removeAttribute("aria-label");
+      releaseDetail.setAttribute("role", "region");
+      releaseButtons.forEach(function (button, index) {
+        button.removeAttribute("role");
+        button.removeAttribute("aria-selected");
+        button.setAttribute("aria-expanded", index === activeReleaseIndex ? "true" : "false");
+        button.tabIndex = 0;
+      });
+      activeButton.insertAdjacentElement("afterend", releaseDetail);
+    } else {
+      releaseRunway.setAttribute("role", "tablist");
+      releaseRunway.setAttribute("aria-label", "Major release sequence");
+      releaseDetail.setAttribute("role", "tabpanel");
+      releaseDetailHome.appendChild(releaseDetail);
+      releaseButtons.forEach(function (button, index) {
+        button.setAttribute("role", "tab");
+        button.removeAttribute("aria-expanded");
+        button.setAttribute("aria-selected", index === activeReleaseIndex ? "true" : "false");
+        button.tabIndex = index === activeReleaseIndex ? 0 : -1;
+      });
+    }
+    releaseDetail.setAttribute("aria-labelledby", activeButton.id);
+  }
+
+  function setActiveRelease(index, moveFocus) {
+    if (!orderedReleases.length) return;
+    activeReleaseIndex = (index + orderedReleases.length) % orderedReleases.length;
+    releaseButtons.forEach(function (button, buttonIndex) {
+      button.classList.toggle("is-active", buttonIndex === activeReleaseIndex);
+    });
+    renderReleaseDetail(orderedReleases[activeReleaseIndex]);
+    placeReleaseDetail();
+    if (moveFocus) releaseButtons[activeReleaseIndex].focus();
+  }
+
+  function renderReleases(data) {
+    orderedReleases = data.releases.slice().sort(bySequence);
+    releaseButtons = [];
+    releaseRunway.replaceChildren();
+
+    data.stages.slice().sort(byOrder).forEach(function (stage) {
+      var stageReleases = orderedReleases.filter(function (release) { return release.stageId === stage.id; });
+      if (!stageReleases.length) return;
+
+      var quarter = element("section", "release-quarter");
+      quarter.setAttribute("role", "presentation");
+      quarter.dataset.releaseCount = String(stageReleases.length);
+      var quarterLabel = element("div", "release-quarter-label");
+      appendCalendarLabel(quarterLabel, stage.title);
+      quarter.appendChild(quarterLabel);
+      quarter.appendChild(element("span", "release-quarter-marker"));
+
+      var cards = element("div", "release-quarter-cards");
+      stageReleases.forEach(function (release) {
+        var releaseIndex = orderedReleases.indexOf(release);
+        var button = element("button", "release-node");
+        button.type = "button";
+        button.id = "release-tab-" + release.id;
+        button.dataset.releaseId = release.id;
+        button.dataset.releaseIndex = String(releaseIndex);
+        button.setAttribute("aria-controls", "release-detail");
+        button.setAttribute("aria-label", release.title + ", " + release.targetLabel);
+
+        var meta = element("span", "release-node-meta");
+        meta.appendChild(element("span", "release-node-index", String(release.sequence).padStart(2, "0")));
+        meta.appendChild(element("span", "release-node-target", release.targetLabel));
+        button.appendChild(meta);
+        button.appendChild(element("span", "release-node-name", releaseName(release.title)));
+        button.appendChild(element("span", "release-node-summary", release.description));
+        button.addEventListener("click", function () { setActiveRelease(releaseIndex, false); });
+        button.addEventListener("keydown", function (event) {
+          var nextIndex = null;
+          if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = releaseIndex - 1;
+          if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = releaseIndex + 1;
+          if (event.key === "Home") nextIndex = 0;
+          if (event.key === "End") nextIndex = orderedReleases.length - 1;
+          if (nextIndex === null) return;
+          event.preventDefault();
+          setActiveRelease(nextIndex, true);
+        });
+        cards.appendChild(button);
+        releaseButtons[releaseIndex] = button;
+      });
+      quarter.appendChild(cards);
+      releaseRunway.appendChild(quarter);
+    });
+
+    releaseRunwayShell.hidden = false;
+    releaseLoading.hidden = true;
+    setActiveRelease(0, false);
+    if (releaseMobileQuery.addEventListener) {
+      releaseMobileQuery.addEventListener("change", placeReleaseDetail);
+    } else {
+      releaseMobileQuery.addListener(placeReleaseDetail);
+    }
   }
 
   function renderLegend(categories) {
@@ -758,10 +946,14 @@
     .then(function (data) {
       validateData(data);
       document.getElementById("publication-version").textContent = "Version " + data.publication.version.replace(/\.0$/, "");
+      document.getElementById("release-count").textContent = String(data.releases.length);
       document.getElementById("initiative-count").textContent = String(data.initiatives.length);
       document.getElementById("category-count").textContent = String(data.categories.length);
-      document.getElementById("target-window-count").textContent = String(data.stages.length);
+      roadmapInitiatives = new Map(data.initiatives.map(function (initiative) { return [initiative.id, initiative]; }));
+      roadmapCategories = new Map(data.categories.map(function (category) { return [category.id, category]; }));
+      roadmapStages = new Map(data.stages.map(function (stage) { return [stage.id, stage]; }));
       totalInitiatives = data.initiatives.length;
+      renderReleases(data);
       renderLegend(data.categories);
       renderEraNavigation(data.stages);
       renderTimeline(data);
@@ -773,6 +965,8 @@
       applyFilters();
     })
     .catch(function () {
+      releaseLoading.hidden = true;
+      releaseError.hidden = false;
       loading.hidden = true;
       errorState.hidden = false;
     });
