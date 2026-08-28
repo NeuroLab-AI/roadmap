@@ -53,7 +53,7 @@ with its outcome, maturity, confidence, calendar target, validation gate, depend
 boundary.
 
 The project deck is published as an interactive, centered 3D carousel at `/deck/`. It contains the
-11 approved slides from the source presentation; the unintended blank first page is excluded. The
+12 approved slides from the source presentation; the unintended blank first page is excluded. The
 active slide can be opened in a full-viewport presentation dialog with keyboard, touch, and visible
 previous/next controls. The public site includes optimized slide images only: the source PDF is not
 published and the interface intentionally provides no download action.

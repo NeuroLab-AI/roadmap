@@ -184,10 +184,10 @@ def validate_site() -> None:
         raise ValueError("The project deck page does not load its application assets")
     if "Open Full-Screen Presentation" not in deck_index:
         raise ValueError("The project deck is missing its presentation-mode control")
-    expected_slides = {f"slide-{index:02d}.webp" for index in range(1, 12)}
+    expected_slides = {f"slide-{index:02d}.webp" for index in range(1, 13)}
     actual_slides = {path.name for path in (deck_dir / "slides").glob("slide-*.webp")}
     if actual_slides != expected_slides:
-        raise ValueError("The public project deck must contain exactly 11 approved slide images")
+        raise ValueError("The public project deck must contain exactly 12 approved slide images")
     if "slides.length" not in deck_script:
         raise ValueError("The project deck application does not derive its slide count from the approved set")
     forbidden_deck_sources = [
@@ -374,7 +374,7 @@ def main() -> int:
     print(f"Sanitized public roadmap data is valid ({len(publication_data['initiatives'])} initiatives)")
     print("Publication contract and served site data are identical")
     print(f"Product preview manifest is valid ({len(preview_data['previews'])} previews)")
-    print("Project deck is valid (11 presentation-only slides)")
+    print("Project deck is valid (12 presentation-only slides)")
     print("Public repository boundary and required GitHub Pages files are valid")
     return 0
 
