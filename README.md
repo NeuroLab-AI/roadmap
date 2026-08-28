@@ -4,13 +4,13 @@ Registry-driven GitHub Pages publication for the NeuroLab development roadmap.
 
 - Live URL: <https://neurolab-ai.github.io/roadmap/>
 - Project deck: <https://neurolab-ai.github.io/roadmap/deck/>
-- Publication version: `0.6.0`
+- Publication version: `0.7.0`
 - Current state: Draft for Review
-- Public selection: 6 major releases and 19 initiatives across 7 categories and 5 calendar target windows
+- Public selection: 7 major releases and 19 initiatives across 7 categories and 5 calendar target windows
 
 ## Experience
 
-The page leads with an interactive release runway spanning Atlas through Commons from Q4 2026 to
+The page leads with an interactive release runway spanning Genesis through Commons from Q3 2026 to
 Q3 2027. Each release exposes its deliverables, direct validation criteria, and links to the existing
 technical initiatives that support it. The release sequence becomes a two-column overview at tablet
 and embedded widths, then a chronological inline accordion on mobile.

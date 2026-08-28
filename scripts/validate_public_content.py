@@ -65,6 +65,7 @@ RELEASE_KEYS = {
     "sequence",
     "description",
     "deliverables",
+    "completedDeliverables",
     "validation",
     "relatedInitiativeIds",
 }
@@ -172,14 +173,14 @@ def validate_site() -> None:
     if "Target window " in script or "stage-count" in script:
         raise ValueError("Removed target-window ordinal or detached initiative count returned to the timeline")
     required_copy = (
-        "Current and Upcoming Initiatives",
+        "current_and_upcoming_initiatives",
         "Explore the Roadmap by Technical Domain",
         "NeuroLab:",
         "The Roadmap",
         'aria-label="Platform Beta: Q3 2026"',
-        "Major Release Sequence",
-        'From <span class="release-title-accent">Open Exploration</span> to <span class="release-title-accent">Community Discovery</span>',
-        "Timeline Targets: Q3 2026 – Q3 2027",
+        "major_release_sequence · Q3 2026–Q3 2027",
+        'From <span class="release-title-accent">Open Exploration</span> to <span class="release-title-accent">Community-Led Discovery</span>',
+        "timeline_targets · Q3 2026–Q3 2027",
         'From <span class="roadmap-title-accent">Peptide</span> Prediction Support to <span class="roadmap-title-accent">Personalized</span> Data Spaces',
     )
     for phrase in required_copy:
@@ -246,10 +247,10 @@ def validate_preview_data(data: dict[str, Any]) -> None:
 
 
 def validate_public_data(data: dict[str, Any]) -> None:
-    if data.get("schemaVersion") != "3.0.0":
+    if data.get("schemaVersion") != "3.1.0":
         raise ValueError("Unsupported public roadmap schemaVersion")
     if set(data) != {"$schema", "schemaVersion", "publication", "releases", "stages", "categories", "initiatives"}:
-        raise ValueError("Public roadmap top-level fields do not match schema version 3.0.0")
+        raise ValueError("Public roadmap top-level fields do not match schema version 3.1.0")
 
     forbidden_key = find_forbidden_key(data)
     if forbidden_key:
@@ -269,8 +270,8 @@ def validate_public_data(data: dict[str, Any]) -> None:
         raise ValueError("publication.status is invalid")
     if publication["releasedOn"] is not None:
         require_text(publication["releasedOn"], "publication.releasedOn")
-    if not isinstance(releases, list) or len(releases) != 6:
-        raise ValueError("releases must contain the six approved major releases")
+    if not isinstance(releases, list) or len(releases) != 7:
+        raise ValueError("releases must contain the seven approved major releases")
     if not isinstance(stages, list) or not stages:
         raise ValueError("stages must be a non-empty array")
     if not isinstance(categories, list) or not categories:
@@ -392,6 +393,13 @@ def validate_public_data(data: dict[str, Any]) -> None:
                 raise ValueError(f"release {release_id} {field} must be a non-empty array")
             for index, value in enumerate(values, start=1):
                 require_text(value, f"release {release_id} {field}[{index}]")
+        completed_deliverables = release["completedDeliverables"]
+        if not isinstance(completed_deliverables, list) or len(completed_deliverables) != len(set(completed_deliverables)):
+            raise ValueError(f"release {release_id} completedDeliverables must be a unique array")
+        for index, value in enumerate(completed_deliverables, start=1):
+            require_text(value, f"release {release_id} completedDeliverables[{index}]")
+            if value not in release["deliverables"]:
+                raise ValueError(f"Completed deliverable is not declared on release {release_id}: {value}")
         related_ids = release["relatedInitiativeIds"]
         if not isinstance(related_ids, list) or len(related_ids) != len(set(related_ids)):
             raise ValueError(f"release {release_id} relatedInitiativeIds must be a unique array")
