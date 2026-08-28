@@ -1,12 +1,129 @@
 {
   "$schema": "https://neurolab-ai.github.io/roadmap/publication/public-roadmap.schema.json",
-  "schemaVersion": "2.0.0",
+  "schemaVersion": "3.0.0",
   "publication": {
     "title": "NeuroLab Public Roadmap",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "status": "draft",
     "releasedOn": null
   },
+  "releases": [
+    {
+      "id": "atlas",
+      "title": "NeuroLab: Atlas",
+      "targetLabel": "October 2026",
+      "stageId": "q4-2026",
+      "sequence": 1,
+      "description": "A free user tier with 50 fully addressable datasets and interactive knowledge graph exploration.",
+      "deliverables": [
+        "Public product URL",
+        "GitBook documentation",
+        "Free user tier",
+        "50-dataset index",
+        "Interactive knowledge graph",
+        "Web2 and Web3 account access"
+      ],
+      "validation": [
+        "All 50 datasets return results against the published test-query set.",
+        "Supported Web2 and Web3 authentication flows complete successfully."
+      ],
+      "relatedInitiativeIds": ["PROD-07", "PROD-04"]
+    },
+    {
+      "id": "axon",
+      "title": "NeuroLab: Axon",
+      "targetLabel": "January 2027",
+      "stageId": "q1-2027",
+      "sequence": 2,
+      "description": "Versioned APIs, MCP agent access, per-section report payments, and third-party tool integrations.",
+      "deliverables": [
+        "API v1 and changelog",
+        "MCP server",
+        "Per-section report payments",
+        "Named third-party integration"
+      ],
+      "validation": [
+        "An external agent successfully calls the MCP server.",
+        "The first paid report section is transacted on-chain."
+      ],
+      "relatedInitiativeIds": ["AGT-01", "PROD-04"]
+    },
+    {
+      "id": "frontier",
+      "title": "NeuroLab: Frontier",
+      "targetLabel": "Q1 2027",
+      "stageId": "q1-2027",
+      "sequence": 3,
+      "description": "Novel-structure and peptide inference, expanded pharmacology, and provenance-bound evidence intake.",
+      "deliverables": [
+        "Novel-structure inference",
+        "Peptide inference",
+        "Expanded pharmacology",
+        "Provenance-bound evidence intake"
+      ],
+      "validation": [
+        "A published test set returns provenance-linked outputs for at least one novel structure and one peptide."
+      ],
+      "relatedInitiativeIds": ["ML-02", "ML-05", "KG-01", "KG-02"]
+    },
+    {
+      "id": "workbench",
+      "title": "NeuroLab: Workbench",
+      "targetLabel": "Q2 2027",
+      "stageId": "q2-2027",
+      "sequence": 4,
+      "description": "Personalized research libraries, comparative subgraph analysis, compound cohorts and molecule portfolios, hypothesis generation and publication drafting.",
+      "deliverables": [
+        "Personalized research libraries",
+        "Comparative subgraph analysis",
+        "Compound cohorts",
+        "Molecule portfolios",
+        "Hypothesis generation",
+        "Publication drafting"
+      ],
+      "validation": [
+        "A user can save a research library, compare a compound cohort, generate a supported hypothesis, and produce a publication draft."
+      ],
+      "relatedInitiativeIds": ["PROD-06", "PROD-01", "PROD-04"]
+    },
+    {
+      "id": "cortex",
+      "title": "NeuroLab: Cortex",
+      "targetLabel": "Q3 2027",
+      "stageId": "q3-2027",
+      "sequence": 5,
+      "description": "Typed causal state, branch-preserving and abductive reasoning, multiscale whole-brain mapping.",
+      "deliverables": [
+        "Typed causal state",
+        "Branch-preserving reasoning",
+        "Abductive reasoning",
+        "Multiscale whole-brain mapping"
+      ],
+      "validation": [
+        "A published evaluation preserves competing causal branches and produces a traceable multiscale brain map."
+      ],
+      "relatedInitiativeIds": ["NS-01", "NS-02", "NS-03", "BRN-01", "BRN-02"]
+    },
+    {
+      "id": "commons",
+      "title": "NeuroLab: Commons",
+      "targetLabel": "Q3 2027",
+      "stageId": "q3-2027",
+      "sequence": 6,
+      "description": "Community compound submissions with automated leaderboards and voting, shared IP terms for novel candidates, and direct IPT proposal generation.",
+      "deliverables": [
+        "Community compound submissions",
+        "Automated leaderboards",
+        "Community voting",
+        "Shared IP terms",
+        "IPT proposal generation"
+      ],
+      "validation": [
+        "The first eligible compound proceeds through submission, ranking, voting, and IPT proposal generation."
+      ],
+      "relatedInitiativeIds": []
+    }
+  ],
   "stages": [
     {
       "id": "q3-2026",

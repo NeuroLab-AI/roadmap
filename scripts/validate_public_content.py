@@ -57,6 +57,17 @@ FORBIDDEN_KEYS = {
 }
 
 PUBLICATION_KEYS = {"title", "version", "status", "releasedOn"}
+RELEASE_KEYS = {
+    "id",
+    "title",
+    "targetLabel",
+    "stageId",
+    "sequence",
+    "description",
+    "deliverables",
+    "validation",
+    "relatedInitiativeIds",
+}
 STAGE_KEYS = {"id", "title", "order", "description"}
 CATEGORY_KEYS = {"id", "title", "abbreviation", "visualToken", "order"}
 INITIATIVE_KEYS = {
@@ -165,7 +176,9 @@ def validate_site() -> None:
         "Explore the Roadmap by Technical Domain",
         "NeuroLab:",
         "The Roadmap",
-        'aria-label="Beta Release: Q3 2026"',
+        'aria-label="Platform Beta: Q3 2026"',
+        "Major Release Sequence",
+        'From <span class="release-title-accent">Open Exploration</span> to <span class="release-title-accent">Community Discovery</span>',
         "Timeline Targets: Q3 2026 – Q3 2027",
         'From <span class="roadmap-title-accent">Peptide</span> Prediction Support to <span class="roadmap-title-accent">Personalized</span> Data Spaces',
     )
@@ -184,10 +197,10 @@ def validate_site() -> None:
         raise ValueError("The project deck page does not load its application assets")
     if "Open Full-Screen Presentation" not in deck_index:
         raise ValueError("The project deck is missing its presentation-mode control")
-    expected_slides = {f"slide-{index:02d}.webp" for index in range(1, 12)}
+    expected_slides = {f"slide-{index:02d}.webp" for index in range(1, 13)}
     actual_slides = {path.name for path in (deck_dir / "slides").glob("slide-*.webp")}
     if actual_slides != expected_slides:
-        raise ValueError("The public project deck must contain exactly 11 approved slide images")
+        raise ValueError("The public project deck must contain exactly 12 approved slide images")
     if "slides.length" not in deck_script:
         raise ValueError("The project deck application does not derive its slide count from the approved set")
     forbidden_deck_sources = [
@@ -233,16 +246,17 @@ def validate_preview_data(data: dict[str, Any]) -> None:
 
 
 def validate_public_data(data: dict[str, Any]) -> None:
-    if data.get("schemaVersion") != "2.0.0":
+    if data.get("schemaVersion") != "3.0.0":
         raise ValueError("Unsupported public roadmap schemaVersion")
-    if set(data) != {"$schema", "schemaVersion", "publication", "stages", "categories", "initiatives"}:
-        raise ValueError("Public roadmap top-level fields do not match schema version 2.0.0")
+    if set(data) != {"$schema", "schemaVersion", "publication", "releases", "stages", "categories", "initiatives"}:
+        raise ValueError("Public roadmap top-level fields do not match schema version 3.0.0")
 
     forbidden_key = find_forbidden_key(data)
     if forbidden_key:
         raise ValueError(f"Private-only key present in public roadmap data: {forbidden_key}")
 
     publication = data.get("publication")
+    releases = data.get("releases")
     stages = data.get("stages")
     categories = data.get("categories")
     initiatives = data.get("initiatives")
@@ -255,6 +269,8 @@ def validate_public_data(data: dict[str, Any]) -> None:
         raise ValueError("publication.status is invalid")
     if publication["releasedOn"] is not None:
         require_text(publication["releasedOn"], "publication.releasedOn")
+    if not isinstance(releases, list) or len(releases) != 6:
+        raise ValueError("releases must contain the six approved major releases")
     if not isinstance(stages, list) or not stages:
         raise ValueError("stages must be a non-empty array")
     if not isinstance(categories, list) or not categories:
@@ -352,6 +368,41 @@ def validate_public_data(data: dict[str, Any]) -> None:
     if sequences != set(range(1, len(initiatives) + 1)):
         raise ValueError("Initiative sequences must be contiguous from 1")
 
+    release_ids: set[str] = set()
+    release_sequences: set[int] = set()
+    for release in releases:
+        if not isinstance(release, dict):
+            raise ValueError("Every release must be an object")
+        require_exact_keys(release, RELEASE_KEYS, "release")
+        release_id = release["id"]
+        if not isinstance(release_id, str) or not SLUG_RE.fullmatch(release_id):
+            raise ValueError(f"Invalid release ID: {release_id}")
+        if release_id in release_ids:
+            raise ValueError(f"Duplicate release ID: {release_id}")
+        if release["stageId"] not in stage_ids:
+            raise ValueError(f"Unknown target window on release {release_id}: {release['stageId']}")
+        sequence = release["sequence"]
+        if not isinstance(sequence, int) or sequence < 1 or sequence in release_sequences:
+            raise ValueError(f"Invalid or duplicate release sequence on {release_id}: {sequence}")
+        for field in ("title", "targetLabel", "description"):
+            require_text(release[field], f"release {release_id} {field}")
+        for field in ("deliverables", "validation"):
+            values = release[field]
+            if not isinstance(values, list) or not values:
+                raise ValueError(f"release {release_id} {field} must be a non-empty array")
+            for index, value in enumerate(values, start=1):
+                require_text(value, f"release {release_id} {field}[{index}]")
+        related_ids = release["relatedInitiativeIds"]
+        if not isinstance(related_ids, list) or len(related_ids) != len(set(related_ids)):
+            raise ValueError(f"release {release_id} relatedInitiativeIds must be a unique array")
+        for initiative_id in related_ids:
+            if initiative_id not in initiative_ids:
+                raise ValueError(f"Unknown related initiative on release {release_id}: {initiative_id}")
+        release_ids.add(release_id)
+        release_sequences.add(sequence)
+    if release_sequences != set(range(1, len(releases) + 1)):
+        raise ValueError("Release sequences must be contiguous from 1")
+
 
 def main() -> int:
     try:
@@ -371,10 +422,13 @@ def main() -> int:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
-    print(f"Sanitized public roadmap data is valid ({len(publication_data['initiatives'])} initiatives)")
+    print(
+        "Sanitized public roadmap data is valid "
+        f"({len(publication_data['releases'])} releases, {len(publication_data['initiatives'])} initiatives)"
+    )
     print("Publication contract and served site data are identical")
     print(f"Product preview manifest is valid ({len(preview_data['previews'])} previews)")
-    print("Project deck is valid (11 presentation-only slides)")
+    print("Project deck is valid (12 presentation-only slides)")
     print("Public repository boundary and required GitHub Pages files are valid")
     return 0
 

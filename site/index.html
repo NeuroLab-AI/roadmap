@@ -20,7 +20,7 @@
     <title>NeuroLab Public Roadmap</title>
   </head>
   <body>
-    <a class="skip-link" href="#roadmap">Skip to the roadmap</a>
+    <a class="skip-link" href="#releases">Skip to the roadmap</a>
     <div class="ambient ambient-one" aria-hidden="true"></div>
     <div class="ambient ambient-two" aria-hidden="true"></div>
 
@@ -38,22 +38,22 @@
           <div class="hero-copy">
             <h1 id="page-title"><span>NeuroLab:</span> <em>The Roadmap</em></h1>
             <p class="hero-lead">
-              Explore the working NeuroLab platform and the technical systems extending it. Select any
-              initiative to inspect its scope, dependencies, validation gate, and claim boundary.
+              Explore six major releases—from free public access to community discovery—then inspect the
+              technical initiatives, dependencies, validation gates, and claim boundaries behind them.
             </p>
             <div class="hero-stats" aria-label="Roadmap summary">
+              <div><span id="release-count">6</span><small>Major Releases</small></div>
               <div><span id="initiative-count">19</span><small>Initiatives</small></div>
-              <div><span id="category-count">7</span><small>Categories</small></div>
-              <div><span id="target-window-count">5</span><small>Calendar Targets</small></div>
+              <div><span id="category-count">7</span><small>Technical Domains</small></div>
             </div>
             <div class="hero-cta-zone">
-              <a class="primary-action" href="#roadmap">Explore the Roadmap <span aria-hidden="true">↓</span></a>
+              <a class="primary-action" href="#releases">Explore the Roadmap <span aria-hidden="true">↓</span></a>
             </div>
           </div>
 
           <section class="product-showcase" aria-labelledby="product-showcase-title">
-            <h2 class="showcase-section-title" id="product-showcase-title" aria-label="Beta Release: Q3 2026">
-              <span>Beta Release:</span> <span class="showcase-beta-quarter">Q3</span> <span>2026</span>
+            <h2 class="showcase-section-title" id="product-showcase-title" aria-label="Platform Beta: Q3 2026">
+              <span>Platform Beta:</span> <span class="showcase-beta-quarter">Q3</span> <span>2026</span>
             </h2>
             <div class="showcase-shell showcase-shell--naked">
               <div class="showcase-slide-header">
@@ -80,6 +80,23 @@
             </p>
             <p class="sr-only" id="showcase-status" aria-live="polite"></p>
           </section>
+        </div>
+      </section>
+
+      <section class="release-section page-shell" id="releases" aria-labelledby="release-title">
+        <div class="section-heading release-heading">
+          <p class="section-index"><span>//</span> Major Release Sequence · Q4 2026–Q3 2027</p>
+          <h2 id="release-title">From <span class="release-title-accent">Open Exploration</span> to <span class="release-title-accent">Community Discovery</span></h2>
+          <p>Across six releases—from Atlas to Commons—NeuroLab expands from a freely explorable data platform into an agent-accessible, collaborative research ecosystem. Each release defines what ships and how its completion will be validated.</p>
+        </div>
+
+        <p class="release-loading" id="release-loading">Loading the release sequence…</p>
+        <p class="release-error" id="release-error" role="alert" hidden>The release sequence is temporarily unavailable.</p>
+        <div class="release-runway-shell" id="release-runway-shell" hidden>
+          <div class="release-runway" id="release-runway" role="tablist" aria-label="Major release sequence"></div>
+          <div class="release-detail-home" id="release-detail-home">
+            <article class="release-detail" id="release-detail" role="tabpanel" tabindex="-1" aria-live="polite"></article>
+          </div>
         </div>
       </section>
 
