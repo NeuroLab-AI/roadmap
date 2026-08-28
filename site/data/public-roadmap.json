@@ -1,28 +1,52 @@
 {
   "$schema": "https://neurolab-ai.github.io/roadmap/publication/public-roadmap.schema.json",
-  "schemaVersion": "3.0.0",
+  "schemaVersion": "3.1.0",
   "publication": {
     "title": "NeuroLab Public Roadmap",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "status": "draft",
     "releasedOn": null
   },
   "releases": [
     {
+      "id": "genesis",
+      "title": "NeuroLab: Genesis",
+      "targetLabel": "Q3 2026",
+      "stageId": "q3-2026",
+      "sequence": 1,
+      "description": "Bio.xyz Ignition Sale, full-featured interactive public application demo, beta testing cohort, GitBook documentation, inference benchmarking, load testing, public whitepaper release.",
+      "deliverables": [
+        "Public Demo and Walkthrough",
+        "Beta Testing Cohort",
+        "Bio.xyz Ignition Sale",
+        "GitBook Documentation",
+        "Public Whitepaper"
+      ],
+      "completedDeliverables": ["Public Whitepaper"],
+      "validation": [
+        "The Bio.xyz launchpad page and Ignition Sale go live with approved public materials.",
+        "Release of a publicly accessible and interactive demo of the NeuroLab application: the demo allows any user to complete a full-featured walkthrough of the five main modules in the application's current architecture.",
+        "The Beta Testing Cohort completes the core inference workflow and structured feedback cycle.",
+        "GitBook documentation is publicly accessible, versioned, and includes user guides, evaluation-method descriptions, and knowledge graph specifications.",
+        "Inference benchmarks meet the declared acceptance thresholds, and the demo remains stable under the defined load-test profile."
+      ],
+      "relatedInitiativeIds": ["PROD-04", "VAL-01", "VAL-03"]
+    },
+    {
       "id": "atlas",
       "title": "NeuroLab: Atlas",
       "targetLabel": "October 2026",
       "stageId": "q4-2026",
-      "sequence": 1,
+      "sequence": 2,
       "description": "A free user tier with 50 fully addressable datasets and interactive knowledge graph exploration.",
       "deliverables": [
-        "Public product URL",
-        "GitBook documentation",
-        "Free user tier",
+        "Public free-tier access",
         "50-dataset index",
         "Interactive knowledge graph",
+        "Atlas dataset and feature documentation",
         "Web2 and Web3 account access"
       ],
+      "completedDeliverables": [],
       "validation": [
         "All 50 datasets return results against the published test-query set.",
         "Supported Web2 and Web3 authentication flows complete successfully."
@@ -34,7 +58,7 @@
       "title": "NeuroLab: Axon",
       "targetLabel": "January 2027",
       "stageId": "q1-2027",
-      "sequence": 2,
+      "sequence": 3,
       "description": "Versioned APIs, MCP agent access, per-section report payments, and third-party tool integrations.",
       "deliverables": [
         "API v1 and changelog",
@@ -42,6 +66,7 @@
         "Per-section report payments",
         "Named third-party integration"
       ],
+      "completedDeliverables": [],
       "validation": [
         "An external agent successfully calls the MCP server.",
         "The first paid report section is transacted on-chain."
@@ -53,7 +78,7 @@
       "title": "NeuroLab: Frontier",
       "targetLabel": "Q1 2027",
       "stageId": "q1-2027",
-      "sequence": 3,
+      "sequence": 4,
       "description": "Novel-structure and peptide inference, expanded pharmacology, and provenance-bound evidence intake.",
       "deliverables": [
         "Novel-structure inference",
@@ -61,6 +86,7 @@
         "Expanded pharmacology",
         "Provenance-bound evidence intake"
       ],
+      "completedDeliverables": [],
       "validation": [
         "A published test set returns provenance-linked outputs for at least one novel structure and one peptide."
       ],
@@ -71,7 +97,7 @@
       "title": "NeuroLab: Workbench",
       "targetLabel": "Q2 2027",
       "stageId": "q2-2027",
-      "sequence": 4,
+      "sequence": 5,
       "description": "Personalized research libraries, comparative subgraph analysis, compound cohorts and molecule portfolios, hypothesis generation and publication drafting.",
       "deliverables": [
         "Personalized research libraries",
@@ -81,6 +107,7 @@
         "Hypothesis generation",
         "Publication drafting"
       ],
+      "completedDeliverables": [],
       "validation": [
         "A user can save a research library, compare a compound cohort, generate a supported hypothesis, and produce a publication draft."
       ],
@@ -91,7 +118,7 @@
       "title": "NeuroLab: Cortex",
       "targetLabel": "Q3 2027",
       "stageId": "q3-2027",
-      "sequence": 5,
+      "sequence": 6,
       "description": "Typed causal state, branch-preserving and abductive reasoning, multiscale whole-brain mapping.",
       "deliverables": [
         "Typed causal state",
@@ -99,6 +126,7 @@
         "Abductive reasoning",
         "Multiscale whole-brain mapping"
       ],
+      "completedDeliverables": [],
       "validation": [
         "A published evaluation preserves competing causal branches and produces a traceable multiscale brain map."
       ],
@@ -109,7 +137,7 @@
       "title": "NeuroLab: Commons",
       "targetLabel": "Q3 2027",
       "stageId": "q3-2027",
-      "sequence": 6,
+      "sequence": 7,
       "description": "Community compound submissions with automated leaderboards and voting, shared IP terms for novel candidates, and direct IPT proposal generation.",
       "deliverables": [
         "Community compound submissions",
@@ -118,6 +146,7 @@
         "Shared IP terms",
         "IPT proposal generation"
       ],
+      "completedDeliverables": [],
       "validation": [
         "The first eligible compound proceeds through submission, ranking, voting, and IPT proposal generation."
       ],

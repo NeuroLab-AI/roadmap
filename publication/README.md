@@ -4,9 +4,9 @@ This directory contains only the deliberately public, sanitized roadmap contract
 
 ## Active Publication
 
-- Version: `0.6.0`
+- Version: `0.7.0`
 - Status: Draft for Review
-- Major releases: 6
+- Major releases: 7
 - Public initiatives: 19
 - Calendar target windows: 5
 - Categories: 7

@@ -92,7 +92,7 @@
   }
 
   function validateData(data) {
-    if (!data || data.schemaVersion !== "3.0.0") throw new Error("Unsupported roadmap data");
+    if (!data || data.schemaVersion !== "3.1.0") throw new Error("Unsupported roadmap data");
     if (!Array.isArray(data.releases) || !Array.isArray(data.stages) || !Array.isArray(data.categories) || !Array.isArray(data.initiatives)) {
       throw new Error("Incomplete roadmap data");
     }
@@ -105,6 +105,9 @@
     data.releases.forEach(function (release) {
       if (!stageIds.has(release.stageId)) throw new Error("Unknown release target window");
       if (!Array.isArray(release.deliverables) || !release.deliverables.length) throw new Error("Missing release deliverables");
+      if (!Array.isArray(release.completedDeliverables) || release.completedDeliverables.some(function (value) {
+        return release.deliverables.indexOf(value) === -1;
+      })) throw new Error("Invalid completed release deliverables");
       if (!Array.isArray(release.validation) || !release.validation.length) throw new Error("Missing release validation");
       if (!Array.isArray(release.relatedInitiativeIds) || release.relatedInitiativeIds.some(function (id) { return !initiativeIds.has(id); })) {
         throw new Error("Unknown release initiative reference");
@@ -344,10 +347,21 @@
     return String(title || "").replace(/^NeuroLab:\s*/, "");
   }
 
-  function buildReleaseList(className, values) {
+  function buildReleaseList(className, values, completedValues) {
     var list = element("ul", className);
+    var completed = new Set(completedValues || []);
     values.forEach(function (value) {
-      list.appendChild(element("li", "", value));
+      var item = element("li");
+      item.appendChild(element("span", "release-list-label", value));
+      if (completed.has(value)) {
+        item.classList.add("is-complete");
+        var status = element("span", "release-deliverable-status", "✓");
+        status.tabIndex = 0;
+        status.dataset.tooltip = "Released";
+        status.setAttribute("aria-label", "Released");
+        item.appendChild(status);
+      }
+      list.appendChild(item);
     });
     return list;
   }
@@ -355,7 +369,7 @@
   function renderReleaseDetail(release) {
     var header = element("header", "release-detail-header");
     var headingCopy = element("div");
-    headingCopy.appendChild(element("p", "release-detail-kicker", "// Release " + String(release.sequence).padStart(2, "0") + " · " + release.targetLabel));
+    headingCopy.appendChild(element("p", "release-detail-kicker", "// release_" + String(release.sequence).padStart(2, "0") + " · " + release.targetLabel));
     var heading = element("h3", "", release.title);
     heading.id = "release-detail-title";
     headingCopy.appendChild(heading);
@@ -366,7 +380,7 @@
     var detailGrid = element("div", "release-detail-grid");
     var deliverables = element("section", "release-detail-group release-detail-deliverables");
     deliverables.appendChild(element("h4", "", "Deliverables"));
-    deliverables.appendChild(buildReleaseList("release-deliverable-list", release.deliverables));
+    deliverables.appendChild(buildReleaseList("release-deliverable-list", release.deliverables, release.completedDeliverables));
     detailGrid.appendChild(deliverables);
 
     var validation = element("section", "release-detail-group release-detail-validation");
@@ -595,8 +609,8 @@
     timeline.hidden = currentView === "table";
     roadmapTable.hidden = currentView !== "table";
     roadmapViewLabel.textContent = currentView === "table"
-      ? "Roadmap Table: Q3 2026 – Q3 2027"
-      : "Timeline Targets: Q3 2026 – Q3 2027";
+      ? "roadmap_table · Q3 2026–Q3 2027"
+      : "timeline_targets · Q3 2026–Q3 2027";
     viewOptions.forEach(function (button) {
       button.setAttribute("aria-pressed", button.dataset.view === currentView ? "true" : "false");
     });
