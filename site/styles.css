@@ -1193,7 +1193,7 @@ h1 em {
 .release-detail h3 { margin: 0; font-size: clamp(1.75rem, 3vw, 2.75rem); font-weight: 560; letter-spacing: -0.05em; line-height: 1; }
 .release-detail-quarter { flex: 0 0 auto; padding: 0.48rem 0.68rem; border: 1px solid rgba(255, 255, 255, 0.13); border-radius: 999px; background: rgba(255, 255, 255, 0.045); color: rgba(255, 255, 255, 0.72); font-family: "Space Mono", "SFMono-Regular", Consolas, monospace; font-size: 0.65rem; }
 .release-detail-summary { max-width: 66rem; margin: 0; color: rgba(255, 255, 255, 0.8); font-size: clamp(0.98rem, 1.25vw, 1.12rem); line-height: 1.65; }
-.release-detail-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr); gap: 1rem; }
+.release-detail-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr); align-items: start; gap: 1rem; }
 .release-detail-group { padding: 1.05rem 1.1rem; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 0.78rem; background: rgba(255, 255, 255, 0.027); }
 .release-detail h4 { margin: 0 0 0.68rem; color: var(--accent-light); font-family: "Space Mono", "SFMono-Regular", Consolas, monospace; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.075em; text-transform: uppercase; }
 .release-deliverable-list,
