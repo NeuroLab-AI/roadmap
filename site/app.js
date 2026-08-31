@@ -41,6 +41,12 @@
   var releaseRunway = document.getElementById("release-runway");
   var releaseDetailHome = document.getElementById("release-detail-home");
   var releaseDetail = document.getElementById("release-detail");
+  var releaseDetailContent = document.getElementById("release-detail-content");
+  var releaseSequenceNav = document.getElementById("release-sequence-nav");
+  var releaseSequencePrevious = document.getElementById("release-sequence-prev");
+  var releaseSequenceNext = document.getElementById("release-sequence-next");
+  var releaseSequenceProgress = document.getElementById("release-sequence-progress");
+  var releaseSequenceDots = document.getElementById("release-sequence-dots");
   var releaseLoading = document.getElementById("release-loading");
   var releaseError = document.getElementById("release-error");
   var viewOptions = Array.prototype.slice.call(document.querySelectorAll("[data-view]"));
@@ -64,6 +70,7 @@
   var previewPointerStart = null;
   var orderedReleases = [];
   var releaseButtons = [];
+  var releaseDotButtons = [];
   var activeReleaseIndex = 0;
   var releaseMobileQuery = window.matchMedia("(max-width: 620px)");
   var roadmapInitiatives = new Map();
@@ -381,17 +388,14 @@
     var deliverables = element("section", "release-detail-group release-detail-deliverables");
     deliverables.appendChild(element("h4", "", "Deliverables"));
     deliverables.appendChild(buildReleaseList("release-deliverable-list", release.deliverables, release.completedDeliverables));
-    detailGrid.appendChild(deliverables);
 
     var validation = element("section", "release-detail-group release-detail-validation");
     validation.appendChild(element("h4", "", "Validation"));
     validation.appendChild(buildReleaseList("release-validation-list", release.validation));
-    detailGrid.appendChild(validation);
 
-    releaseDetail.replaceChildren(header, summary, detailGrid);
-
+    var foundations = null;
     if (release.relatedInitiativeIds.length) {
-      var foundations = element("section", "release-foundations");
+      foundations = element("section", "release-foundations");
       foundations.appendChild(element("h4", "", "Technical foundations"));
       var foundationList = element("div", "release-foundation-list");
       release.relatedInitiativeIds.forEach(function (initiativeId) {
@@ -405,7 +409,21 @@
         foundationList.appendChild(button);
       });
       foundations.appendChild(foundationList);
-      releaseDetail.appendChild(foundations);
+    }
+
+    if (release.id === "genesis" && foundations) {
+      detailGrid.classList.add("release-detail-grid-genesis");
+      var leftStack = element("div", "release-detail-left-stack");
+      leftStack.append(deliverables, foundations);
+      detailGrid.append(leftStack, validation);
+    } else {
+      detailGrid.append(deliverables, validation);
+    }
+
+    releaseDetailContent.replaceChildren(header, summary, detailGrid);
+
+    if (foundations && release.id !== "genesis") {
+      releaseDetailContent.appendChild(foundations);
     }
 
     releaseDetail.classList.remove("is-entering");
@@ -452,7 +470,37 @@
     });
     renderReleaseDetail(orderedReleases[activeReleaseIndex]);
     placeReleaseDetail();
+    updateReleaseNavigator();
     if (moveFocus) releaseButtons[activeReleaseIndex].focus();
+  }
+
+  function renderReleaseNavigator() {
+    releaseSequenceDots.replaceChildren();
+    releaseDotButtons = orderedReleases.map(function (release, index) {
+      var dot = element("button", "release-sequence-dot");
+      dot.type = "button";
+      dot.setAttribute("aria-label", "View " + release.title + ", " + release.targetLabel);
+      dot.addEventListener("click", function () { setActiveRelease(index, false); });
+      releaseSequenceDots.appendChild(dot);
+      return dot;
+    });
+    releaseSequenceNav.hidden = false;
+  }
+
+  function updateReleaseNavigator() {
+    if (!orderedReleases.length) return;
+    var releaseCount = orderedReleases.length;
+    var previousRelease = orderedReleases[(activeReleaseIndex - 1 + releaseCount) % releaseCount];
+    var nextRelease = orderedReleases[(activeReleaseIndex + 1) % releaseCount];
+    releaseSequenceProgress.textContent = String(activeReleaseIndex + 1).padStart(2, "0") + " / " + String(releaseCount).padStart(2, "0");
+    releaseSequencePrevious.setAttribute("aria-label", "Previous release: " + previousRelease.title);
+    releaseSequenceNext.setAttribute("aria-label", "Next release: " + nextRelease.title);
+    releaseDotButtons.forEach(function (dot, index) {
+      var active = index === activeReleaseIndex;
+      dot.classList.toggle("is-active", active);
+      if (active) dot.setAttribute("aria-current", "step");
+      else dot.removeAttribute("aria-current");
+    });
   }
 
   function renderReleases(data) {
@@ -487,8 +535,16 @@
         meta.appendChild(element("span", "release-node-index", String(release.sequence).padStart(2, "0")));
         meta.appendChild(element("span", "release-node-target", release.targetLabel));
         button.appendChild(meta);
-        button.appendChild(element("span", "release-node-name", releaseName(release.title)));
-        button.appendChild(element("span", "release-node-summary", release.description));
+        if (release.id === "genesis") {
+          button.classList.add("release-node-featured");
+          var featuredCopy = element("span", "release-node-featured-copy");
+          featuredCopy.appendChild(element("span", "release-node-name", releaseName(release.title)));
+          featuredCopy.appendChild(element("span", "release-node-summary", release.description));
+          button.appendChild(featuredCopy);
+        } else {
+          button.appendChild(element("span", "release-node-name", releaseName(release.title)));
+          button.appendChild(element("span", "release-node-summary", release.description));
+        }
         button.addEventListener("click", function () { setActiveRelease(releaseIndex, false); });
         button.addEventListener("keydown", function (event) {
           var nextIndex = null;
@@ -509,6 +565,7 @@
 
     releaseRunwayShell.hidden = false;
     releaseLoading.hidden = true;
+    renderReleaseNavigator();
     setActiveRelease(0, false);
     if (releaseMobileQuery.addEventListener) {
       releaseMobileQuery.addEventListener("change", placeReleaseDetail);
@@ -938,6 +995,14 @@
     searchQuery = "";
     applyFilters();
     initiativeSearch.focus();
+  });
+
+  releaseSequencePrevious.addEventListener("click", function () {
+    setActiveRelease(activeReleaseIndex - 1, false);
+  });
+
+  releaseSequenceNext.addEventListener("click", function () {
+    setActiveRelease(activeReleaseIndex + 1, false);
   });
 
   fetch(previewDataUrl, { cache: "no-store" })
