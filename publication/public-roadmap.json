@@ -35,7 +35,7 @@
     {
       "id": "atlas",
       "title": "NeuroLab: Atlas",
-      "targetLabel": "October 2026",
+      "targetLabel": "Q4 2026",
       "stageId": "q4-2026",
       "sequence": 2,
       "description": "A free user tier with 50 fully addressable datasets and interactive knowledge graph exploration.",
@@ -56,8 +56,8 @@
     {
       "id": "axon",
       "title": "NeuroLab: Axon",
-      "targetLabel": "January 2027",
-      "stageId": "q1-2027",
+      "targetLabel": "Q4 2026",
+      "stageId": "q4-2026",
       "sequence": 3,
       "description": "Versioned APIs, MCP agent access, per-section report payments, and third-party tool integrations.",
       "deliverables": [
@@ -76,8 +76,8 @@
     {
       "id": "frontier",
       "title": "NeuroLab: Frontier",
-      "targetLabel": "Q1 2027",
-      "stageId": "q1-2027",
+      "targetLabel": "Q4 2026",
+      "stageId": "q4-2026",
       "sequence": 4,
       "description": "Novel-structure and peptide inference, expanded pharmacology, and provenance-bound evidence intake.",
       "deliverables": [
@@ -95,8 +95,8 @@
     {
       "id": "workbench",
       "title": "NeuroLab: Workbench",
-      "targetLabel": "Q2 2027",
-      "stageId": "q2-2027",
+      "targetLabel": "Q1 2027",
+      "stageId": "q1-2027",
       "sequence": 5,
       "description": "Personalized research libraries, comparative subgraph analysis, compound cohorts and molecule portfolios, hypothesis generation and publication drafting.",
       "deliverables": [
@@ -116,8 +116,8 @@
     {
       "id": "cortex",
       "title": "NeuroLab: Cortex",
-      "targetLabel": "Q3 2027",
-      "stageId": "q3-2027",
+      "targetLabel": "Q1 2027",
+      "stageId": "q1-2027",
       "sequence": 6,
       "description": "Typed causal state, branch-preserving and abductive reasoning, multiscale whole-brain mapping.",
       "deliverables": [
@@ -135,8 +135,8 @@
     {
       "id": "commons",
       "title": "NeuroLab: Commons",
-      "targetLabel": "Q3 2027",
-      "stageId": "q3-2027",
+      "targetLabel": "Q1 2027",
+      "stageId": "q1-2027",
       "sequence": 7,
       "description": "Community compound submissions with automated leaderboards and voting, shared IP terms for novel candidates, and direct IPT proposal generation.",
       "deliverables": [

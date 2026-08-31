@@ -11,7 +11,7 @@ Registry-driven GitHub Pages publication for the NeuroLab development roadmap.
 ## Experience
 
 The page leads with an interactive release runway spanning Genesis through Commons from Q3 2026 to
-Q3 2027. Each release exposes its deliverables, direct validation criteria, and links to the existing
+Q1 2027. Each release exposes its deliverables, direct validation criteria, and links to the existing
 technical initiatives that support it. The release sequence becomes a two-column overview at tablet
 and embedded widths, then a chronological inline accordion on mobile.
 
