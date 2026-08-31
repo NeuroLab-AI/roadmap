@@ -174,7 +174,7 @@ def validate_site() -> None:
         raise ValueError("Removed target-window ordinal or detached initiative count returned to the timeline")
     required_copy = (
         "current_and_upcoming_initiatives",
-        "Explore the Roadmap by Technical Domain",
+        'Explore the Roadmap by <span class="roadmap-title-accent">Technical Domain</span>',
         "NeuroLab:",
         "The Roadmap",
         'aria-label="Platform Beta: Q3 2026"',
