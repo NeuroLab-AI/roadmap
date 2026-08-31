@@ -178,7 +178,7 @@ def validate_site() -> None:
         "NeuroLab:",
         "The Roadmap",
         'aria-label="Platform Beta: Q3 2026"',
-        "major_release_sequence · Q3 2026–Q3 2027",
+        "major_release_sequence · Q3 2026–Q1 2027",
         'From <span class="release-title-accent">Open Exploration</span> to <span class="release-title-accent">Community-Led Discovery</span>',
         "timeline_targets · Q3 2026–Q3 2027",
         'From <span class="roadmap-title-accent">Peptide</span> Prediction Support to <span class="roadmap-title-accent">Personalized</span> Data Spaces',
